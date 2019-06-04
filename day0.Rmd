@@ -41,7 +41,7 @@ knitr::include_graphics("www/images/owl.jpg")
 
 1) Clearly answer questions
 2) Clearly communicate the answer to questions
-3) Document the steps to answering a question
+3) Document the steps to answering questions
 
 ## Example 1
 
@@ -85,22 +85,26 @@ knitr::include_graphics("www/images/out-of-sync.gif")
 
 <small>Via [die-seite-des-dr-caligari](http://die-seite-des-dr-caligari.tumblr.com/post/102115497897)</small>
 
+## Motivation: Do cool stuff.
+
+scale 
+
+maps
+
+documents
+
+
+
+
+
+
 # <font color="#ffffff">Principles</font> {data-background=#1696d2}
-
-## Principles
-
-1) Accuracy
-2) Computational reproducibility
-3) Human interpretability
-4) Portability
-5) Accessibility
-6) Efficiency
 
 ## 1) Accuracy
 
 Deliberate steps **should** be taken to minimize the chance of making an error and maximize the chance of catching errors when errors inevitably occur. 
 
-## 2) computational reproducibility
+## 2) Computational reproducibility
 
 Computational reproducibility **should** be embraced to improve accuracy, promote transparency, and prove the quality of analytical work. 
 
@@ -120,133 +124,20 @@ Research and data are non-rival and non-exclusive. They are public goods that **
 
 Analysts **should** seek to make all parts of the research process more efficient with clear communication, by adopting best practices, and by managing computation. 
 
-# <font color="#ffffff">A survey of other programming languages</font> {data-background=#1696d2}
+## Principles
 
-## Stata
+1) Accuracy
+2) Computational reproducibility
+3) Human interpretability
+4) Portability
+5) Accessibility
+6) Efficiency
 
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/Stata.png")
-```
 
-* Common users: economists, Nate Silver
-* Strengths: out-of-the-box econometric tools, simple syntax
-* Limitations: proprietary, one data set at a time, inflexible
 
-*Photo by StataCorp LP, CC BY-SA 4.0, Unaltered*
 
-## SAS
 
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/SAS.png")
-```
 
-* Common users: veteran researchers, government
-* Strengths: doesn't use memory
-* Limitations: proprietary, expensive, clunky, inflexible, lacks environments, documentation
-
-## Matlab
-
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/Matlab.png")
-```
-
-* Common users: mathematicians, engineers
-* Strengths: matrices, 3D plotting
-* Weaknesses: cost, 3D plotting
-
-## SPSS
-
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/spss.png")
-```
-
-* Common users: psychologists
-* Strengths: point-and-click tools
-* Weaknesses: point-and-click tools, limited functionality
-
-## Python
-
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/python.png")
-```
-
-* Users: data scientists, computer scientists
-* Strengths: general purpose programming, extensibility, flexibility
-* Weaknesses: steep learning curve
-
-## R
-
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/Rlogo.png")
-```
-
-* Users: statisticians, data scientists, biostatisticians
-* Strengths: extensible, documentation, community
-* Limitations: multiple languages in one
-
-## Others
-> * Julia
-> * Rust
-> * JavaScript
-> * SQL
-
-## What you use matters less than how you use it
-
-## ~~What you use matters less than how you use it~~ R is the best
-
-## Comparison
-
-```{r out.width = "60%"}
-knitr::include_graphics("www/images/languages.jpg")
-```
-
-*Source is unknown*
-
-# <font color="#ffffff">A brief history of R</font> {data-background=#1696d2}
-
-## S
-
-R is an implementation of the S programming language, which was created at Bell Labs in the 1970s.
-
-S-PLUS is a proprietary implementation of R that was common for years.
-
-## R
-
-R is a free, open-soure programming language created by Ross Ihaka and Robert Gentleman at the Univesity of Aukland in the early 1990s.
-
-R is mostly written in R, C, and FORTRAN.
-
-## CRAN
-
-The Comprehensive R Archive Network was introduced in 1997. 
-
-Repository of popular R packages with basic standards and quality control. 
-
-## tidyverse {data-background=#fdeba4}
-
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/tidyverse.png")
-```
-
-Comprehensive set of tools for data science
-
-Core: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
-
-## tidyverse {data-background=#fdeba4}
-
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/r4ds.png")
-```
-
-[Free text](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund
-
-## RStudio
-
-```{r out.width = "30%"}
-knitr::include_graphics("www/images/rstudio.svg")
-```
-
-IDE and for-profit company that funded and professionalized R development
 
 # <font color="#ffffff">Fundamental concepts</font> {data-background=#1696d2}
 
@@ -258,6 +149,12 @@ knitr::include_graphics("www/images/rstudio.png")
 
 * R == free, open source programming language
 * RStudio == for-profit company and Itegrated Development Environment (IDE)
+
+## RStudio
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/rstudio.svg")
+```
 
 ## The R console
 
@@ -308,34 +205,165 @@ mutate(bad_drivers, perc_speeding = perc_speeding * 1.2)
 
 Collections of R, C, C++, and FORTRAN code that expand the functionality of R. 
 
-```{r out.width = "60%"}
+```{r out.width = "40%"}
 knitr::include_graphics("www/images/urbnmapr.png")
+```
+
+## CRAN
+
+The Comprehensive R Archive Network was introduced in 1997. 
+
+Repository of popular R packages with basic standards and quality control. 
+
+## tidyverse {data-background=#fdeba4}
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/tidyverse.png")
+```
+
+Comprehensive set of tools for data science
+
+Core: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
+
+## tidyverse {data-background=#fdeba4}
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/r4ds.png")
+```
+
+[Free text](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund
+
+## Installing and loading packages
+
+```{r eval = FALSE, echo = TRUE}
+# run only once ever(ish) and don't include in scripts
+install.packages("tidyverse")
+```
+
+```{r eval = FALSE, echo = TRUE}
+# include at the top of scripts and run once per session
+library(tidyverse)
+```
+
+## Data structures
+
+Scalars (do not exist in R)
+
+Vectors
+```{r eval = TRUE, echo = FALSE}
+c(1, 2, 3, 4, 5)
+```
+
+Matrices
+
+```{r eval = TRUE, echo = FALSE}
+matrix(c(1:2, 3:4, 5:6), nrow = 2)
+```
+
+Data frames, multidimensional arrays
+
+```{r eval = TRUE, echo = FALSE}
+msleep %>%
+  select(name, awake, brainwt, bodywt) %>%
+  head(n = 4)
+```
+
+## Data types
+
+Character
+
+```{r eval = TRUE, echo = FALSE}
+c("a", "b", "c", "d", "e")
+```
+
+Numeric
+
+```{r eval = TRUE, echo = FALSE}
+c(1, 2, 3, 4, 5)
+```
+
+Logical
+
+```{r eval = TRUE, echo = FALSE}
+c(TRUE, TRUE, FALSE, TRUE, FALSE)
+```
+
+Factor
+
+```{r eval = TRUE, echo = FALSE}
+factor(c("good", "ok", "bad", "ok", "ok"), levels = c("good", "ok", "bad"))
+```
+
+## Missing values
+
+A great strength of R!
+
+`NA` is R's encoding for missing values. 
+
+Missing values are contagious. 
+
+```{r echo = TRUE}
+mean(c(1, 2, 3, 4, NA))
+```
+
+## Assignment
+
+R can hold many different objects at the same time. This requires assignment. 
+
+`<-`
+
+```{r echo = TRUE}
+a <- 2
+b <- 2
+
+a + b
+
+c <- a + b
+c
+```
+
+## Functions
+
+Arguments by position
+
+```{r echo = TRUE}
+mean(c(1, 2, 3, 4, NA), 0.2, TRUE)
+```
+
+Arguments by name
+
+```{r echo = TRUE}
+mean(x = c(1, 2, 3, 4, NA), trim = 0.2, na.rm = TRUE)
+```
+
+Function documentation
+`?mean`
+
+## Custom functions
+
+Rule of three: never program something three or more times
+
+```{r echo = TRUE}
+test_oddness <- function(x) {
+  ifelse(x %% 2 == 0, "even!", "odd!")
+}
+
+test_oddness(1:10)
 ```
 
 ## Tests
 
-## Data structures
+What will it take to convince you that your code is correct?
 
-* scalars (do not exist in R)
-* vectors
-* matrices
-* data frames, multidimensional arrays
+1) Assign monthly observations to fiscal years
+  * <font color="#ffffff">Are there 12 months per year?</font>
+2) Link observations from 2017 to observations from 2018.
+  * <font color="#ffffff">Do non-matching variables that shouldn't change change?</font>
+3) Tax calculator
+  * <font color="#ffffff">Are values that must be positive non-positive?</font>
 
-## Data types
-
-character
-
-numeric
-
-logical
-
-factor
-
-## functions/macros
-
-
-## Filtering
-## Summarization
+* Write the test first!
+* Each time you encounter a bug, write a test that will convince you the bug no longer exists.
 
 # <font color="#ffffff">Organizing an analysis</font> {data-background=#1696d2}
 
@@ -349,4 +377,71 @@ factor
 
 
 
+
+
+
+
+
+
+# <font color="#ffffff">A survey of other programming languages</font> {data-background=#1696d2}
+
+## Stata
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/Stata.png")
+```
+
+* Common users: economists, Nate Silver
+* Strengths: out-of-the-box econometric tools, simple syntax
+* Limitations: proprietary, one data set at a time, inflexible
+
+*Photo by StataCorp LP, CC BY-SA 4.0, Unaltered*
+
+## SAS
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/SAS.png")
+```
+
+* Common users: veteran researchers, government
+* Strengths: doesn't use memory
+* Limitations: proprietary, expensive, clunky, inflexible, lacks environments, documentation
+
+## Python
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/python.png")
+```
+
+* Users: data scientists, computer scientists
+* Strengths: general purpose programming, extensibility, flexibility
+* Weaknesses: steep learning curve
+
+## R
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/Rlogo.png")
+```
+
+* Users: statisticians, data scientists, biostatisticians
+* Strengths: extensible, documentation, community
+* Limitations: multiple languages in one
+
+## Others
+> * Julia
+> * Rust
+> * JavaScript
+> * SQL
+
+## What you use matters less than how you use it
+
+## ~~What you use matters less than how you use it~~ R is the best
+
+## Comparison
+
+```{r out.width = "60%"}
+knitr::include_graphics("www/images/languages.jpg")
+```
+
+*Source is unknown*
 

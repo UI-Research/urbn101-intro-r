@@ -191,7 +191,9 @@ knitr::include_graphics("www/images/languages.jpg")
 
 ## S
 
-R is an implementation of S, a proprietary programming language created at Bell Labs in the 1970s.
+R is an implementation of S a programming language created at Bell Labs in the 1970s.
+
+S-PLUS is a proprietary implementation of R that was common for years.
 
 ## R
 
@@ -203,9 +205,27 @@ R is mostly written in R, C, and FORTRAN.
 
 The Comprehensive R Archive Network was introduced in 1997. 
 
+## tidyverse {data-background=#fdeba4}
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/tidyverse.png")
+```
+
+Core: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
+
+## tidyverse {data-background=#fdeba4}
+
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/r4ds.png")
+```
+
+[Free text](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund
+
 ## RStudio
 
-## tidyverse
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/rstudio.svg")
+```
 
 # Fundamental concepts
 
@@ -221,6 +241,8 @@ The Comprehensive R Archive Network was introduced in 1997.
 
 **Map to the answer**
 
+## The command line
+
 ## Text editor/IDE
 
 
@@ -234,20 +256,26 @@ mutate(bad_drivers, perc_speeding = perc_speeding * 1.2)
 * Clear code avoids the need for describing "what"
 * Comments should focus on **"why"**
 
+## Coding style
+
+* CamelCase
+* camelCase
+* snake_case
+
+"Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread." ~ Hadley Wickham
+
+[tidyverse style guide](https://style.tidyverse.org/)
+
+## Packages
+
+## Tests
+## Data structures
+## Data types
+## functions/macros
 
 
-
-* Packages
-* Coding style
-* Tests
-* The command line
-* Data structures
-* Data types
-* functions/macros
-
-
-* Filtering
-* Summarization
+## Filtering
+## Summarization
 
 
 # Organizing an analysis

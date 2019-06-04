@@ -19,7 +19,7 @@ opts_chunk$set(warning = FALSE)
 opts_chunk$set(fig.align = "center")
 ```
 
-# Intro to R: A hands-on tutorial
+# <font color="#ffffff">Intro to R: A hands-on tutorial</font> {data-background=#1696d2}
 
 ## Day 0: Intro to statistical programming
 
@@ -35,7 +35,7 @@ knitr::include_graphics("www/images/Rlogo.png")
 knitr::include_graphics("www/images/owl.jpg")
 ```
 
-# Statistical Programming
+# <font color="#ffffff">Statistical Programming</font> {data-background=#1696d2}
 
 ## Motivation: why statistical programming?
 
@@ -85,33 +85,42 @@ knitr::include_graphics("www/images/out-of-sync.gif")
 
 <small>Via [die-seite-des-dr-caligari](http://die-seite-des-dr-caligari.tumblr.com/post/102115497897)</small>
 
-# Principles
+# <font color="#ffffff">Principles</font> {data-background=#1696d2}
 
-1) accurate
-2) computationally reproducible
-3) can be interpreted by humans
-4) portable
-5) accessible
-6) efficient
+## Principles
+
+1) Accuracy
+2) Computational reproducibility
+3) Human interpretability
+4) Portability
+5) Accessibility
+6) Efficiency
 
 ## 1) Accuracy
 
+Deliberate steps **should** be taken to minimize the chance of making an error and maximize the chance of catching errors when errors inevitably occur. 
 
-## 2) Computationally reproducible
+## 2) computational reproducibility
 
+Computational reproducibility **should** be embraced to improve accuracy, promote transparency, and prove the quality of analytical work. 
 
-## 3) Can be interpreted by humans
+## 3) Human interpretability
 
+Code **should** be written so humans can easily understand what’s happening—even if it occasionally sacrifices machine performance.
 
-## 4) Portable
+## 4) Portability
 
+Analyses **should** be designed so strangers can understand each and every step without additional instruction or inquiry from the original analyst. 
 
-## 5) Accessible
+## 5) Accessibility
 
+Research and data are non-rival and non-exclusive. They are public goods that **should** be widely and easily shared. Decisions about tools, methods, data, and language during the research process **should** be made in ways that promote the ability of anyone and everyone to access an analysis. 
 
-## 6) Efficient
+## 6) Efficiency
 
-# A survey of other programming languages
+Analysts **should** seek to make all parts of the research process more efficient with clear communication, by adopting best practices, and by managing computation. 
+
+# <font color="#ffffff">A survey of other programming languages</font> {data-background=#1696d2}
 
 ## Stata
 
@@ -119,21 +128,21 @@ knitr::include_graphics("www/images/out-of-sync.gif")
 knitr::include_graphics("www/images/Stata.png")
 ```
 
-* Users: Economists
-* Strengths: Good econometric tools
-* Limitations: Proprietary, One data set at a time, Inflexible
+* Common users: economists, Nate Silver
+* Strengths: out-of-the-box econometric tools, simple syntax
+* Limitations: proprietary, one data set at a time, inflexible
 
 *Photo by StataCorp LP, CC BY-SA 4.0, Unaltered*
 
-## SAS (public domain)
+## SAS
 
 ```{r out.width = "30%"}
 knitr::include_graphics("www/images/SAS.png")
 ```
 
-* Users: Older economists
-* Strengths: Doesn't use memory, 
-* Limitations: Proprietary, Clunky, inflexible, and doesn't have environments, Cost, Documentation
+* Common users: veteran researchers, government
+* Strengths: doesn't use memory
+* Limitations: proprietary, expensive, clunky, inflexible, lacks environments, documentation
 
 ## Matlab
 
@@ -141,15 +150,19 @@ knitr::include_graphics("www/images/SAS.png")
 knitr::include_graphics("www/images/Matlab.png")
 ```
 
-* Users: Mathematicians, Engineers
-* Strengths: Matrices
-* Weaknesses: Cost
+* Common users: mathematicians, engineers
+* Strengths: matrices, 3D plotting
+* Weaknesses: cost, 3D plotting
 
 ## SPSS
 
-Users
-Psychologists
+```{r out.width = "30%"}
+knitr::include_graphics("www/images/spss.png")
+```
 
+* Common users: psychologists
+* Strengths: point-and-click tools
+* Weaknesses: point-and-click tools, limited functionality
 
 ## Python
 
@@ -157,9 +170,9 @@ Psychologists
 knitr::include_graphics("www/images/python.png")
 ```
 
-* Users: Data scientists, computer scientists
-* Strengths: General purpose programming
-* Weaknesses: Steep learning curve
+* Users: data scientists, computer scientists
+* Strengths: general purpose programming, extensibility, flexibility
+* Weaknesses: steep learning curve
 
 ## R
 
@@ -167,9 +180,9 @@ knitr::include_graphics("www/images/python.png")
 knitr::include_graphics("www/images/Rlogo.png")
 ```
 
-* Users: Data scientists, Biostatisticians
-* Strengths: Extensible, Documentation, Community
-* Limitations: Multiple languages in one
+* Users: statisticians, data scientists, biostatisticians
+* Strengths: extensible, documentation, community
+* Limitations: multiple languages in one
 
 ## Others
 > * Julia
@@ -187,11 +200,13 @@ knitr::include_graphics("www/images/Rlogo.png")
 knitr::include_graphics("www/images/languages.jpg")
 ```
 
-# A brief history of R
+*Source is unknown*
+
+# <font color="#ffffff">A brief history of R</font> {data-background=#1696d2}
 
 ## S
 
-R is an implementation of S a programming language created at Bell Labs in the 1970s.
+R is an implementation of the S programming language, which was created at Bell Labs in the 1970s.
 
 S-PLUS is a proprietary implementation of R that was common for years.
 
@@ -205,11 +220,15 @@ R is mostly written in R, C, and FORTRAN.
 
 The Comprehensive R Archive Network was introduced in 1997. 
 
+Repository of popular R packages with basic standards and quality control. 
+
 ## tidyverse {data-background=#fdeba4}
 
 ```{r out.width = "30%"}
 knitr::include_graphics("www/images/tidyverse.png")
 ```
+
+Comprehensive set of tools for data science
 
 Core: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
 
@@ -227,7 +246,24 @@ knitr::include_graphics("www/images/r4ds.png")
 knitr::include_graphics("www/images/rstudio.svg")
 ```
 
-# Fundamental concepts
+IDE and for-profit company that funded and professionalized R development
+
+# <font color="#ffffff">Fundamental concepts</font> {data-background=#1696d2}
+
+## Text editor/IDE
+
+```{r out.width = "60%"}
+knitr::include_graphics("www/images/rstudio.png")
+```
+
+* R == free, open source programming language
+* RStudio == for-profit company and Itegrated Development Environment (IDE)
+
+## The R console
+
+```{r out.width = "60%"}
+knitr::include_graphics("www/images/rstudio-console.png")
+```
 
 ## Computational Reproducibility
 
@@ -237,54 +273,79 @@ knitr::include_graphics("www/images/rstudio.svg")
 
 ## Script
 
+```{r out.width = "60%"}
+knitr::include_graphics("www/images/rstudio-script.png")
+```
+
 * A plain text document that contains code and comments
-
-**Map to the answer**
-
-## The command line
-
-## Text editor/IDE
-
+* **Map to the answer**
+* `.R` and `.Rmd`
 
 ## Comments
 
-```
-# increase perc_speeding by 0.2 because of systematic underreporting
+```{r echo = TRUE, eval = FALSE}
+# fivethirtyeight contains bad_drivers
+library(fivethirtyeight)
+
+# increase perc_speeding because of systematic underreporting
 mutate(bad_drivers, perc_speeding = perc_speeding * 1.2)
 ```
 
-* Clear code avoids the need for describing "what"
-* Comments should focus on **"why"**
+* Clear code avoids the need for describing **<font color="#1696d2">"what"</font>**
+* Comments should focus on **<font color="#1696d2">"why"</font>**
 
 ## Coding style
+
+*"Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread."* ~ Hadley Wickham
 
 * CamelCase
 * camelCase
 * snake_case
 
-"Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread." ~ Hadley Wickham
-
 [tidyverse style guide](https://style.tidyverse.org/)
 
-## Packages
+## R Packages
+
+Collections of R, C, C++, and FORTRAN code that expand the functionality of R. 
+
+```{r out.width = "60%"}
+knitr::include_graphics("www/images/urbnmapr.png")
+```
 
 ## Tests
+
 ## Data structures
+
+* scalars (do not exist in R)
+* vectors
+* matrices
+* data frames, multidimensional arrays
+
 ## Data types
+
+character
+
+numeric
+
+logical
+
+factor
+
 ## functions/macros
 
 
 ## Filtering
 ## Summarization
 
+# <font color="#ffffff">Organizing an analysis</font> {data-background=#1696d2}
 
-# Organizing an analysis
 
+# <font color="#ffffff">Ways to learn a programming language</font> {data-background=#1696d2}
 
-# Ways to learn a programming language
 1: use it, use it again, use it some more.
 
-# Software check
+# <font color="#ffffff">Software check</font> {data-background=#1696d2}
+
 
 
 

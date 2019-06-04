@@ -16,6 +16,7 @@ library(knitr)
 opts_chunk$set(echo = FALSE)
 opts_chunk$set(message = FALSE)
 opts_chunk$set(warning = FALSE)
+opts_chunk$set(fig.align = "center")
 ```
 
 # Intro to R: A hands-on tutorial
@@ -171,10 +172,10 @@ knitr::include_graphics("www/images/Rlogo.png")
 * Limitations: Multiple languages in one
 
 ## Others
-* Julia
-* Rust
-* JavaScript
-* SQL
+> * Julia
+> * Rust
+> * JavaScript
+> * SQL
 
 ## What you use matters less than how you use it
 
@@ -182,14 +183,29 @@ knitr::include_graphics("www/images/Rlogo.png")
 
 ## Comparison
 
-
+```{r out.width = "60%"}
+knitr::include_graphics("www/images/languages.jpg")
+```
 
 # A brief history of R
 
-* S-plus
-* R
-* RStudio
-* tidyverse
+## S
+
+R is an implementation of S, a proprietary programming language created at Bell Labs in the 1970s.
+
+## R
+
+R is a free, open-soure programming language created by Ross Ihaka and Robert Gentleman at the Univesity of Aukland in the early 1990s.
+
+R is mostly written in R, C, and FORTRAN.
+
+## CRAN
+
+The Comprehensive R Archive Network was introduced in 1997. 
+
+## RStudio
+
+## tidyverse
 
 # Fundamental concepts
 

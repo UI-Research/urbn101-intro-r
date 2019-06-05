@@ -154,7 +154,7 @@ Analyses **should** be designed so strangers can understand each and every step 
 
 ## 5) Accessibility
 
-Research and data are non-rival and non-exclusive. They are public goods that **should** be widely and easily shared. Decisions about tools, methods, data, and language during the research process **should** be made in ways that promote the ability of anyone and everyone to access an analysis. 
+Research and data are non-trival and non-exclusive. They are public goods that **should** be widely and easily shared. Decisions about tools, methods, data, and language during the research process **should** be made in ways that promote the ability of anyone and everyone to access an analysis. 
 
 ## 6) Efficiency
 
@@ -177,8 +177,8 @@ Analysts **should** seek to make all parts of the research process more efficien
 knitr::include_graphics("www/images/rstudio.png")
 ```
 
-* R == free, open source programming language
-* RStudio == for-profit company and Itegrated Development Environment (IDE)
+* R <- free, open source programming language
+* RStudio <- for-profit company and Itegrated Development Environment (IDE)
 
 ## RStudio
 

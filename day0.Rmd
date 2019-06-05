@@ -57,7 +57,7 @@ What is 2 + 2?
 
 ## Example 2
 
-What is the median price of diamonds with carat > 1 and a Good cut?
+What is the median diamond price with carat > 1 and a "Good" cut?
 
 ## Example 2
 
@@ -127,7 +127,7 @@ include_graphics("www/images/map.png")
 include_graphics("www/images/educationdata.png")
 ```
 
-# <font color="#ffffff">Principles</font> {data-background=#1696d2}
+# <font color="#ffffff">Six principles</font> {data-background=#1696d2}
 
 ## 1) Accuracy
 
@@ -139,8 +139,9 @@ Computational reproducibility **should** be embraced to improve accuracy, promot
 
 ## Computational reproducibility
 
-* **Replication:** the recreation of findings across repeated studies, is a cornerstone of science. 
-* **Reproducibility:** the ability to access data, source code, tools, and documentation and recreate all calculations, visualizations, and artifacts of an analysis
+* <font color="#1696d2">Replication:</font> the recreation of findings across repeated studies, is a cornerstone of science
+* <font color="#1696d2">Reproducibility:</font> the ability to access data, source code, tools, and documentation and recreate all calculations, visualizations, and artifacts of an analysis
+
 * *Computational reproducibility should be the minimum standard for computational social sciences and statistical programming*
 
 ## 3) Human interpretability
@@ -232,11 +233,10 @@ Collections of R, C, C++, and FORTRAN code that expand the functionality of R.
 knitr::include_graphics("www/images/urbnmapr.png")
 ```
 
-## CRAN
+## Comprehensive R Archive Network
 
-The Comprehensive R Archive Network was introduced in 1997. 
-
-Repository of popular R packages with basic standards and quality control. 
+* CRAN was introduced in 1997. 
+* Repository of popular R packages with basic standards and quality control. 
 
 ## tidyverse {data-background=#fdeba4}
 
@@ -328,7 +328,7 @@ mean(c(1, 2, 3, 4, NA))
 
 ## Assignment
 
-R can hold many different objects at the same time. Storing the consequence of code requires assignment. `<-`
+R can hold many different objects at the same time. Storing the consequence of code requires assignment (`<-`).
 
 ```{r echo = TRUE}
 a <- 2
@@ -390,8 +390,12 @@ What will it take to convince you that your code is correct?
 
 ## 1) Keep things together
 
-* If possible, store data, scripts, and outputs in the same place. ]
+* If possible, store data, scripts, and outputs in the same place.
 * Sort document data, scripts, and outputs into sub directories with names like `data/`, `scripts/`, and `outputs/`
+
+```{r out.width = "80%"}
+knitr::include_graphics("www/images/directory.png")
+```
 
 ## 2) File paths
 
@@ -405,6 +409,7 @@ What will it take to convince you that your code is correct?
   * Use relative file paths
 * Programmers can use `setwd()` to shortcut much of absolute file paths
 * `.Rproj` are a superior solution only available in R
+  * Never use `setwd()` in R
 
 # <font color="#ffffff">Ways to learn a programming language</font> {data-background=#1696d2}
 
@@ -415,6 +420,12 @@ What will it take to convince you that your code is correct?
 3) Find a project ASAP
 4) Connect with the community
 5) Use R, use it again, and then use R some more
+
+## Schedule
+
+```{r out.width = "100%"}
+knitr::include_graphics("www/images/schedule.png")
+```
 
 # <font color="#ffffff">Software check</font> {data-background=#1696d2}
 
@@ -476,10 +487,12 @@ knitr::include_graphics("www/images/Rlogo.png")
 ```
 
 * Users: statisticians, data scientists, biostatisticians
-* Strengths: extensible, documentation, community
+* Strengths: extensible, documentation, community, many objects at once
 * Limitations: multiple languages in one
 
 ## Others
+> * SPSS
+> * Matlab
 > * Julia
 > * Rust
 > * JavaScript

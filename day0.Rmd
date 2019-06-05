@@ -85,18 +85,47 @@ knitr::include_graphics("www/images/out-of-sync.gif")
 
 <small>Via [die-seite-des-dr-caligari](http://die-seite-des-dr-caligari.tumblr.com/post/102115497897)</small>
 
-## Motivation: Do cool stuff.
+# <font color="#ffffff">Do cool stuff</font> {data-background=#1696d2}
 
-scale 
+## R Shiny
 
-maps
+```{r out.width = "50%"}
+include_graphics("www/images/cosic-shiny.png")
+```
 
-documents
+## Fact sheets
 
+```{r out.width = "50%"}
+include_graphics("www/images/factsheets.png")
+```
 
+## Fact sheets
 
+```{r out.width = "50%"}
+include_graphics("www/images/factsheet_template.png")
+```
 
+## urbnmapr
 
+```{r out.width = "50%"}
+include_graphics("www/images/urbnmapr.png")
+```
+
+## urbnmapr
+
+```{r out.width = "50%"}
+include_graphics("www/images/map.png")
+```
+
+## urbnthemes
+
+<iframe width="2000" height="600" src="https://ui-research.github.io/r-at-urban/graphics-guide.html"></iframe>
+
+## R packages
+
+```{r out.width = "50%"}
+include_graphics("www/images/educationdata.png")
+```
 
 # <font color="#ffffff">Principles</font> {data-background=#1696d2}
 
@@ -106,7 +135,13 @@ Deliberate steps **should** be taken to minimize the chance of making an error a
 
 ## 2) Computational reproducibility
 
-Computational reproducibility **should** be embraced to improve accuracy, promote transparency, and prove the quality of analytical work. 
+Computational reproducibility **should** be embraced to improve accuracy, promote transparency, and prove the quality of analytic work. 
+
+## Computational reproducibility
+
+* **Replication:** the recreation of findings across repeated studies, is a cornerstone of science. 
+* **Reproducibility:** the ability to access data, source code, tools, and documentation and recreate all calculations, visualizations, and artifacts of an analysis
+* *Computational reproducibility should be the minimum standard for computational social sciences and statistical programming*
 
 ## 3) Human interpretability
 
@@ -126,18 +161,12 @@ Analysts **should** seek to make all parts of the research process more efficien
 
 ## Principles
 
-1) Accuracy
-2) Computational reproducibility
-3) Human interpretability
-4) Portability
-5) Accessibility
-6) Efficiency
-
-
-
-
-
-
+> 1) Accuracy
+> 2) Computational reproducibility
+> 3) Human interpretability
+> 4) Portability
+> 5) Accessibility
+> 6) Efficiency
 
 # <font color="#ffffff">Fundamental concepts</font> {data-background=#1696d2}
 
@@ -161,12 +190,6 @@ knitr::include_graphics("www/images/rstudio.svg")
 ```{r out.width = "60%"}
 knitr::include_graphics("www/images/rstudio-console.png")
 ```
-
-## Computational Reproducibility
-
-* **Replication:** the recreation of findings across repeated studies, is a cornerstone of science. 
-* **Reproducibility:** the ability to access data, source code, tools, and documentation and recreate all calculations, visualizations, and artifacts of an analysis
-* *Computational reproducibility should be the minimum standard for computational social sciences and statistical programming*
 
 ## Script
 
@@ -247,20 +270,20 @@ library(tidyverse)
 
 ## Data structures
 
-Scalars (do not exist in R)
+<font color="#1696d2">Scalars (do not exist in R)</font>
 
-Vectors
+<font color="#1696d2">Vectors</font>
 ```{r eval = TRUE, echo = FALSE}
 c(1, 2, 3, 4, 5)
 ```
 
-Matrices
+<font color="#1696d2">Matrices</font>
 
 ```{r eval = TRUE, echo = FALSE}
 matrix(c(1:2, 3:4, 5:6), nrow = 2)
 ```
 
-Data frames, multidimensional arrays
+<font color="#1696d2">Data frames, multidimensional arrays</font>
 
 ```{r eval = TRUE, echo = FALSE}
 msleep %>%
@@ -270,25 +293,25 @@ msleep %>%
 
 ## Data types
 
-Character
+<font color="#1696d2">Character</font>
 
 ```{r eval = TRUE, echo = FALSE}
 c("a", "b", "c", "d", "e")
 ```
 
-Numeric
+<font color="#1696d2">Numeric</font>
 
 ```{r eval = TRUE, echo = FALSE}
 c(1, 2, 3, 4, 5)
 ```
 
-Logical
+<font color="#1696d2">Logical</font>
 
 ```{r eval = TRUE, echo = FALSE}
 c(TRUE, TRUE, FALSE, TRUE, FALSE)
 ```
 
-Factor
+<font color="#1696d2">Factor</font>
 
 ```{r eval = TRUE, echo = FALSE}
 factor(c("good", "ok", "bad", "ok", "ok"), levels = c("good", "ok", "bad"))
@@ -296,11 +319,8 @@ factor(c("good", "ok", "bad", "ok", "ok"), levels = c("good", "ok", "bad"))
 
 ## Missing values
 
-A great strength of R!
-
-`NA` is R's encoding for missing values. 
-
-Missing values are contagious. 
+* `NA` is R's encoding for missing values 
+* Missing values are contagious
 
 ```{r echo = TRUE}
 mean(c(1, 2, 3, 4, NA))
@@ -308,9 +328,7 @@ mean(c(1, 2, 3, 4, NA))
 
 ## Assignment
 
-R can hold many different objects at the same time. This requires assignment. 
-
-`<-`
+R can hold many different objects at the same time. Storing the consequence of code requires assignment. `<-`
 
 ```{r echo = TRUE}
 a <- 2
@@ -337,6 +355,7 @@ mean(x = c(1, 2, 3, 4, NA), trim = 0.2, na.rm = TRUE)
 ```
 
 Function documentation
+
 `?mean`
 
 ## Custom functions
@@ -345,7 +364,7 @@ Rule of three: never program something three or more times
 
 ```{r echo = TRUE}
 test_oddness <- function(x) {
-  ifelse(x %% 2 == 0, "even!", "odd!")
+  ifelse(test = x %% 2 == 0, yes = "even!", no = "odd!")
 }
 
 test_oddness(1:10)
@@ -356,31 +375,64 @@ test_oddness(1:10)
 What will it take to convince you that your code is correct?
 
 1) Assign monthly observations to fiscal years
-  * <font color="#ffffff">Are there 12 months per year?</font>
+  * <font color="#1696d2">Are there 12 months per year?</font>
 2) Link observations from 2017 to observations from 2018.
-  * <font color="#ffffff">Do non-matching variables that shouldn't change change?</font>
+  * <font color="#1696d2">Do non-matching variables that shouldn't change change?</font>
 3) Tax calculator
-  * <font color="#ffffff">Are values that must be positive non-positive?</font>
+  * <font color="#1696d2">Are values that must be positive non-positive?</font>
 
-* Write the test first!
-* Each time you encounter a bug, write a test that will convince you the bug no longer exists.
+## Tests tips
+
+1) Write the test first!
+2) Each time you encounter a bug, write a test that will convince you the bug no longer exists.
 
 # <font color="#ffffff">Organizing an analysis</font> {data-background=#1696d2}
 
+## 1) Keep things together
+
+* If possible, store data, scripts, and outputs in the same place. ]
+* Sort document data, scripts, and outputs into sub directories with names like `data/`, `scripts/`, and `outputs/`
+
+## 2) File paths
+
+* File paths are programmatic references to the locations of files on a computer. 
+* RStudio accepts `/` regardless of operating system. 
+* Example: `r getwd()`
+
+## 3) Working directories
+
+* Code needs to be portable!
+  * Use relative file paths
+* Programmers can use `setwd()` to shortcut much of absolute file paths
+* `.Rproj` are a superior solution only available in R
 
 # <font color="#ffffff">Ways to learn a programming language</font> {data-background=#1696d2}
 
-1: use it, use it again, use it some more.
+## Tips
+
+1) Read R4DS
+2) Attend the rest of this training
+3) Find a project ASAP
+4) Connect with the community
+5) Use R, use it again, and then use R some more
 
 # <font color="#ffffff">Software check</font> {data-background=#1696d2}
 
+## Check R
 
+1) Open RStudio
+2) Submit `sessionInfo()`
+3) Is R Version > 3.3.0?
 
+## Check RStudio
 
+1) In RStudio, click Help > About RStudio
+2) Is the version > 1.0.0
 
+## Install the tidyverse
 
-
-
+1) Submit `install.packages("tidyverse")` to the console
+2) Run `library(tidyverse)`
 
 
 # <font color="#ffffff">A survey of other programming languages</font> {data-background=#1696d2}

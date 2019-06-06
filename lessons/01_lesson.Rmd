@@ -1,0 +1,223 @@
+---
+title: "Day 1: data visualization"
+author: "Aaron R. Williams (IBP)"
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+output:
+  html_document:
+    number_sections: TRUE
+    self_contained: TRUE
+    code_folding: hide
+    toc: TRUE
+    toc_float: TRUE
+    css: ../www/web_report.css
+    editor_options:
+      chunk_output_type: console
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+# Review
+
+* text editor, console, scripts
+* comments
+* assignment operator
+
+# Motivation (going beyond Excel)
+
+* Flexibility
+* Reproducibility
+* Scalability
+* Relational data vs. dimensional data
+
+# Background
+
+Theory -> code -> process
+
+
+leland wilkonson
+hadley wickham
+
+*Why the tidyverse is called the tidyverse*
+* The toughest part of data visualization is data munging. 
+* Data frames are the only appropriate input for `library(ggplot2)`. 
+
+8 parts (all aren't necessary)
+
+
+# Exercise 0
+
+<font color="#55b748">**Step 1:**</font> Create a new directory called `urbn101`
+
+<font color="#55b748">**Step 2:**</font> Open RStudio. Click "Project: (None)" in the top right corner. Click "New Project" and create a project based on the existing `urbn101` directory.
+
+<font color="#55b748">**Step 3:**</font> Open a `.R` script with the button in the top left. Save the script as `01_data-visualization.R`.
+
+<font color="#55b748">**Step 4:**</font>Submit `install.packages("tidyverse")` to the Console.
+
+<font color="#55b748">**Step 5:**</font> Write `library(tidyverse)` at the top of `01_data-visualization.R`. With the cursor on the line of text, click Control-Enter.
+
+# Exercise 1
+
+<font color="#55b748">**Step 1:**</font> **Type** (don't copy & paste) the following code below `library(tidyverse)` in `01_data-visualization.R`.
+
+```
+ggplot(data = storms, mapping = aes(x = pressure, y = wind)) + 
+  geom_point()
+```
+
+<font color="#55b748">**Step 2:**</font> Add a comment above the ggplot2 code that describes the plot we created. 
+
+<font color="#55b748">**Step 3:**</font> Add comments below the data visualization code that desribes the argument or function that corresponds to each of the first three components of the grammar of graphics.
+
+<font color="#ec008b">**1 Data**</font> are the values represented in the visualization.
+
+<font color="#ec008b">**2 Aesthetic mappings**</font> are directions for how data are mapped in a plot in a way that we can perceive. Aesthetic mappings include linking variables to the x-position, y-position, color, fill, shape, transparency, and size. 
+
+<font color="#ec008b">**3 Geometric objects**</font> are representations of the data, including points, lines, and polygons.
+
+
+
+
+# Example 2 
+
+<font color="#55b748">**Step 1:**</font> Duplicate the code from your first chart. Inside `aes()`, add `color = "red"`.
+
+<font color="#55b748">**Step 2:**</font> Move `color = "red"` from `aes()` to `geom_point()`. What changed? 
+
+<font color="#55b748">**Step 3:**</font> Remove `color = "red"` and add `color = category` inside `aes()`.  
+
+<font color="#55b748">**Step 4:**</font> This is a little cluttered. Add `alpha = 0.2` inside `geom_point()`.
+
+Aesthetic mappings like x and y almost always vary with the data. Aesthetic mappings like color, fill, shape, transparency, and size can vary with the data. But those arguments can also be added as styles that don't vary with the data. If you include those arguments in `aes()`, they will show up in the legend (which can be annoying!).
+
+# Example 3
+
+<font color="#55b748">**Step 1:**</font> Create a new scatter plot using the `msleep` data set. Use `bodywt` on the x-axis and `sleep_total` on the y-axis. 
+
+<font color="#55b748">**Step 2:**</font> The y-axis doesn't contain zero. Below `geom_point()`, add `scale_y_continuous(lim = c(0, NA))`. Hint: add `+` after `geom_point()`.
+
+<font color="#55b748">**Step 3:**</font> The x-axis is clustered near zero. Add `scale_x_log10()` above `scale_y_continuous(lim = c(0, NA))`.
+
+<font color="#ec008b">**4 Scales**</font> turn data values, which are quantitative or categorical, into aesthetic values. This includes not only the x-axis and y-axis, but the ranges of sizes, shapes, and colors of aesthetics.
+
+# Example 3
+
+<font color="#55b748">**Step 1:**</font> Type the following code in your script. 
+
+```
+data <- tibble(x = 1:10, y = 1:10)
+
+ggplot(data = data, mapping = aes(x = x, y = y)) +
+  geom_blank()
+```
+
+<font color="#55b748">**Step 2:**</font> Add `coord_polar()` to your plot.
+
+<font color="#55b748">**Step 3:**</font> Add `labs(title = "Polar coordinate system")` to your plot.
+
+<font color="#ec008b">**5 Coordinate systems**</font> map scaled geometric objects to the position of objects on the plane of a plot. The two most popular coordinate systems are the Cartesian coordinate system and the polar coordinate system.
+
+# Example 4
+
+<font color="#55b748">**Step 1:**</font> Create a scatter plot of the `diamonds` data set with `carat` on the x-axis and `price` on the y-axis. 
+
+<font color="#ec008b">**6 Facets**</font> (optional) break data into meaningful subsets. `facet_wrap()`, `facet_grid()`, and `facet_geo()`
+
+# Example 5
+
+<font color="#55b748">**Step 1:**</font> Add the following code to your script. Submit it!
+
+```
+ggplot(storms, aes(category)) +
+  geom_bar()
+```
+
+<font color="#ec008b">**7 Statistical transformations**</font> (optional) transform the data, typically through summary statistics and functions, before aesthetic mapping.
+
+**Note:** `geom_bar()` performs statistical transformation. Use `geom_col()` to create a column chart with bars that encode individual observations in the data set. 
+
+# Example 6
+
+<font color="#55b748">**Step 1:**</font> Duplicate Example 5.
+
+<font color="#55b748">**Step 2:**</font> Run `install.packages("devtools")` and `devtools::install_github("UI-Research/urbnthemes")` in the console. 
+
+<font color="#55b748">**Step 3:**</font> In the lines preceeding the chart add and run the following code:
+
+```
+library(urbnthemes)
+set_urban_defaults(style = "print")
+```
+
+<font color="#55b748">**Step 4:**</font> Run the code to make the chart. 
+
+<font color="#55b748">**Step 5:**</font> Add `scale_y_continuous(expand = expand_scale(mult = c(0, 0.1)))` and rerun the code. 
+
+<font color="#ec008b">**8 Theme**</font> controls the visual style of plot with font types, font sizes, background colors, margins, and positioning.
+
+
+# Example 7 (layers!)
+
+<font color="#55b748">**Step 1:**</font> Add the following example to you script. Run it!
+
+```
+storms %>%  
+  filter(category > 0) %>%
+  distinct(name, year) %>%
+  count(year) %>%
+  ggplot(mapping = aes(x = year, y = n)) + 
+  geom_line()
+```
+
+<font color="#55b748">**Step 2:**</font> Add `geom_point()` after `geom_line()`.
+
+# Example 8
+
+<font color="#55b748">**Step 1:**</font> Add the following example to you script. Run it!
+
+```
+ggplot(data = storms, mapping = aes(x = pressure, y = wind)) + 
+  geom_point() +
+  geom_smooth()
+```
+
+# Functions
+
+* `ggplot()`
+* `aes()`
+* `geom_*()`
+    * `geom_point()`
+    * `geom_line()`
+    * `geom_col()`    
+* `scale_*()`
+    * `scale_y_continuous()`
+* `labs()`
+
+# Theory
+
+1. *Data* 
+2. *Aesthetic mappings* 
+3. *Geometric objects* 
+4. *Scales*
+5. *Coordinate systems* 
+6. *Facets* 
+7. *Statistical transformations* 
+8. *Theme*
+
+# Mapping
+
+* [How to Create State and County Maps Easily in R](https://medium.com/@urban_institute/how-to-create-state-and-county-maps-easily-in-r-577d29300bb2)
+* [library(urbnmapr)](https://github.com/UrbanInstitute/urbnmapr)
+* [Urban Institute R Users Group website: mapping](https://ui-research.github.io/r-at-urban/mapping.html)
+
+# Resources
+
+* [Urban Institute R Users Group website](https://ui-research.github.io/r-at-urban/graphics-guide.html)
+* [Why the Urban Institute visualizes data with ggplot2](https://medium.com/@urban_institute/why-the-urban-institute-visualizes-data-with-ggplot2-46d8cfc7ee67)
+* [R for Data Science: data visualization](http://r4ds.had.co.nz/data-visualisation.html)
+* [awunderground themes](https://awunderground.github.io/ggplot2-themes/)
+* [R Graph Gallery](https://www.r-graph-gallery.com/)

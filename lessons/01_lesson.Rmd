@@ -35,18 +35,15 @@ output:
 
 # Background
 
-Theory -> code -> process
+["A Layered Grammar of Graphics"](https://vita.had.co.nz/papers/layered-grammar.html) by Hadley Wickham
 
+theory -> code -> process
 
-leland wilkonson
-hadley wickham
+8 parts (all aren't necessary)
 
 *Why the tidyverse is called the tidyverse*
 * The toughest part of data visualization is data munging. 
 * Data frames are the only appropriate input for `library(ggplot2)`. 
-
-8 parts (all aren't necessary)
-
 
 # Exercise 0
 
@@ -71,7 +68,7 @@ ggplot(data = storms, mapping = aes(x = pressure, y = wind)) +
 
 <font color="#55b748">**Step 2:**</font> Add a comment above the ggplot2 code that describes the plot we created. 
 
-<font color="#55b748">**Step 3:**</font> Add comments below the data visualization code that desribes the argument or function that corresponds to each of the first three components of the grammar of graphics.
+<font color="#55b748">**Step 3:**</font> Add comments below the data visualization code that describes the argument or function that corresponds to each of the first three components of the grammar of graphics.
 
 <font color="#ec008b">**1 Data**</font> are the values represented in the visualization.
 
@@ -146,7 +143,7 @@ ggplot(storms, aes(category)) +
 
 <font color="#55b748">**Step 2:**</font> Run `install.packages("devtools")` and `devtools::install_github("UI-Research/urbnthemes")` in the console. 
 
-<font color="#55b748">**Step 3:**</font> In the lines preceeding the chart add and run the following code:
+<font color="#55b748">**Step 3:**</font> In the lines preceding the chart add and run the following code:
 
 ```
 library(urbnthemes)

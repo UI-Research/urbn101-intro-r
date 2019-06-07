@@ -1673,7 +1673,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 1: data visualization</h1>
 <h4 class="author">Aaron R. Williams (IBP)</h4>
-<h4 class="date">June 06, 2019 19:45</h4>
+<h4 class="date">June 06, 2019 20:18</h4>
 
 </div>
 
@@ -1708,10 +1708,10 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 </div>
 <div id="background" class="section level1">
 <h1><span class="header-section-number">3</span> Background</h1>
-<p>Theory -&gt; code -&gt; process</p>
-<p>leland wilkonson hadley wickham</p>
-<p><em>Why the tidyverse is called the tidyverse</em> * The toughest part of data visualization is data munging. * Data frames are the only appropriate input for <code>library(ggplot2)</code>.</p>
+<p><a href="https://vita.had.co.nz/papers/layered-grammar.html">“A Layered Grammar of Graphics”</a> by Hadley Wickham</p>
+<p>theory -&gt; code -&gt; process</p>
 <p>8 parts (all aren’t necessary)</p>
+<p><em>Why the tidyverse is called the tidyverse</em> * The toughest part of data visualization is data munging. * Data frames are the only appropriate input for <code>library(ggplot2)</code>.</p>
 </div>
 <div id="exercise-0" class="section level1">
 <h1><span class="header-section-number">4</span> Exercise 0</h1>
@@ -1727,7 +1727,7 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <pre><code>ggplot(data = storms, mapping = aes(x = pressure, y = wind)) + 
   geom_point()</code></pre>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Add a comment above the ggplot2 code that describes the plot we created.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Add comments below the data visualization code that desribes the argument or function that corresponds to each of the first three components of the grammar of graphics.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Add comments below the data visualization code that describes the argument or function that corresponds to each of the first three components of the grammar of graphics.</p>
 <p><font color="#ec008b"><strong>1 Data</strong></font> are the values represented in the visualization.</p>
 <p><font color="#ec008b"><strong>2 Aesthetic mappings</strong></font> are directions for how data are mapped in a plot in a way that we can perceive. Aesthetic mappings include linking variables to the x-position, y-position, color, fill, shape, transparency, and size.</p>
 <p><font color="#ec008b"><strong>3 Geometric objects</strong></font> are representations of the data, including points, lines, and polygons.</p>
@@ -1775,7 +1775,7 @@ ggplot(data = data, mapping = aes(x = x, y = y)) +
 <h1><span class="header-section-number">11</span> Example 6</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Duplicate Example 5.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Run <code>install.packages(&quot;devtools&quot;)</code> and <code>devtools::install_github(&quot;UI-Research/urbnthemes&quot;)</code> in the console.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> In the lines preceeding the chart add and run the following code:</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> In the lines preceding the chart add and run the following code:</p>
 <pre><code>library(urbnthemes)
 set_urban_defaults(style = &quot;print&quot;)</code></pre>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Run the code to make the chart.</p>

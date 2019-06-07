@@ -42,6 +42,7 @@ theory -> code -> process
 8 parts (all aren't necessary)
 
 *Why the tidyverse is called the tidyverse*
+
 * The toughest part of data visualization is data munging. 
 * Data frames are the only appropriate input for `library(ggplot2)`. 
 
@@ -53,7 +54,7 @@ theory -> code -> process
 
 <font color="#55b748">**Step 3:**</font> Open a `.R` script with the button in the top left. Save the script as `01_data-visualization.R`.
 
-<font color="#55b748">**Step 4:**</font>Submit `install.packages("tidyverse")` to the Console.
+<font color="#55b748">**Step 4:**</font> Submit `install.packages("tidyverse")` to the Console.
 
 <font color="#55b748">**Step 5:**</font> Write `library(tidyverse)` at the top of `01_data-visualization.R`. With the cursor on the line of text, click Control-Enter.
 

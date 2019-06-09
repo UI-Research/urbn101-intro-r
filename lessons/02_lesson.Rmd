@@ -1,0 +1,61 @@
+---
+title: "Day 1: data management"
+author: "Sarah Strochak (HFPC)"
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+output:
+  html_document:
+    number_sections: TRUE
+    self_contained: TRUE
+    code_folding: hide
+    toc: TRUE
+    toc_float: TRUE
+    css: ../www/web_report.css
+    editor_options:
+      chunk_output_type: console
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+# Review
+
+* text editor, console, scripts
+* comments
+* assignment operator
+
+# Motivation 
+
+* Flexibility
+* Reproducibility
+* Scalability
+* Relational data vs. dimensional data
+
+# Background
+
+The toughest part of data visualization is data munging. 
+* Data frames are the only appropriate input for `library(ggplot2)`. 
+
+# Exercise 0
+
+If you are using a different computer or didn't attend last Friday's session, follow steps 1 and 2. If not- skip to step 3.
+
+<font color="#55b748">**Step 1:**</font> Create a new directory called `urbn101`
+
+<font color="#55b748">**Step 2:**</font> Open RStudio. Click "Project: (None)" in the top right corner. Click "New Project" and create a project based on the existing `urbn101` directory.
+
+<font color="#55b748">**Step 3:**</font> Open a `.R` script with the button in the top left. Save the script as `02_data-management.R`.
+
+<font color="#55b748">**Step 4:**</font> If you have not previously installed `library(tidyverse)`: submit `install.packages("tidyverse")` to the Console.
+
+<font color="#55b748">**Step 5:**</font> Write `library(tidyverse)` at the top of `01_data-visualization.R`. With the cursor on the line of text, click Control-Enter.
+
+# Resources
+
+* [Urban Institute R Users Group website](https://ui-research.github.io/r-at-urban/graphics-guide.html)
+* [Why the Urban Institute visualizes data with ggplot2](https://medium.com/@urban_institute/why-the-urban-institute-visualizes-data-with-ggplot2-46d8cfc7ee67)
+* [R for Data Science: data visualization](http://r4ds.had.co.nz/data-visualisation.html)
+* [awunderground themes](https://awunderground.github.io/ggplot2-themes/)
+* [R Graph Gallery](https://www.r-graph-gallery.com/)

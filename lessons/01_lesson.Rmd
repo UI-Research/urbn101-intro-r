@@ -80,7 +80,7 @@ ggplot(data = storms, mapping = aes(x = pressure, y = wind)) +
 
 
 
-# Example 2 
+# Exercise 2 
 
 <font color="#55b748">**Step 1:**</font> Duplicate the code from your first chart. Inside `aes()`, add `color = "red"`.
 
@@ -92,7 +92,7 @@ ggplot(data = storms, mapping = aes(x = pressure, y = wind)) +
 
 Aesthetic mappings like x and y almost always vary with the data. Aesthetic mappings like color, fill, shape, transparency, and size can vary with the data. But those arguments can also be added as styles that don't vary with the data. If you include those arguments in `aes()`, they will show up in the legend (which can be annoying!).
 
-# Example 3
+# Exercise 3
 
 <font color="#55b748">**Step 1:**</font> Create a new scatter plot using the `msleep` data set. Use `bodywt` on the x-axis and `sleep_total` on the y-axis. 
 
@@ -102,7 +102,7 @@ Aesthetic mappings like x and y almost always vary with the data. Aesthetic mapp
 
 <font color="#ec008b">**4 Scales**</font> turn data values, which are quantitative or categorical, into aesthetic values. This includes not only the x-axis and y-axis, but the ranges of sizes, shapes, and colors of aesthetics.
 
-# Example 3
+# Exercise 4
 
 <font color="#55b748">**Step 1:**</font> Type the following code in your script. 
 
@@ -119,13 +119,13 @@ ggplot(data = data, mapping = aes(x = x, y = y)) +
 
 <font color="#ec008b">**5 Coordinate systems**</font> map scaled geometric objects to the position of objects on the plane of a plot. The two most popular coordinate systems are the Cartesian coordinate system and the polar coordinate system.
 
-# Example 4
+# Exercise 5
 
 <font color="#55b748">**Step 1:**</font> Create a scatter plot of the `diamonds` data set with `carat` on the x-axis and `price` on the y-axis. 
 
 <font color="#ec008b">**6 Facets**</font> (optional) break data into meaningful subsets. `facet_wrap()`, `facet_grid()`, and `facet_geo()`
 
-# Example 5
+# Exercise 6
 
 <font color="#55b748">**Step 1:**</font> Add the following code to your script. Submit it!
 
@@ -138,9 +138,9 @@ ggplot(storms, aes(category)) +
 
 **Note:** `geom_bar()` performs statistical transformation. Use `geom_col()` to create a column chart with bars that encode individual observations in the data set. 
 
-# Example 6
+# Exercise 7
 
-<font color="#55b748">**Step 1:**</font> Duplicate Example 5.
+<font color="#55b748">**Step 1:**</font> Duplicate Exercise 6.
 
 <font color="#55b748">**Step 2:**</font> Run `install.packages("devtools")` and `devtools::install_github("UI-Research/urbnthemes")` in the console. 
 
@@ -148,7 +148,7 @@ ggplot(storms, aes(category)) +
 
 ```
 library(urbnthemes)
-set_urban_defaults(style = "print")
+set_urbn_defaults(style = "print")
 ```
 
 <font color="#55b748">**Step 4:**</font> Run the code to make the chart. 
@@ -158,9 +158,9 @@ set_urban_defaults(style = "print")
 <font color="#ec008b">**8 Theme**</font> controls the visual style of plot with font types, font sizes, background colors, margins, and positioning.
 
 
-# Example 7 (layers!)
+# Exercise 8 (layers!)
 
-<font color="#55b748">**Step 1:**</font> Add the following example to you script. Run it!
+<font color="#55b748">**Step 1:**</font> Add the following exercise to you script. Run it!
 
 ```
 storms %>%  
@@ -173,9 +173,9 @@ storms %>%
 
 <font color="#55b748">**Step 2:**</font> Add `geom_point()` after `geom_line()`.
 
-# Example 8
+# Exercise 9
 
-<font color="#55b748">**Step 1:**</font> Add the following example to you script. Run it!
+<font color="#55b748">**Step 1:**</font> Add the following exercise to you script. Run it!
 
 ```
 ggplot(data = storms, mapping = aes(x = pressure, y = wind)) + 

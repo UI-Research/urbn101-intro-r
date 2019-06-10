@@ -1673,7 +1673,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 1: data visualization</h1>
 <h4 class="author">Aaron R. Williams (IBP)</h4>
-<h4 class="date">June 06, 2019 22:20</h4>
+<h4 class="date">June 09, 2019 21:10</h4>
 
 </div>
 
@@ -1711,14 +1711,18 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <p><a href="https://vita.had.co.nz/papers/layered-grammar.html">“A Layered Grammar of Graphics”</a> by Hadley Wickham</p>
 <p>theory -&gt; code -&gt; process</p>
 <p>8 parts (all aren’t necessary)</p>
-<p><em>Why the tidyverse is called the tidyverse</em> * The toughest part of data visualization is data munging. * Data frames are the only appropriate input for <code>library(ggplot2)</code>.</p>
+<p><em>Why the tidyverse is called the tidyverse</em></p>
+<ul>
+<li>The toughest part of data visualization is data munging.</li>
+<li>Data frames are the only appropriate input for <code>library(ggplot2)</code>.</li>
+</ul>
 </div>
 <div id="exercise-0" class="section level1">
 <h1><span class="header-section-number">4</span> Exercise 0</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Create a new directory called <code>urbn101</code></p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Open RStudio. Click “Project: (None)” in the top right corner. Click “New Project” and create a project based on the existing <code>urbn101</code> directory.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Open a <code>.R</code> script with the button in the top left. Save the script as <code>01_data-visualization.R</code>.</p>
-<p><font color="#55b748"><strong>Step 4:</strong></font>Submit <code>install.packages(&quot;tidyverse&quot;)</code> to the Console.</p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Submit <code>install.packages(&quot;tidyverse&quot;)</code> to the Console.</p>
 <p><font color="#55b748"><strong>Step 5:</strong></font> Write <code>library(tidyverse)</code> at the top of <code>01_data-visualization.R</code>. With the cursor on the line of text, click Control-Enter.</p>
 </div>
 <div id="exercise-1" class="section level1">
@@ -1732,23 +1736,23 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <p><font color="#ec008b"><strong>2 Aesthetic mappings</strong></font> are directions for how data are mapped in a plot in a way that we can perceive. Aesthetic mappings include linking variables to the x-position, y-position, color, fill, shape, transparency, and size.</p>
 <p><font color="#ec008b"><strong>3 Geometric objects</strong></font> are representations of the data, including points, lines, and polygons.</p>
 </div>
-<div id="example-2" class="section level1">
-<h1><span class="header-section-number">6</span> Example 2</h1>
+<div id="exercise-2" class="section level1">
+<h1><span class="header-section-number">6</span> Exercise 2</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Duplicate the code from your first chart. Inside <code>aes()</code>, add <code>color = &quot;red&quot;</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Move <code>color = &quot;red&quot;</code> from <code>aes()</code> to <code>geom_point()</code>. What changed?</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Remove <code>color = &quot;red&quot;</code> and add <code>color = category</code> inside <code>aes()</code>.</p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> This is a little cluttered. Add <code>alpha = 0.2</code> inside <code>geom_point()</code>.</p>
 <p>Aesthetic mappings like x and y almost always vary with the data. Aesthetic mappings like color, fill, shape, transparency, and size can vary with the data. But those arguments can also be added as styles that don’t vary with the data. If you include those arguments in <code>aes()</code>, they will show up in the legend (which can be annoying!).</p>
 </div>
-<div id="example-3" class="section level1">
-<h1><span class="header-section-number">7</span> Example 3</h1>
+<div id="exercise-3" class="section level1">
+<h1><span class="header-section-number">7</span> Exercise 3</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Create a new scatter plot using the <code>msleep</code> data set. Use <code>bodywt</code> on the x-axis and <code>sleep_total</code> on the y-axis.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> The y-axis doesn’t contain zero. Below <code>geom_point()</code>, add <code>scale_y_continuous(lim = c(0, NA))</code>. Hint: add <code>+</code> after <code>geom_point()</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> The x-axis is clustered near zero. Add <code>scale_x_log10()</code> above <code>scale_y_continuous(lim = c(0, NA))</code>.</p>
 <p><font color="#ec008b"><strong>4 Scales</strong></font> turn data values, which are quantitative or categorical, into aesthetic values. This includes not only the x-axis and y-axis, but the ranges of sizes, shapes, and colors of aesthetics.</p>
 </div>
-<div id="example-3-1" class="section level1">
-<h1><span class="header-section-number">8</span> Example 3</h1>
+<div id="exercise-4" class="section level1">
+<h1><span class="header-section-number">8</span> Exercise 4</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Type the following code in your script.</p>
 <pre><code>data &lt;- tibble(x = 1:10, y = 1:10)
 
@@ -1758,33 +1762,33 @@ ggplot(data = data, mapping = aes(x = x, y = y)) +
 <p><font color="#55b748"><strong>Step 3:</strong></font> Add <code>labs(title = &quot;Polar coordinate system&quot;)</code> to your plot.</p>
 <p><font color="#ec008b"><strong>5 Coordinate systems</strong></font> map scaled geometric objects to the position of objects on the plane of a plot. The two most popular coordinate systems are the Cartesian coordinate system and the polar coordinate system.</p>
 </div>
-<div id="example-4" class="section level1">
-<h1><span class="header-section-number">9</span> Example 4</h1>
+<div id="exercise-5" class="section level1">
+<h1><span class="header-section-number">9</span> Exercise 5</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Create a scatter plot of the <code>diamonds</code> data set with <code>carat</code> on the x-axis and <code>price</code> on the y-axis.</p>
 <p><font color="#ec008b"><strong>6 Facets</strong></font> (optional) break data into meaningful subsets. <code>facet_wrap()</code>, <code>facet_grid()</code>, and <code>facet_geo()</code></p>
 </div>
-<div id="example-5" class="section level1">
-<h1><span class="header-section-number">10</span> Example 5</h1>
+<div id="exercise-6" class="section level1">
+<h1><span class="header-section-number">10</span> Exercise 6</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Add the following code to your script. Submit it!</p>
 <pre><code>ggplot(storms, aes(category)) +
   geom_bar()</code></pre>
 <p><font color="#ec008b"><strong>7 Statistical transformations</strong></font> (optional) transform the data, typically through summary statistics and functions, before aesthetic mapping.</p>
 <p><strong>Note:</strong> <code>geom_bar()</code> performs statistical transformation. Use <code>geom_col()</code> to create a column chart with bars that encode individual observations in the data set.</p>
 </div>
-<div id="example-6" class="section level1">
-<h1><span class="header-section-number">11</span> Example 6</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Duplicate Example 5.</p>
+<div id="exercise-7" class="section level1">
+<h1><span class="header-section-number">11</span> Exercise 7</h1>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Duplicate Exercise 6.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Run <code>install.packages(&quot;devtools&quot;)</code> and <code>devtools::install_github(&quot;UI-Research/urbnthemes&quot;)</code> in the console.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> In the lines preceding the chart add and run the following code:</p>
 <pre><code>library(urbnthemes)
-set_urban_defaults(style = &quot;print&quot;)</code></pre>
+set_urbn_defaults(style = &quot;print&quot;)</code></pre>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Run the code to make the chart.</p>
 <p><font color="#55b748"><strong>Step 5:</strong></font> Add <code>scale_y_continuous(expand = expand_scale(mult = c(0, 0.1)))</code> and rerun the code.</p>
 <p><font color="#ec008b"><strong>8 Theme</strong></font> controls the visual style of plot with font types, font sizes, background colors, margins, and positioning.</p>
 </div>
-<div id="example-7-layers" class="section level1">
-<h1><span class="header-section-number">12</span> Example 7 (layers!)</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Add the following example to you script. Run it!</p>
+<div id="exercise-8-layers" class="section level1">
+<h1><span class="header-section-number">12</span> Exercise 8 (layers!)</h1>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Add the following exercise to you script. Run it!</p>
 <pre><code>storms %&gt;%  
   filter(category &gt; 0) %&gt;%
   distinct(name, year) %&gt;%
@@ -1793,9 +1797,9 @@ set_urban_defaults(style = &quot;print&quot;)</code></pre>
   geom_line()</code></pre>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Add <code>geom_point()</code> after <code>geom_line()</code>.</p>
 </div>
-<div id="example-8" class="section level1">
-<h1><span class="header-section-number">13</span> Example 8</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Add the following example to you script. Run it!</p>
+<div id="exercise-9" class="section level1">
+<h1><span class="header-section-number">13</span> Exercise 9</h1>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Add the following exercise to you script. Run it!</p>
 <pre><code>ggplot(data = storms, mapping = aes(x = pressure, y = wind)) + 
   geom_point() +
   geom_smooth()</code></pre>

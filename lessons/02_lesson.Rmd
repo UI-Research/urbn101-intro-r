@@ -68,17 +68,18 @@ If you are using a different computer or didn't attend last Friday's session, fo
 
 # Exercise 1
 
-<font color="#55b748">**Step 1:**</font> Assign the `diamonds` dataset to be called diamonds. Submit `View(diamonds)` in the console.
+<font color="#55b748">**Step 1:**</font> Assign the `storms` dataset to be called storms. Submit `View(storms)` in the console.
 
-<font color="#55b748">**Step 2:**</font> Create a new dataset with all the variables except for `x`, `y`, `z`, by using `select` and `-`.
+<font color="#55b748">**Step 2:**</font> Create a new dataset with all the variables except for `ts_diameter` and `hu_diameter`, by using `select` and `-`.
 
-<font color="#55b748">**Step 3:**</font> Create a new dataset that includes only premium diamonds using `filter()`.
+
+<font color="#55b748">**Step 3:**</font> Create a new dataset that includes category 5 storms using  `filter()`.
 
 <font color="#55b748">**Step 4:**</font> Chain all three of these commands together with the `%>%` operator.
 
 <font color="#ec008b">**Filter and select**</font>
 
-`select()` is used when you want to limit the number of **columns** in your data set. `filter()` is used when you want to limit the number observations in your dataset, bsaed on certain criteria.
+`select()` is used when you want to limit the number of **columns** in your dataframe. `filter()` is used when you want to limit the number observations in your dataframe, bsaed on certain criteria.
 
 <font color="#ec008b">**Rename**</font>
 
@@ -90,6 +91,15 @@ dataset %>%
 ```
 
 This same syntax can be used inside `select()`, and you can rename and select variables simultanously.
+ 
+<font color="#55b748">**Step 5:**</font> `wind` is measured in knots. Convert `wind` into miles per hour. Each knot is equal to 1.15078 miles per hour.
+
+<font color="#ec008b">**Mutate**</font>
+
+`mutate()` can make new variables and edit existing variables. New variables are always added to the end of the dataframe. You can use arithmetic arguments, such as `+`, `-`, `*`, `/`, and `^`. 
+
+<font color="#55b748">**Step 6:**</font> Use `summarize()` to find the average wind speed (in MPH) of a category 5 storm.
+
 
 # Exercise 2 
 
@@ -101,7 +111,7 @@ This same syntax can be used inside `select()`, and you can rename and select va
 
 <font color="#ec008b">**If/then logic**</font>
 
-`ifelse()` is an important tool in combination with `mutate()`. It employs f-then logic: the first argument is a binary statement. The second statement says what to do if the first argument is evaluated to `TRUE`- the third is what to do if it is false. This is particularly useful for creating dummy or indicator variables.
+`ifelse()` is an important tool in combination with `mutate()`. It employs if-then logic: the first argument is a binary statement. The second statement says what to do if the first argument is evaluated to `TRUE`- the third is what to do if it is `FALSE` This is particularly useful for creating dummy or indicator variables.
 When you have more than two possible outcomes, it is more efficient to use `case_when()`.
 
 <font color="#55b748">**Step 3a:**</font> Type `?case_when` into the console.
@@ -114,22 +124,15 @@ txhousing %>%
   summarize(yearly_sales = sum(sales))
 ```
 
-<font color="#55b748">**Step 5:**</font> Sort the results of the previous code in order from most to least sales by adding ` %>% arrange(desc(yearly_sales))` to the end of the code.
+<font color="#55b748">**Step 5:**</font> Add the argument `na.rm = TRUE` to the `sum()` function and rerun the code. Add a comment to explain the code.
 
-<font color="#55b748">**Step 6:**</font> Which county had the most home sales in January 2008? (Hint: reate a new dataframe that summarizes the number of home sales year, month, and county.)
+<font color="#55b748">**Step 6:**</font> Sort the results of the previous code in order from most to least sales by adding ` %>% arrange(desc(yearly_sales))` to the end of the code.
 
-# Exercise 3
+<font color="#55b748">**Step 7a:**</font> Which county had the most home sales in January 2008? (Hint: use `filter()` and `arrange()`).
 
-<font color="#55b748">**Step 1:**</font> 
+<font color="#55b748">**Step 7b:**</font> Which county had the least home sales in 2006? (Hint: group by the county and the year- then use `summarize()`).
 
-<font color="#55b748">**Step 2:**</font>
-
-<font color="#55b748">**Step 3:**</font>
-
-<font color="#55b748">**Step 4:**</font>
-
-<font color="#55b748">**Step 5:**</font>
-
+<font color="#55b748">**BONUS:**</font> Plot the number of annual home sales over time!
 
 # Resources
 

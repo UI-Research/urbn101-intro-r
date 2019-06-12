@@ -308,7 +308,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 2: data management</h1>
 <h4 class="author">Sarah Strochak (HFPC)</h4>
-<h4 class="date">June 11, 2019 20:15</h4>
+<h4 class="date">June 12, 2019 12:36</h4>
 
 </div>
 
@@ -335,6 +335,13 @@ div.tocify {
 <li><code>summarize()</code></li>
 <li><code>group_by()</code></li>
 </ul>
+<p>All of these functions have the same structure.</p>
+<ol style="list-style-type: decimal">
+<li>The first argument is the dataframe</li>
+<li>The subsequent arguments describe what to do with the data frame, using the variable names (without quotes).</li>
+<li>The result is a new data frame.</li>
+</ol>
+<p>Source: <a href="https://r4ds.had.co.nz/transform.html">R for data science</a></p>
 </div>
 <div id="the-pipe-operator" class="section level1">
 <h1><span class="header-section-number">4</span> The pipe operator</h1>
@@ -354,18 +361,19 @@ div.tocify {
 <h1><span class="header-section-number">6</span> Exercise 1</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Assign the <code>diamonds</code> dataset to be called diamonds. Submit <code>View(diamonds)</code> in the console.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Create a new dataset with all the variables except for <code>x</code>, <code>y</code>, <code>z</code>, by using <code>select</code> and <code>-</code>.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Create a new dataset that includes only premium diamonds using <code>filter()</code></p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Create a new dataset that includes only premium diamonds using <code>filter()</code>.</p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Chain all three of these commands together with the <code>%&gt;%</code> operator.</p>
 <p><font color="#ec008b"><strong>Filter and select</strong></font></p>
-<p><code>select()</code> is used when you want to limit the number of <strong>columns</strong> in your data set. <code>filter()</code> is used when you want to limit the number observations in your dataset, bsaed on certain criteria. <font color="#ec008b">Rename</font></p>
+<p><code>select()</code> is used when you want to limit the number of <strong>columns</strong> in your data set. <code>filter()</code> is used when you want to limit the number observations in your dataset, bsaed on certain criteria.</p>
+<p><font color="#ec008b"><strong>Rename</strong></font></p>
 <p>The syntax for rename is:</p>
 <pre><code>dataset %&gt;% 
   rename(new_name = current_name)</code></pre>
-<p>This same syntax can be used inside <code>select()</code>, and you can rename and select variable simultanously.</p>
+<p>This same syntax can be used inside <code>select()</code>, and you can rename and select variables simultanously.</p>
 </div>
 <div id="exercise-2" class="section level1">
 <h1><span class="header-section-number">7</span> Exercise 2</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>txhousing</code> dataset. Assign the dataset to an abject.</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>txhousing</code> dataset. Assign the dataset to an object in your global environment.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Compute a new variable, <code>average_price</code> by dividing <code>volume</code> by <code>sales</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>ifelse()</code> to create a variable called <code>flag</code> that is 1 if the average sales price is larger than the median sales price.</p>
 <p><font color="#ec008b"><strong>If/then logic</strong></font></p>
@@ -376,23 +384,20 @@ div.tocify {
   group_by(year) %&gt;% 
   summarize(yearly_sales = sum(sales))</code></pre>
 <p><font color="#55b748"><strong>Step 5:</strong></font> Sort the results of the previous code in order from most to least sales by adding <code>%&gt;% arrange(desc(yearly_sales))</code> to the end of the code.</p>
+<p><font color="#55b748"><strong>Step 6:</strong></font> Which county had the most home sales in January 2008? (Hint: reate a new dataframe that summarizes the number of home sales year, month, and county.)</p>
 </div>
 <div id="exercise-3" class="section level1">
 <h1><span class="header-section-number">8</span> Exercise 3</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> <font color="#55b748"><strong>Step 2:</strong></font> <font color="#55b748"><strong>Step 3:</strong></font> <font color="#55b748"><strong>Step 4:</strong></font> <font color="#55b748"><strong>Step 5:</strong></font> group by and summarize</p>
-</div>
-<div id="exercise-4" class="section level1">
-<h1><span class="header-section-number">9</span> Exercise 4</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> <font color="#55b748"><strong>Step 2:</strong></font> <font color="#55b748"><strong>Step 3:</strong></font> <font color="#55b748"><strong>Step 4:</strong></font> <font color="#55b748"><strong>Step 5:</strong></font> if else and case when</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font></p>
+<p><font color="#55b748"><strong>Step 2:</strong></font></p>
+<p><font color="#55b748"><strong>Step 3:</strong></font></p>
+<p><font color="#55b748"><strong>Step 4:</strong></font></p>
+<p><font color="#55b748"><strong>Step 5:</strong></font></p>
 </div>
 <div id="resources" class="section level1">
-<h1><span class="header-section-number">10</span> Resources</h1>
+<h1><span class="header-section-number">9</span> Resources</h1>
 <ul>
-<li><a href="https://ui-research.github.io/r-at-urban/graphics-guide.html">Urban Institute R Users Group website</a></li>
-<li><a href="https://medium.com/@urban_institute/why-the-urban-institute-visualizes-data-with-ggplot2-46d8cfc7ee67">Why the Urban Institute visualizes data with ggplot2</a></li>
-<li><a href="http://r4ds.had.co.nz/data-visualisation.html">R for Data Science: data visualization</a></li>
-<li><a href="https://awunderground.github.io/ggplot2-themes/">awunderground themes</a></li>
-<li><a href="https://www.r-graph-gallery.com/">R Graph Gallery</a></li>
+<li><a href="https://r4ds.had.co.nz/transform.html">R for Data Science: data transformation</a></li>
 </ul>
 </div>
 

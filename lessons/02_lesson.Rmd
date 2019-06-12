@@ -35,6 +35,15 @@ output:
 * `summarize()`
 * `group_by()`
 
+All of these functions have the same structure.
+
+1. The first argument is the dataframe
+2. The subsequent arguments describe what to do with the data frame, using the variable names (without quotes).
+3. The result is a new data frame.
+
+Source: [R for data science](https://r4ds.had.co.nz/transform.html)
+
+
 # The pipe operator
 
 `%>%`
@@ -56,30 +65,35 @@ If you are using a different computer or didn't attend last Friday's session, fo
 
 <font color="#55b748">**Step 5:**</font> Write `library(tidyverse)` at the top of `02_data-management.R`. With the cursor on the line of text, click Control-Enter.
 
+
 # Exercise 1
+
 <font color="#55b748">**Step 1:**</font> Assign the `diamonds` dataset to be called diamonds. Submit `View(diamonds)` in the console.
 
 <font color="#55b748">**Step 2:**</font> Create a new dataset with all the variables except for `x`, `y`, `z`, by using `select` and `-`.
 
-<font color="#55b748">**Step 3:**</font> Create a new dataset that includes only premium diamonds using `filter()`
+<font color="#55b748">**Step 3:**</font> Create a new dataset that includes only premium diamonds using `filter()`.
 
 <font color="#55b748">**Step 4:**</font> Chain all three of these commands together with the `%>%` operator.
 
 <font color="#ec008b">**Filter and select**</font>
 
 `select()` is used when you want to limit the number of **columns** in your data set. `filter()` is used when you want to limit the number observations in your dataset, bsaed on certain criteria.
-<font color="#ec008b">Rename</font>
+
+<font color="#ec008b">**Rename**</font>
 
 The syntax for rename is:
+
 ```
 dataset %>% 
   rename(new_name = current_name)
 ```
-This same syntax can be used inside `select()`, and you can rename and select variable simultanously.
+
+This same syntax can be used inside `select()`, and you can rename and select variables simultanously.
 
 # Exercise 2 
 
-<font color="#55b748">**Step 1:**</font> Use the `txhousing` dataset. Assign the dataset to an abject.
+<font color="#55b748">**Step 1:**</font> Use the `txhousing` dataset. Assign the dataset to an object in your global environment.
 
 <font color="#55b748">**Step 2:**</font> Compute a new variable, `average_price` by dividing `volume` by `sales`.
 
@@ -102,29 +116,21 @@ txhousing %>%
 
 <font color="#55b748">**Step 5:**</font> Sort the results of the previous code in order from most to least sales by adding ` %>% arrange(desc(yearly_sales))` to the end of the code.
 
+<font color="#55b748">**Step 6:**</font> Which county had the most home sales in January 2008? (Hint: reate a new dataframe that summarizes the number of home sales year, month, and county.)
 
 # Exercise 3
-<font color="#55b748">**Step 1:**</font>
-<font color="#55b748">**Step 2:**</font>
-<font color="#55b748">**Step 3:**</font>
-<font color="#55b748">**Step 4:**</font>
-<font color="#55b748">**Step 5:**</font>
-group by and summarize
 
-# Exercise 4
-<font color="#55b748">**Step 1:**</font>
-<font color="#55b748">**Step 2:**</font>
-<font color="#55b748">**Step 3:**</font>
-<font color="#55b748">**Step 4:**</font>
-<font color="#55b748">**Step 5:**</font>
-if else and case when
+<font color="#55b748">**Step 1:**</font> 
 
+<font color="#55b748">**Step 2:**</font>
+
+<font color="#55b748">**Step 3:**</font>
+
+<font color="#55b748">**Step 4:**</font>
+
+<font color="#55b748">**Step 5:**</font>
 
 
 # Resources
 
-* [Urban Institute R Users Group website](https://ui-research.github.io/r-at-urban/graphics-guide.html)
-* [Why the Urban Institute visualizes data with ggplot2](https://medium.com/@urban_institute/why-the-urban-institute-visualizes-data-with-ggplot2-46d8cfc7ee67)
-* [R for Data Science: data visualization](http://r4ds.had.co.nz/data-visualisation.html)
-* [awunderground themes](https://awunderground.github.io/ggplot2-themes/)
-* [R Graph Gallery](https://www.r-graph-gallery.com/)
+* [R for Data Science: data transformation](https://r4ds.had.co.nz/transform.html)

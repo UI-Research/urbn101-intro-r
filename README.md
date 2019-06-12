@@ -2,7 +2,7 @@
 
 ## Lessons
 
-* [Day 0: Intro to statistical programming](https://ui-research.github.io/urbn101-intro-r/lessons/00_lesson#/intro-to-r-a-hands-on-tutorial)
+* [Day 0: Intro to statistical programming](https://ui-research.github.io/urbn101-intro-r/lessons/00_intro-to-statistical-programming#/intro-to-r-a-hands-on-tutorial)
 * [Day 1: Data visualization](https://ui-research.github.io/urbn101-intro-r/lessons/01_lesson)
 
 ## Homework

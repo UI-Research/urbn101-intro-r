@@ -65,13 +65,58 @@ If you are using a different computer or didn't attend last Friday's session, fo
 
 <font color="#55b748">**Step 4:**</font> Chain all three of these commands together with the `%>%` operator.
 
+<font color="#ec008b">**Filter and select**</font>
+
+`select()` is used when you want to limit the number of **columns** in your data set. `filter()` is used when you want to limit the number observations in your dataset, bsaed on certain criteria.
+<font color="#ec008b">Rename</font>
+
+The syntax for rename is:
+```
+dataset %>% 
+  rename(new_name = current_name)
+```
+This same syntax can be used inside `select()`, and you can rename and select variable simultanously.
+
 # Exercise 2 
-simple mutates
+
+<font color="#55b748">**Step 1:**</font> Use the `txhousing` dataset. Assign the dataset to an abject.
+
+<font color="#55b748">**Step 2:**</font> Compute a new variable, `average_price` by dividing `volume` by `sales`.
+
+<font color="#55b748">**Step 3:**</font> Use `ifelse()` to create a variable called `flag` that is 1 if the average sales price is larger than the median sales price.
+
+<font color="#ec008b">**If/then logic**</font>
+
+`ifelse()` is an important tool in combination with `mutate()`. It employs f-then logic: the first argument is a binary statement. The second statement says what to do if the first argument is evaluated to `TRUE`- the third is what to do if it is false. This is particularly useful for creating dummy or indicator variables.
+When you have more than two possible outcomes, it is more efficient to use `case_when()`.
+
+<font color="#55b748">**Step 3a:**</font> Type `?case_when` into the console.
+
+<font color="#55b748">**Step 4:**</font> Type the following code into your script.
+
+```
+txhousing %>% 
+  group_by(year) %>% 
+  summarize(yearly_sales = sum(sales))
+```
+
+<font color="#55b748">**Step 5:**</font> Sort the results of the previous code in order from most to least sales by adding ` %>% arrange(desc(yearly_sales))` to the end of the code.
+
 
 # Exercise 3
+<font color="#55b748">**Step 1:**</font>
+<font color="#55b748">**Step 2:**</font>
+<font color="#55b748">**Step 3:**</font>
+<font color="#55b748">**Step 4:**</font>
+<font color="#55b748">**Step 5:**</font>
 group by and summarize
 
 # Exercise 4
+<font color="#55b748">**Step 1:**</font>
+<font color="#55b748">**Step 2:**</font>
+<font color="#55b748">**Step 3:**</font>
+<font color="#55b748">**Step 4:**</font>
+<font color="#55b748">**Step 5:**</font>
 if else and case when
 
 

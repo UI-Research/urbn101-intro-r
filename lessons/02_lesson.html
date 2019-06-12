@@ -308,7 +308,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 2: data management</h1>
 <h4 class="author">Sarah Strochak (HFPC)</h4>
-<h4 class="date">June 11, 2019 19:01</h4>
+<h4 class="date">June 11, 2019 20:15</h4>
 
 </div>
 
@@ -356,18 +356,34 @@ div.tocify {
 <p><font color="#55b748"><strong>Step 2:</strong></font> Create a new dataset with all the variables except for <code>x</code>, <code>y</code>, <code>z</code>, by using <code>select</code> and <code>-</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Create a new dataset that includes only premium diamonds using <code>filter()</code></p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Chain all three of these commands together with the <code>%&gt;%</code> operator.</p>
+<p><font color="#ec008b"><strong>Filter and select</strong></font></p>
+<p><code>select()</code> is used when you want to limit the number of <strong>columns</strong> in your data set. <code>filter()</code> is used when you want to limit the number observations in your dataset, bsaed on certain criteria. <font color="#ec008b">Rename</font></p>
+<p>The syntax for rename is:</p>
+<pre><code>dataset %&gt;% 
+  rename(new_name = current_name)</code></pre>
+<p>This same syntax can be used inside <code>select()</code>, and you can rename and select variable simultanously.</p>
 </div>
 <div id="exercise-2" class="section level1">
 <h1><span class="header-section-number">7</span> Exercise 2</h1>
-<p>simple mutates</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>txhousing</code> dataset. Assign the dataset to an abject.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Compute a new variable, <code>average_price</code> by dividing <code>volume</code> by <code>sales</code>.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>ifelse()</code> to create a variable called <code>flag</code> that is 1 if the average sales price is larger than the median sales price.</p>
+<p><font color="#ec008b"><strong>If/then logic</strong></font></p>
+<p><code>ifelse()</code> is an important tool in combination with <code>mutate()</code>. It employs f-then logic: the first argument is a binary statement. The second statement says what to do if the first argument is evaluated to <code>TRUE</code>- the third is what to do if it is false. This is particularly useful for creating dummy or indicator variables. When you have more than two possible outcomes, it is more efficient to use <code>case_when()</code>.</p>
+<p><font color="#55b748"><strong>Step 3a:</strong></font> Type <code>?case_when</code> into the console.</p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Type the following code into your script.</p>
+<pre><code>txhousing %&gt;% 
+  group_by(year) %&gt;% 
+  summarize(yearly_sales = sum(sales))</code></pre>
+<p><font color="#55b748"><strong>Step 5:</strong></font> Sort the results of the previous code in order from most to least sales by adding <code>%&gt;% arrange(desc(yearly_sales))</code> to the end of the code.</p>
 </div>
 <div id="exercise-3" class="section level1">
 <h1><span class="header-section-number">8</span> Exercise 3</h1>
-<p>group by and summarize</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> <font color="#55b748"><strong>Step 2:</strong></font> <font color="#55b748"><strong>Step 3:</strong></font> <font color="#55b748"><strong>Step 4:</strong></font> <font color="#55b748"><strong>Step 5:</strong></font> group by and summarize</p>
 </div>
 <div id="exercise-4" class="section level1">
 <h1><span class="header-section-number">9</span> Exercise 4</h1>
-<p>if else and case when</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> <font color="#55b748"><strong>Step 2:</strong></font> <font color="#55b748"><strong>Step 3:</strong></font> <font color="#55b748"><strong>Step 4:</strong></font> <font color="#55b748"><strong>Step 5:</strong></font> if else and case when</p>
 </div>
 <div id="resources" class="section level1">
 <h1><span class="header-section-number">10</span> Resources</h1>

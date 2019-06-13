@@ -1,0 +1,144 @@
+---
+title: "Day 2: data management"
+author: "Sarah Strochak (HFPC)"
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+output:
+  html_document:
+    number_sections: TRUE
+    self_contained: TRUE
+    code_folding: hide
+    toc: TRUE
+    toc_float: TRUE
+    css: ../www/web_report.css
+    editor_options:
+      chunk_output_type: console
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+# Review
+
+* assignment operator
+* functions
+
+# Motivation 
+
+"The toughest part of data visualization is data munging."
+- Aaron Williams
+
+# Primary functions
+
+* `select()`
+* `rename()`
+* `filter()`
+* `arrange()`
+* `mutate()`
+* `summarize()`
+* `group_by()`
+
+All of these functions have the same structure.
+
+1. The first argument is the dataframe
+2. The subsequent arguments describe what to do with the data frame, using the variable names (without quotes).
+3. The result is a new data frame.
+
+Source: [R for data science](https://r4ds.had.co.nz/transform.html)
+
+
+# The pipe operator
+
+`%>%`
+
+The pipe operator allows you to string together a set of different functions.
+Functionally, the first argument in the next function you are using will be replaced with what precedes `%>%`
+
+# Exercise 0
+
+If you are using a different computer or didn't attend last Friday's session, follow steps 1 and 2. If not- skip to step 3.
+
+<font color="#55b748">**Step 1:**</font> Create a new directory called `urbn101`
+
+<font color="#55b748">**Step 2:**</font> Open RStudio. Click "Project: (None)" in the top right corner. Click "New Project" and create a project based on the existing `urbn101` directory.
+
+<font color="#55b748">**Step 3:**</font> Open a `.R` script with the button in the top left. Save the script as `02_data-management.R`.
+
+<font color="#55b748">**Step 4:**</font> If you have not previously installed `library(tidyverse)`: submit `install.packages("tidyverse")` to the Console.
+
+<font color="#55b748">**Step 5:**</font> Write `library(tidyverse)` at the top of `02_data-management.R`. With the cursor on the line of text, click Control-Enter.
+
+
+# Exercise 1
+
+<font color="#55b748">**Step 1:**</font> Assign the `storms` dataset to be called storms. Submit `View(storms)` in the console.
+
+<font color="#55b748">**Step 2:**</font> Create a new dataset with all the variables except for `ts_diameter` and `hu_diameter`, by using `select` and `-`.
+
+
+<font color="#55b748">**Step 3:**</font> Create a new dataset that includes category 5 storms using  `filter()`.
+
+<font color="#55b748">**Step 4:**</font> Chain all three of these commands together with the `%>%` operator.
+
+<font color="#ec008b">**Filter and select**</font>
+
+`select()` is used when you want to limit the number of **columns** in your dataframe. `filter()` is used when you want to limit the number observations in your dataframe, bsaed on certain criteria.
+
+<font color="#ec008b">**Rename**</font>
+
+The syntax for rename is:
+
+```
+dataset %>% 
+  rename(new_name = current_name)
+```
+
+This same syntax can be used inside `select()`, and you can rename and select variables simultanously.
+ 
+<font color="#55b748">**Step 5:**</font> `wind` is measured in knots. Convert `wind` into miles per hour. Each knot is equal to 1.15078 miles per hour.
+
+<font color="#ec008b">**Mutate**</font>
+
+`mutate()` can make new variables and edit existing variables. New variables are always added to the end of the dataframe. You can use arithmetic arguments, such as `+`, `-`, `*`, `/`, and `^`. 
+
+<font color="#55b748">**Step 6:**</font> Use `summarize()` to find the average wind speed (in MPH) of a category 5 storm.
+
+
+# Exercise 2 
+
+<font color="#55b748">**Step 1:**</font> Use the `txhousing` dataset. Assign the dataset to an object in your global environment.
+
+<font color="#55b748">**Step 2:**</font> Compute a new variable, `average_price` by dividing `volume` by `sales`.
+
+<font color="#55b748">**Step 3:**</font> Use `ifelse()` to create a variable called `flag` that is 1 if the average sales price is larger than the median sales price.
+
+<font color="#ec008b">**If/then logic**</font>
+
+`ifelse()` is an important tool in combination with `mutate()`. It employs if-then logic: the first argument is a binary statement. The second statement says what to do if the first argument is evaluated to `TRUE`- the third is what to do if it is `FALSE` This is particularly useful for creating dummy or indicator variables.
+When you have more than two possible outcomes, it is more efficient to use `case_when()`.
+
+<font color="#55b748">**Step 3a:**</font> Type `?case_when` into the console.
+
+<font color="#55b748">**Step 4:**</font> Type the following code into your script.
+
+```
+txhousing %>% 
+  group_by(year) %>% 
+  summarize(yearly_sales = sum(sales))
+```
+
+<font color="#55b748">**Step 5:**</font> Add the argument `na.rm = TRUE` to the `sum()` function and rerun the code. Add a comment to explain the code.
+
+<font color="#55b748">**Step 6:**</font> Sort the results of the previous code in order from most to least sales by adding ` %>% arrange(desc(yearly_sales))` to the end of the code.
+
+<font color="#55b748">**Step 7a:**</font> Which county had the most home sales in January 2008? (Hint: use `filter()` and `arrange()`).
+
+<font color="#55b748">**Step 7b:**</font> Which county had the least home sales in 2006? (Hint: group by the county and the year- then use `summarize()`).
+
+<font color="#55b748">**BONUS:**</font> Plot the number of annual home sales over time!
+
+# Resources
+
+* [R for Data Science: data transformation](https://r4ds.had.co.nz/transform.html)

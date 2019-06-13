@@ -24,6 +24,7 @@ output:
 
 * assignment operator
 * functions
+* tidy data
 
 # Motivation 
 
@@ -54,7 +55,7 @@ Source: [R for data science](https://r4ds.had.co.nz/transform.html)
 `%>%`
 
 The pipe operator allows you to string together a set of different functions.
-Functionally, the first argument in the next function you are using will be replaced with what precedes `%>%`
+The first argument in the next function you are using will be replaced with what precedes `%>%`
 
 # Exercise 0
 
@@ -84,7 +85,7 @@ If you are using a different computer or didn't attend last Friday's session, fo
 
 <font color="#ec008b">**Filter and select**</font>
 
-`select()` is used when you want to limit the number of **columns** in your dataframe. `filter()` is used when you want to limit the number observations in your dataframe, bsaed on certain criteria.
+`select()` is used when you want to limit the number of **columns** in your dataframe. The arguments after the dataframe should be names of columns, without quotes. `filter()` is used when you want to limit the number observations in your dataframe, based on certain criteria. Filter works with comparison
 
 <font color="#ec008b">**Rename**</font>
 
@@ -104,6 +105,23 @@ This same syntax can be used inside `select()`, and you can rename and select va
 `mutate()` can make new variables and edit existing variables. New variables are always added to the end of the dataframe. You can use arithmetic arguments, such as `+`, `-`, `*`, `/`, and `^`. 
 
 <font color="#55b748">**Step 6:**</font> Use `summarize()` to find the average wind speed (in MPH) of a category 5 storm.
+
+
+<font color="#55b748">**Step 7:**</font> Make a dataset with storms that occured in the summer (June, July, August).
+
+<font color="#ec008b">**The `%>%` operator**</font>
+
+The `%in%` operator is useful for filtering based on more than one option within one variable. 
+
+```
+filter(dataset, var1 == "a" | var1 == "b" | var1 == "c")
+```
+
+is equivalent to 
+
+```
+filter(dataset, var1 %in% c("a", "b", "c"))
+```
 
 
 # Exercise 2 
@@ -139,6 +157,22 @@ txhousing %>%
 
 <font color="#55b748">**BONUS:**</font> Plot the number of annual home sales over time!
 
+
+# Exercise 3
+
+<font color="#55b748">**Step 1:**</font> Use the `starwars` dataframe. Type `count(starwars, homeworld)` into your script.
+
+<font color="#55b748">**Step 2:**</font> Repeat the first exercise, but first filter out any characters that have a missing `homeworld`.
+
+<font color="#55b748">**Step 3:**</font> Find the average and median height and mass for humans vs. droids. (Hint: use `group_by()` and `summarize()`). Make sure that you are correcting for observations with missing values!
+
+<font color="#55b748">**Step 4:**</font> Make a dummy variable called `droid` that is `1` for droids and `0` for humans. Make a variable called `tall` that is `1` if the characters are more than 200 cm tall. How many tall humans are there? 
+
+<font color="#55b748">**Step 5:**</font> What is the most common skin color for droids? 
+
+
+
 # Resources
 
 * [R for Data Science: data transformation](https://r4ds.had.co.nz/transform.html)
+* [Data wrangling cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)

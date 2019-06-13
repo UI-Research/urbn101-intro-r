@@ -11,7 +11,8 @@ These are the materials for *Intro to R: A hands-on tutorial*, a nine class R tr
 ## Homework
 
 * [Day 1: Data visualization](https://ui-research.github.io/urbn101-intro-r/homework/01_homework)
-* [day 2: Data management](https://ui-research.github.io/urbn101-intro-r/homework/02_homework)
+* [Day 2: Data management](https://ui-research.github.io/urbn101-intro-r/homework/02_homework)
+
 
 ## Instructors
 

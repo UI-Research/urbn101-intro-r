@@ -14,6 +14,11 @@ output:
       chunk_output_type: console
 ---
 
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
 # Review
 

@@ -308,7 +308,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 2: data management</h1>
 <h4 class="author">Sarah Strochak (HFPC)</h4>
-<h4 class="date">June 12, 2019 15:45</h4>
+<h4 class="date">June 13, 2019 09:22</h4>
 
 </div>
 
@@ -318,6 +318,7 @@ div.tocify {
 <ul>
 <li>assignment operator</li>
 <li>functions</li>
+<li>tidy data</li>
 </ul>
 </div>
 <div id="motivation" class="section level1">
@@ -346,7 +347,7 @@ div.tocify {
 <div id="the-pipe-operator" class="section level1">
 <h1><span class="header-section-number">4</span> The pipe operator</h1>
 <p><code>%&gt;%</code></p>
-<p>The pipe operator allows you to string together a set of different functions. Functionally, the first argument in the next function you are using will be replaced with what precedes <code>%&gt;%</code></p>
+<p>The pipe operator allows you to string together a set of different functions. The first argument in the next function you are using will be replaced with what precedes <code>%&gt;%</code></p>
 </div>
 <div id="exercise-0" class="section level1">
 <h1><span class="header-section-number">5</span> Exercise 0</h1>
@@ -364,7 +365,7 @@ div.tocify {
 <p><font color="#55b748"><strong>Step 3:</strong></font> Create a new dataset that includes category 5 storms using <code>filter()</code>.</p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Chain all three of these commands together with the <code>%&gt;%</code> operator.</p>
 <p><font color="#ec008b"><strong>Filter and select</strong></font></p>
-<p><code>select()</code> is used when you want to limit the number of <strong>columns</strong> in your dataframe. <code>filter()</code> is used when you want to limit the number observations in your dataframe, bsaed on certain criteria.</p>
+<p><code>select()</code> is used when you want to limit the number of <strong>columns</strong> in your dataframe. The arguments after the dataframe should be names of columns, without quotes. <code>filter()</code> is used when you want to limit the number observations in your dataframe, based on certain criteria. Filter works with comparison</p>
 <p><font color="#ec008b"><strong>Rename</strong></font></p>
 <p>The syntax for rename is:</p>
 <pre><code>dataset %&gt;% 
@@ -374,6 +375,12 @@ div.tocify {
 <p><font color="#ec008b"><strong>Mutate</strong></font></p>
 <p><code>mutate()</code> can make new variables and edit existing variables. New variables are always added to the end of the dataframe. You can use arithmetic arguments, such as <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, and <code>^</code>.</p>
 <p><font color="#55b748"><strong>Step 6:</strong></font> Use <code>summarize()</code> to find the average wind speed (in MPH) of a category 5 storm.</p>
+<p><font color="#55b748"><strong>Step 7:</strong></font> Make a dataset with storms that occured in the summer (June, July, August).</p>
+<p><font color="#ec008b"><strong>The <code>%&gt;%</code> operator</strong></font></p>
+<p>The <code>%in%</code> operator is useful for filtering based on more than one option within one variable.</p>
+<pre><code>filter(dataset, var1 == &quot;a&quot; | var1 == &quot;b&quot; | var1 == &quot;c&quot;)</code></pre>
+<p>is equivalent to</p>
+<pre><code>filter(dataset, var1 %in% c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))</code></pre>
 </div>
 <div id="exercise-2" class="section level1">
 <h1><span class="header-section-number">7</span> Exercise 2</h1>
@@ -393,10 +400,19 @@ div.tocify {
 <p><font color="#55b748"><strong>Step 7b:</strong></font> Which county had the least home sales in 2006? (Hint: group by the county and the year- then use <code>summarize()</code>).</p>
 <p><font color="#55b748"><strong>BONUS:</strong></font> Plot the number of annual home sales over time!</p>
 </div>
+<div id="exercise-3" class="section level1">
+<h1><span class="header-section-number">8</span> Exercise 3</h1>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>starwars</code> dataframe. Type <code>count(starwars, homeworld)</code> into your script.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Repeat the first exercise, but first filter out any characters that have a missing <code>homeworld</code>.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Find the average and median height and mass for humans vs. droids. (Hint: use <code>group_by()</code> and <code>summarize()</code>). Make sure that you are correcting for observations with missing values!</p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Make a dummy variable called <code>droid</code> that is <code>1</code> for droids and <code>0</code> for humans. Make a variable called <code>tall</code> that is <code>1</code> if the characters are more than 200 cm tall. How many tall humans are there?</p>
+<p><font color="#55b748"><strong>Step 5:</strong></font> What is the most common skin color for droids?</p>
+</div>
 <div id="resources" class="section level1">
-<h1><span class="header-section-number">8</span> Resources</h1>
+<h1><span class="header-section-number">9</span> Resources</h1>
 <ul>
 <li><a href="https://r4ds.had.co.nz/transform.html">R for Data Science: data transformation</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Data wrangling cheat sheet</a></li>
 </ul>
 </div>
 

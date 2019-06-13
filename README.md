@@ -1,5 +1,7 @@
 # urbn101
 
+These are the materials for *Intro to R: A hands-on tutorial*, a nine class R training hosted by the Urban Institute R Users Group.
+
 ## Lessons
 
 * [Day 0: Intro to statistical programming](https://ui-research.github.io/urbn101-intro-r/lessons/00_intro-to-statistical-programming#/intro-to-r-a-hands-on-tutorial)

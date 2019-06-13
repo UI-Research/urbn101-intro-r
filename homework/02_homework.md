@@ -11,7 +11,6 @@ Find the mean, median, maximum, and minimum of `x <- c(1, pi, exp(9), sqrt(2), s
 ## Problem 3
 
 Try searching for `|` with `?|`. What happens? Try again, but wrap `|` in back-ticks.  
-
 ## Problem 4
 
 Create a new data set from the `diamonds` data set where the variable `clarity` always equals `SI2`. How many observations are in this data set? Now, drop `x`, `y`, and `z` from this data set. How many variables are in this data set?

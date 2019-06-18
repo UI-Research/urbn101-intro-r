@@ -1,0 +1,84 @@
+---
+title: "Day 4: R programming"
+author: "Aaron R. Williams (IBP)"
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+output:
+  html_document:
+    number_sections: TRUE
+    self_contained: TRUE
+    code_folding: hide
+    toc: TRUE
+    toc_float: TRUE
+    css: ../www/web_report.css
+    editor_options:
+      chunk_output_type: console
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+# Review
+
+
+
+# Motivation
+
+
+# Math functions
+
+## Vectors
+
+
+
+```{r}
+library(tidyverse)
+
+msleep$sleep_total
+
+msleep %>%
+  pull(sleep_total)
+```
+
+## Functions
+
+```{r}
+mean(msleep$sleep_total)
+
+quantile(msleep$sleep_total, prob = c(0.1, 0.2))
+```
+
+<font color="#55b748">**Step 1:**</font> Open up a script, save it with a meaningful name, and load the tidyverse.
+
+<font color="#55b748">**Step 2:**</font> Find the mean of `sleep_rem` from the `msleep` data set.
+
+<font color="#55b748">**Step 3:**</font> Find the 25th, 37th, and 92nd percentiles of `awake` from `msleep` with one function call.
+
+# Custom functions
+
+"You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)." ~ R4DS
+
+
+```
+function_name <- function(arg1, arg2 = default) {
+
+}
+```
+
+# String manipulation
+
+
+# System commands
+
+
+# Conditional logic
+
+# Friday: data merges
+
+
+
+# Resources
+
+

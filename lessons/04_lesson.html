@@ -68,6 +68,8 @@ overflow: auto;
 margin-left: 2%;
 position: fixed;
 border: 1px solid #ccc;
+webkit-border-radius: 6px;
+moz-border-radius: 6px;
 border-radius: 6px;
 }
 
@@ -95,14 +97,9 @@ font-size: 12px;
 .tocify-subheader .tocify-subheader {
 text-indent: 30px;
 }
+
 .tocify-subheader .tocify-subheader .tocify-subheader {
 text-indent: 40px;
-}
-.tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader {
-text-indent: 50px;
-}
-.tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader {
-text-indent: 60px;
 }
 
 .tocify .tocify-item > a, .tocify .nav-list .nav-header {
@@ -506,13 +503,13 @@ float: none;
 
           item.append($("<a/>", {
 
-            "html": self.html()
+            "text": self.text()
 
           }));
 
         } else {
 
-          item.html(self.html());
+          item.text(self.text());
 
         }
 
@@ -1388,59 +1385,7 @@ h6 {
 }
 </style>
 
-<style type="text/css">body{
-font-family: 'Lato', sans-serif;
-}
-.container-fluid {
-font-family: Lato;
-}
-
-h1 {
-color: #1696d2;
-}
-.navbar {
-background-color: #1696d2;
-color: #ffffff;
-font-weight: bold;
-}
-.navbar-default .navbar-brand {
-color: #FFFFFF;
-}
-.navbar-default .navbar-nav>li>a {
-color: #FFFFFF;
-}
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
-color: #1696d2;
-background-color: #FFFFFF;
-}
-
-.main-container {
-font-family: Lato;
-}
-
-.a {
-color: #1696d2;
-}
-
-#header {
-padding-top: 12px;
-}
-
-.list-group-item.active {
-background-color: #1696d2;
-border-color: #1696d2;
-}
-.list-group-item.active:hover {
-background-color: #000000;
-border-color: #000000;
-}
-.tocify {
-border-radius: 0;
-}
-
-.btn {
-border-radius: 0;
-}</style>
+<style type="text/css">body{font-family: 'Lato', sans-serif;}.container-fluid {font-family: Lato;}h1 {color: #1696d2;}.navbar {background-color: #1696d2;color: #ffffff;font-weight: bold;}.navbar-default .navbar-brand {color: #FFFFFF;}.navbar-default .navbar-nav>li>a {color: #FFFFFF;}.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {color: #1696d2;background-color: #FFFFFF;}.main-container {font-family: Lato;}.a {color: #1696d2;}#header {padding-top: 12px;}.list-group-item.active {background-color: #1696d2;border-color: #1696d2;}.list-group-item.active:hover {background-color: #000000;border-color: #000000;}.tocify {border-radius: 0;}.btn {border-radius: 0;}</style>
 
 
 
@@ -1628,6 +1573,8 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -1673,7 +1620,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 4: R programming</h1>
 <h4 class="author">Aaron R. Williams (IBP)</h4>
-<h4 class="date">June 18, 2019 08:19</h4>
+<h4 class="date">June 18, 2019 10:21</h4>
 
 </div>
 
@@ -1697,14 +1644,6 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <li>How do we create an indicator variable with <code>mutate()</code>?</li>
 </ul>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.2.0     ✔ purrr   0.3.2
-## ✔ tibble  2.1.3     ✔ dplyr   0.8.1
-## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
-## ✔ readr   1.3.1     ✔ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="motivation" class="section level1">
 <h1><span class="header-section-number">2</span> Motivation</h1>
@@ -1724,17 +1663,17 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <pre><code>## # A tibble: 83 x 11
 ##    name  genus vore  order conservation sleep_total sleep_rem sleep_cycle
 ##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1 chee… Acin… carni Carn… lc                  12.1      NA        NA    
-##  2 owl … Aotus omni  Prim… &lt;NA&gt;                17         1.8      NA    
-##  3 moun… Aplo… herbi Rode… nt                  14.4       2.4      NA    
-##  4 grea… Blar… omni  Sori… lc                  14.9       2.3       0.133
-##  5 cow   Bos   herbi Arti… domesticated         4         0.7       0.667
-##  6 thre… Brad… herbi Pilo… &lt;NA&gt;                14.4       2.2       0.767
-##  7 nort… Call… carni Carn… vu                   8.7       1.4       0.383
-##  8 vesp… Calo… &lt;NA&gt;  Rode… &lt;NA&gt;                 7        NA        NA    
-##  9 dog   Canis carni Carn… domesticated        10.1       2.9       0.333
-## 10 roe … Capr… herbi Arti… lc                   3        NA        NA    
-## # … with 73 more rows, and 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;,
+##  1 chee~ Acin~ carni Carn~ lc                  12.1      NA        NA    
+##  2 owl ~ Aotus omni  Prim~ &lt;NA&gt;                17         1.8      NA    
+##  3 moun~ Aplo~ herbi Rode~ nt                  14.4       2.4      NA    
+##  4 grea~ Blar~ omni  Sori~ lc                  14.9       2.3       0.133
+##  5 cow   Bos   herbi Arti~ domesticated         4         0.7       0.667
+##  6 thre~ Brad~ herbi Pilo~ &lt;NA&gt;                14.4       2.2       0.767
+##  7 nort~ Call~ carni Carn~ vu                   8.7       1.4       0.383
+##  8 vesp~ Calo~ &lt;NA&gt;  Rode~ &lt;NA&gt;                 7        NA        NA    
+##  9 dog   Canis carni Carn~ domesticated        10.1       2.9       0.333
+## 10 roe ~ Capr~ herbi Arti~ lc                   3        NA        NA    
+## # ... with 73 more rows, and 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;,
 ## #   bodywt &lt;dbl&gt;</code></pre>
 <p>Base R and some R tasks require vectors instead of data frames. We’ll focus on two main methods of pulling vectors frome data frames and a method for creating a vector from scratch.</p>
 <pre class="r"><code># $ operator
@@ -1815,6 +1754,7 @@ square()</code></pre>
 <pre><code>## [1] 4</code></pre>
 <pre class="r"><code>square(x = 4)</code></pre>
 <pre><code>## [1] 16</code></pre>
+<p><strong>Note:</strong> Use tidyverse functions inside of custom functions often requires non-standard evaluation. Please reach out for help when thsi is your goal.</p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Write a function called <code>multiply_xy()</code> that takes arguments <code>x</code> and <code>y</code> and multiplies them together.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Add your favorite number as the default for <code>x</code> and your least favorite number as the default for <code>y</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Call the function and overwrite the default for <code>y</code> with your favorite number.</p>
@@ -1847,11 +1787,96 @@ paste0(&quot;data/&quot;, names, &quot;.csv&quot;)</code></pre>
 <pre><code>## [1] &quot;data/Kyle.csv&quot;  &quot;data/Sarah.csv&quot; &quot;data/Aaron.csv&quot;</code></pre>
 </div>
 </div>
-<div id="system-commands" class="section level1">
-<h1><span class="header-section-number">6</span> System commands</h1>
+<div id="system-functions" class="section level1">
+<h1><span class="header-section-number">6</span> System functions</h1>
+<p>R contains a full set of functions for managing the computer system.</p>
+<ul>
+<li><code>file.create()</code></li>
+<li><code>file.exists()</code></li>
+<li><code>file.remove()</code></li>
+<li><code>file.rename()</code></li>
+<li><code>file.copy()</code></li>
+<li><code>dir.create()</code></li>
+</ul>
+<pre><code>if (!file.exists(&quot;data/cps.csv&quot;)) {
+  download.file(&quot;https//:cps-download.gov&quot;, &quot;data/cps.csv&quot;)
+}</code></pre>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Check to see if you are in an R project. Use <code>file.exists()</code> to confirm that your <code>.R</code> script exists.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Use <code>file.rename()</code> to rename your R script.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>file.copy()</code> to duplicate your script and then delete the copy with <code>file.remove()</code>. CAREFUL! There is no undo button!</p>
 </div>
 <div id="conditional-logic" class="section level1">
 <h1><span class="header-section-number">7</span> Conditional logic</h1>
+<p>Conditional logic is a foundational concept in computer programming. We already used <code>ifelse()</code> and <code>case_when()</code> to create indicator variables and conditional variables. Sometimes it’s also useful to run entire chunks of code conditionally.</p>
+<pre><code>if () {
+
+} else if () {
+
+} else {
+
+}</code></pre>
+<p>Three ingredients</p>
+<ul>
+<li>Conditional predicate (<code>if</code>, <code>else if</code>, <code>else</code>)</li>
+<li>Conditional statement (<code>==</code>, <code>&gt;</code>, <code>&lt;</code>, <code>%in%</code>)</li>
+<li>Code body</li>
+</ul>
+<pre class="r"><code>urbnmapr::get_urbn_map</code></pre>
+<pre><code>## function (map = &quot;states&quot;, sf = FALSE) 
+## {
+##     if (sf == FALSE) {
+##         if (map == &quot;states&quot;) {
+##             urbnmapr::states
+##         }
+##         else if (map == &quot;counties&quot;) {
+##             urbnmapr::counties
+##         }
+##         else if (map == &quot;ccdf&quot;) {
+##             rbind(urbnmapr::states[!urbnmapr::states$state_name %in% 
+##                 c(&quot;Alaska&quot;, &quot;Hawaii&quot;, &quot;District of Columbia&quot;), 
+##                 ], ccdf)
+##         }
+##         else if (map == &quot;territories_states&quot;) {
+##             rbind(urbnmapr::states[!urbnmapr::states$state_name %in% 
+##                 c(&quot;Alaska&quot;, &quot;Hawaii&quot;), ], territories)
+##         }
+##         else if (map == &quot;territories_counties&quot;) {
+##             rbind(urbnmapr::counties[!urbnmapr::counties$state_name %in% 
+##                 c(&quot;Alaska&quot;, &quot;Hawaii&quot;), ], territories_counties)
+##         }
+##         else {
+##             stop(&quot;Invalid &#39;map&#39; argument. Valid maps are: &quot;, 
+##                 &quot;states, counties, ccdf, territories_states, and territories_counties.&quot;, 
+##                 call. = FALSE)
+##         }
+##     }
+##     else if (sf == TRUE) {
+##         if (map == &quot;states&quot;) {
+##             states_sf
+##         }
+##         else if (map == &quot;counties&quot;) {
+##             counties_sf
+##         }
+##         else if (map == &quot;ccdf&quot;) {
+##             stop(&quot;SF option not available for CCDF map&quot;)
+##         }
+##         else if (map == &quot;territories_states&quot;) {
+##             rbind(states_sf[!states_sf$state_name %in% c(&quot;Alaska&quot;, 
+##                 &quot;Hawaii&quot;), ], territories_sf)
+##         }
+##         else if (map == &quot;territories_counties&quot;) {
+##             rbind(counties_sf[!counties_sf$state_name %in% c(&quot;Alaska&quot;, 
+##                 &quot;Hawaii&quot;), ], territories_counties_sf)
+##         }
+##         else {
+##             stop(&quot;Invalid &#39;map&#39; argument. Valid maps are: &quot;, 
+##                 &quot;states, counties, ccdf, territories_states, and territories_counties.&quot;, 
+##                 call. = FALSE)
+##         }
+##     }
+## }
+## &lt;bytecode: 0x000000000c4037f0&gt;
+## &lt;environment: namespace:urbnmapr&gt;</code></pre>
 </div>
 <div id="friday-data-merges" class="section level1">
 <h1><span class="header-section-number">8</span> Friday: data merges</h1>

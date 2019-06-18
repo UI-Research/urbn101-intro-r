@@ -6,7 +6,7 @@ output:
   html_document:
     number_sections: TRUE
     self_contained: TRUE
-    code_folding: hide
+    code_folding: show
     toc: TRUE
     toc_float: TRUE
     css: ../www/web_report.css
@@ -22,32 +22,76 @@ output:
 
 # Review
 
-
-
-# Motivation
-
-
-# Math functions
-
-## Vectors
-
-
+* What is `<-` and why do we use it?
+* What is tidy data?
+* How do we create an indicator variable with `mutate()`?
 
 ```{r}
 library(tidyverse)
-
-msleep$sleep_total
-
-msleep %>%
-  pull(sleep_total)
 ```
 
-## Functions
+# Motivation
+
+* R contains a rich set of flexible tools for progamming.
+* Most programs in R are the combination of relatively simple concepts.
+* Survey of building blocks for R programming.
+
+# Math operations
+
+## Vectors
+
+Until now, we've mostly focused on data frames. Functions like `filter()` and `mutate()` all take data frames as arguments and can accept vectors in arguments without re-referencing their data frame.
+
+```{r}
+msleep %>%
+  mutate(name = tolower(name))
+```
+
+Base R and some R tasks require vectors instead of data frames. We'll focus on two main methods of pulling vectors frome data frames and a method for creating a vector from scratch.
+
+```{r}
+# $ operator
+msleep$sleep_total
+
+# pull()
+msleep %>%
+  pull(sleep_total)
+
+# review: build your own vector
+c(8, 10, 1000, pi)
+```
+
+## Math functions
+
+R contains many functions for common mathematical operations. 
+
+* `sum()` = $\sum_{i = 1}^n x_i$
+* `prod()` = $\Pi_{i = 1}^n x_i$
+* `mean()`
+* `var()`
+* `sd()`
+* `cov()`
+* `cor()`
+* `median()`
+* `min()`
+* `max()`
+
+Math functions in R expect vectors. We can use them in `summarize()` without the above syntax.
+
+```{r}
+summarize(msleep, max(sleep_total))
+```
+
+We can also use math functions with the following syntax.
 
 ```{r}
 mean(msleep$sleep_total)
 
-quantile(msleep$sleep_total, prob = c(0.1, 0.2))
+msleep %>%
+  pull(sleep_total) %>%
+  median()
+
+min(c(8, 10, 1000, pi))
 ```
 
 <font color="#55b748">**Step 1:**</font> Open up a script, save it with a meaningful name, and load the tidyverse.
@@ -58,17 +102,76 @@ quantile(msleep$sleep_total, prob = c(0.1, 0.2))
 
 # Custom functions
 
-"You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)." ~ R4DS
+Sometimes functions don't exist for desired calculations or we want to combine many calculations into one function to reduce copying-and-pasting. 
 
+"You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)." ~ [R4DS](https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function)
+
+R has a flexible function system.
 
 ```
 function_name <- function(arg1, arg2 = default) {
-
+  # function body
 }
 ```
 
+Three ingredients
+
+* Function name - usually verbs
+* Function arguments - inputs to the function (optional)
+* Function body
+
+```{r}
+square <- function(x = 2) {
+  x ^ 2
+}
+
+square()
+
+square(x = 4)
+```
+
+<font color="#55b748">**Step 1:**</font> Write a function called `multiply_xy()` that takes arguments `x` and `y` and multiplies them together. 
+
+<font color="#55b748">**Step 2:**</font> Add your favorite number as the default for `x` and your least favorite number as the default for `y`.
+
+<font color="#55b748">**Step 3:**</font> Call the function and overwrite the default for `y` with your favorite number.
+
 # String manipulation
 
+Character variables contain strings that are important for many programing tasks like person names, managing hundreds of `.csv` files, or analyzing text.  
+
+We often want to perform operations on these strings.
+
+## paste0()
+
+```{r}
+paste("apples", "and", "oranges")
+
+directory <- "data/"
+file_name <- "criminal-justice.csv"
+paste0(directory, file_name)
+
+```
+
+<font color="#55b748">**Step 1:**</font> Combine your first name, middle initial, and last name into one text string.
+
+## library(stringr)
+
+`paste()` and `paste0()` are two of many functions for string manipulation. 
+
+`library(stringr)` is a nearly comprehensive set of functions and tools for string manipulation. 
+
+
+
+## Vectorized
+
+String functions are mostly vectorized. So iterating a function on each object is painless. 
+
+```{r}
+names <- c("Kyle", "Sarah", "Aaron")
+
+paste0("data/", names, ".csv")
+```
 
 # System commands
 
@@ -76,8 +179,6 @@ function_name <- function(arg1, arg2 = default) {
 # Conditional logic
 
 # Friday: data merges
-
-
 
 # Resources
 

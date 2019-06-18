@@ -1,0 +1,297 @@
+---
+title: "Day 3: R programming"
+author: "Aaron R. Williams (IBP)"
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+output:
+  html_document:
+    number_sections: TRUE
+    code_folding: show
+    toc: TRUE
+    toc_float: TRUE
+    css: ../www/web_report.css
+    editor_options:
+      chunk_output_type: console
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+# Review
+
+* What is `<-` and why do we use it?
+* What is tidy data?
+* How do we create an indicator variable with `mutate()`?
+
+```{r message = FALSE}
+library(tidyverse)
+```
+
+# Motivation
+
+* R contains a rich set of flexible tools for programming.
+* Most programs in R are the combination of relatively simple concepts.
+* Survey of building blocks for R programming.
+
+# Math operations
+
+## Vectors
+
+Until now, we've mostly focused on data frames. Functions like `filter()` and `mutate()` all take data frames as arguments and can accept vectors in arguments without re-referencing their data frame.
+
+### Example
+
+```{r}
+msleep %>%
+  mutate(name = tolower(name))
+```
+
+Base R and some R tasks require vectors instead of data frames. We'll focus on two main methods of pulling vectors from data frames and a method for creating a vector from scratch.
+
+### Example
+
+```{r}
+# $ operator
+msleep$sleep_total
+```
+
+### Example
+
+```{r}
+# pull()
+msleep %>%
+  pull(sleep_total)
+```
+
+### Example
+
+```{r}
+# review: build your own vector
+c(8, 10, 1000, pi)
+```
+
+## Math functions
+
+R contains many functions for common mathematical operations. 
+
+* `sum()` = $\sum_{i = 1}^n x_i$
+* `prod()` = $\Pi_{i = 1}^n x_i$
+* `mean()`
+* `var()`
+* `sd()`
+* `cov()`
+* `cor()`
+* `median()`
+* `min()`
+* `max()`
+
+Math functions in R expect vectors. We can use them in `summarize()` without the above syntax.
+
+### Example
+
+```{r}
+summarize(msleep, max(sleep_total))
+```
+
+### Example
+
+We can also use math functions with the following syntax.
+
+```{r}
+mean(msleep$sleep_total)
+
+msleep %>%
+  pull(sleep_total) %>%
+  median()
+
+min(c(8, 10, 1000, pi))
+```
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Open up a script, save it with a meaningful name, and load the tidyverse.
+
+<font color="#55b748">**Step 2:**</font> Find the mean of `sleep_rem` from the `msleep` data set.
+
+<font color="#55b748">**Step 3:**</font> Find the 25th, 37th, and 92nd percentiles of `awake` from `msleep` with one function call.
+
+# Custom functions
+
+Sometimes functions don't exist for desired calculations or we want to combine many calculations into one function to reduce copying-and-pasting. 
+
+"You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)." ~ [R4DS](https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function)
+
+R has a flexible function system.
+
+```
+function_name <- function(arg1, arg2 = default) {
+  # function body
+}
+```
+
+Three ingredients
+
+* Function name - usually verbs
+* Function arguments - inputs to the function (optional)
+* Function body
+
+### Example
+
+```{r}
+square <- function(x = 2) {
+  x ^ 2
+}
+
+square()
+
+square(x = 4)
+```
+
+**Note:** Use tidyverse functions inside of custom functions often requires non-standard evaluation. Please reach out for help when this is your goal. 
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Write a function called `multiply_xy()` that takes arguments `x` and `y` and multiplies them together. 
+
+<font color="#55b748">**Step 2:**</font> Add your favorite number as the default for `x` and your least favorite number as the default for `y`.
+
+<font color="#55b748">**Step 3:**</font> Call the function and overwrite the default for `y` with your favorite number.
+
+### Example
+
+```{r}
+plot_cat <- function(cat) {
+  
+  storms %>%
+    filter(category == cat) %>%
+    ggplot(mapping = aes(pressure, wind)) +
+    geom_point() +
+    scale_y_continuous(limits = c(0, NA))
+}
+  
+plot_cat(cat = 1)
+plot_cat(cat = 5)
+```
+
+# String manipulation
+
+Character variables contain strings that are important for many programming tasks like person names, managing hundreds of `.csv` files, or analyzing text.  
+
+We often want to perform operations on these strings.
+
+## paste0()
+
+### Example
+
+```{r}
+paste("apples", "and", "oranges")
+
+directory <- "data/"
+file_name <- "criminal-justice.csv"
+paste0(directory, file_name)
+
+```
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Combine your first name, middle initial, and last name into one text string.
+
+## library(stringr)
+
+`paste()` and `paste0()` are two of many functions for string manipulation. 
+
+`library(stringr)` is a nearly comprehensive set of functions and tools for string manipulation. 
+
+
+## Vectorized
+
+### Example
+
+String functions are mostly vectorized. So iterating a function on each object is painless. 
+
+```{r}
+names <- c("Kyle", "Sarah", "Aaron")
+
+paste0("data/", names, ".csv")
+```
+
+# System functions
+
+R contains a full set of functions for managing the computer system. 
+
+* `file.create()`
+* `file.exists()`
+* `file.remove()`
+* `file.rename()`
+* `file.copy()`
+* `dir.create()`
+
+### Example
+
+```
+if (!file.exists("data/cps.csv")) {
+  download.file("https//:cps-download.gov", "data/cps.csv")
+}
+```
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Check to see if you are in an R project. Use `file.exists()` to confirm that your `.R` script exists.  
+
+<font color="#55b748">**Step 2:**</font> Use `file.rename()` to rename your R script. 
+
+<font color="#55b748">**Step 3:**</font> Use `file.copy()` to duplicate your script and then delete the copy with `file.remove()`. CAREFUL! There is no undo button!
+
+# Conditional logic
+
+Conditional logic is an important concept in computer programming. We already used `ifelse()` and `case_when()` to create indicator variables and conditional variables. Sometimes it's also useful to run entire chunks of code conditionally.
+
+```
+if () {
+
+} else if () {
+
+} else {
+
+}
+```
+
+Three ingredients
+
+* Conditional predicate (`if`, `else if`, `else`)
+* Conditional statement (`==`, `>`, `<`, `%in%`)
+* Code body
+
+### Example
+
+```{r}
+x <- 1000
+
+if (x > 999) {
+  "x is big"
+} else {
+  "x is small"
+}
+```
+
+### Example
+
+```{r}
+urbnmapr::get_urbn_map
+```
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Create a custom function called `is_it_me` with one argument called `name`.
+
+<font color="#55b748">**Step 2:**</font> Create a conditional control structure with `if` and `else`. 
+
+<font color="#55b748">**Step 3:**</font> If `name ==` your name then return "It's me!". If `name != ` your name then return "It's not me!". 
+
+# Friday: data merges
+
+# Resources
+
+* [R4DS: functions](https://r4ds.had.co.nz/functions.html)

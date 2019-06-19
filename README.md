@@ -7,6 +7,8 @@ These are the materials for *Intro to R: A hands-on tutorial*, a nine class R tr
 * [Day 0: Intro to statistical programming](https://ui-research.github.io/urbn101-intro-r/lessons/00_intro-to-statistical-programming#/intro-to-r-a-hands-on-tutorial)
 * [Day 1: Data visualization](https://ui-research.github.io/urbn101-intro-r/lessons/01_lesson)
 * [Day 2: Data management](https://ui-research.github.io/urbn101-intro-r/lessons/02_lesson)
+* [Day 3: R programming](https://ui-research.github.io/urbn101-intro-r/lessons/03_lesson)
+* [Day 4: Data import](https://ui-research.github.io/urbn101-intro-r/lessons/04_lesson)
 
 ## Homework
 
@@ -17,5 +19,5 @@ These are the materials for *Intro to R: A hands-on tutorial*, a nine class R tr
 ## Instructors
 
 * Sarah Strochak (HFPC)
-* Kyle Ueyama (TDS)
+* Kyle Ueyama (TECH)
 * Aaron R. Williams (IBP)

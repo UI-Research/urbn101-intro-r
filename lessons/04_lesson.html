@@ -11,6 +11,7 @@
 
 <meta name="author" content="Kyle Ueyama (TECH)" />
 
+<meta name="date" content="2019-06-20" />
 
 <title>Day 4: Data Import</title>
 
@@ -1620,7 +1621,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 4: Data Import</h1>
 <h4 class="author">Kyle Ueyama (TECH)</h4>
-<h4 class="date">June 19, 2019 12:27</h4>
+<h4 class="date">June 20, 2019</h4>
 
 </div>
 
@@ -1640,6 +1641,8 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <h1><span class="header-section-number">1</span> Review</h1>
 <ul>
 <li><p>What is tidy data?</p></li>
+<li><p>What is a file path?</p></li>
+<li><p>What is an R Studio Project?</p></li>
 <li><p>Stay DRY: if you find yourself copying and pasting chunks of code, write a function instead.</p></li>
 <li><p>Writing functions that use capabilities of the <code>tidyverse</code> can be tricky due to something called Nonstandard Evaluation - feel free to ask any of us for help!</p></li>
 </ul>
@@ -1656,7 +1659,7 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <p>We’ll be using three packages from the <code>tidyverse</code> for data import and export. These three should cover just about all of your use cases at Urban.</p>
 <ul>
 <li><code>readr</code> - for plain text files</li>
-<li><code>readxl</code> - for Excel files</li>
+<li><code>readxl</code> - for Excel files (<code>.xlsx</code>, <code>.xls</code>)</li>
 <li><code>haven</code> - for SAS, SPSS, and Stata data formats</li>
 </ul>
 <p>One note - while all three packages are installed with the <code>tidyverse</code>, only <code>readr</code> is loaded when you run <code>library(tidyverse)</code> in your R session. The other packages must be loaded separately.</p>
@@ -1668,7 +1671,7 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <li><code>readr::read_csv()</code>, <code>readr::write_csv()</code></li>
 <li><code>readr::read_delim()</code>, <code>readr::write_delim()</code></li>
 <li><code>readxl::read_excel()</code></li>
-<li><code>haven::read_sas()</code>, <code>haven::write_sas()</code></li>
+<li><code>haven::read_sas()</code></li>
 <li><code>haven::read_dta()</code>, <code>haven::write_dta</code></li>
 </ul>
 <p>For the simplest use cases, the various <code>read</code> functions will need just one argument: the path to the file you want to load.</p>
@@ -1680,7 +1683,7 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <h1><span class="header-section-number">5</span> Setup</h1>
 <div id="exercise" class="section level2">
 <h2><span class="header-section-number">5.1</span> Exercise</h2>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Open up a script, save it with a meaningful name, and load the <code>tidyverse</code>, <code>readxl</code>, and <code>haven</code>.</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Open up your RStudio project, open a R script, save it with a meaningful name, and load the <code>tidyverse</code>, <code>readxl</code>, and <code>haven</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Use the <code>dir.create()</code> function to create subfolders called <code>data</code> and <code>modified</code> in your R Project.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> We’ll be downloading a couple different datasets for today’s examples. Staying DRY, let’s rework Aaron’s example code from Tuesday into a function we can reuse. Copy and paste the following into your file. Make sure to run the code so the function becomes a part of your environment.</p>
 <pre class="r"><code>download_data &lt;- function(url, path) {
@@ -1783,6 +1786,7 @@ write_csv(ipeds_2011, &quot;modified/colleges_ipeds_completers_2011.csv&quot;)</
 </div>
 <div id="sas-data-.sas7bdat" class="section level2">
 <h2><span class="header-section-number">8.2</span> SAS Data (.sas7bdat)</h2>
+<p>Note that while the <code>write_sas()</code> function exists, it doesn’t appear to actually work at the current version of <code>haven</code>.</p>
 <div id="example-5" class="section level3">
 <h3><span class="header-section-number">8.2.1</span> Example</h3>
 <p>Download the 2017 1-year Public Use Microsample for Wyoming from the Census:</p>
@@ -1792,8 +1796,7 @@ write_csv(ipeds_2011, &quot;modified/colleges_ipeds_completers_2011.csv&quot;)</
 <div id="exercise-4" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> Exercise</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>read_sas()</code> function to load the SAS data set into your R session as an object named <code>pums</code>.</p>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Use the <code>write_sas()</code> function to save the GSS data in SAS format in your <code>modified</code> subfolder.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Use the <code>write_sas()</code> function to save the PUMS data in Stata format in your <code>modified</code> subfolder.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Use the <code>write_dta()</code> function to save the PUMS data in Stata format in your <code>modified</code> subfolder.</p>
 </div>
 </div>
 </div>

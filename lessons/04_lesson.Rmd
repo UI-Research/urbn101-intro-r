@@ -1,7 +1,7 @@
 ---
 title: 'Day 4: Data Import'
 author: "Kyle Ueyama (TECH)"
-date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
     number_sections: TRUE
@@ -24,6 +24,10 @@ output:
 
 * What is tidy data?
 
+* What is a file path?
+
+* What is an R Studio Project?
+
 * Stay DRY: if you find yourself copying and pasting chunks of code, write a 
 function instead.
 
@@ -44,7 +48,7 @@ We'll be using three packages from the `tidyverse` for data import and export.
 These three should cover just about all of your use cases at Urban.
 
 * `readr` - for plain text files
-* `readxl` - for Excel files
+* `readxl` - for Excel files (`.xlsx`, `.xls`)
 * `haven` - for SAS, SPSS, and Stata data formats
 
 One note - while all three packages are installed with the `tidyverse`, only 
@@ -60,7 +64,7 @@ for data export.
 * `readr::read_csv()`, `readr::write_csv()`
 * `readr::read_delim()`, `readr::write_delim()`
 * `readxl::read_excel()`
-* `haven::read_sas()`, `haven::write_sas()`
+* `haven::read_sas()`
 * `haven::read_dta()`, `haven::write_dta`
 
 For the simplest use cases, the various `read` functions will need just one 
@@ -81,8 +85,9 @@ write_csv(df, "path/to/your/modified/data.csv")
 
 ## Exercise
 
-<font color="#55b748">**Step 1:**</font> Open up a script, save it with a 
-meaningful name, and load the `tidyverse`, `readxl`, and `haven`.
+<font color="#55b748">**Step 1:**</font> Open up your RStudio project, open a R 
+script, save it with a meaningful name, and load the `tidyverse`, `readxl`, and 
+`haven`.
 
 <font color="#55b748">**Step 2:**</font> Use the `dir.create()` function to 
 create subfolders called `data` and `modified` in your R Project.
@@ -277,6 +282,9 @@ gss <- read_dta("data/gss.zip")
 
 ## SAS Data (.sas7bdat)
 
+Note that while the `write_sas()` function exists, it doesn't 
+appear to actually work at the current version of `haven`.
+
 ### Example
 
 Download the 2017 1-year Public Use Microsample for Wyoming from the Census:
@@ -291,10 +299,7 @@ download_data("https://www2.census.gov/programs-surveys/acs/data/pums/2017/1-Yea
 <font color="#55b748">**Step 1:**</font> Use the `read_sas()` function 
 to load the SAS data set into your R session as an object named `pums`.
 
-<font color="#55b748">**Step 2:**</font> Use the `write_sas()` function 
-to save the GSS data in SAS format in your `modified` subfolder. 
-
-<font color="#55b748">**Step 3:**</font> Use the `write_sas()` function 
+<font color="#55b748">**Step 3:**</font> Use the `write_dta()` function 
 to save the PUMS data in Stata format in your `modified` subfolder.
 
 # Resources

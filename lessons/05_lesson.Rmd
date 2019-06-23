@@ -1,0 +1,282 @@
+---
+title: 'Day 5: Iteration'
+author: "Kyle Ueyama (TECH)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    number_sections: TRUE
+    self_contained: TRUE
+    code_folding: show
+    toc: TRUE
+    toc_float: TRUE
+    css: ../www/web_report.css
+    editor_options:
+      chunk_output_type: console
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+# Review
+
+* What is tidy data?
+
+* The `tidyverse` contains three packages that should handle almost all of 
+your data import needs:
+  - `readr` - for plain text files
+  - `readxl` - for Excel files
+  - `haven` - for SAS, SPSS, and Stata data formats
+  
+* Don't use `haven::write_sas()` to try to create a `sas7bdat` file!
+
+# Motivation
+
+* You want to apply a transformation to all variables in my data frame (or a 
+subset of them).
+
+* You want to apply a function to each element of a vector or list.
+
+# Packages
+
+We'll be going back to the `dplyr` package and exploring the scoped 
+variants of some of the functions we've seen already. We'll also be introducing 
+some of the basic functionality of the `purrr` package. Both are included in 
+your `tidyverse` installation and loaded when you run `library(tidyverse)` in 
+your R session.
+
+# Primary Functions
+
+On Day 2 we introduced a number of `dplyr` functions:
+
+  - `mutate()`: to transform a variable
+  - `select()`: to subset the columns of a data frame
+  - `filter()`: to subset the rows of a data frame
+  - `summarise()`: to calculate summary statistics
+  - `group_by()`: to perform an operation by group
+
+In `dplyr` we also have scoped variants of these functions that will apply the 
+function onto a selection of variables:
+
+  - `*_all()`: will apply an operation on all variables of your data frame
+  - `*_at()`: will apply an operation on a subset of variables specified
+  - `*_if()`: will apply an operation if a given condition is met
+
+# The `*_all()` Functions
+
+## Example
+
+To demonstrate the `_all()` family of functions, we'll use the built-in `mtcars`
+data frame:
+
+```{r, message = FALSE}
+library(tidyverse)
+
+mtcars <- as_tibble(mtcars)
+head(mtcars)
+```
+
+Say we wanted to scale all the variables of this data frame. We could write 
+some very repetitive code:
+
+```{r}
+mtcars %>%
+  mutate(mpg = scale(mpg),
+         cyl = scale(cyl),
+         disp = scale(disp),
+         hp = scale(hp),
+         drat = scale(drat),
+         wt = scale(wt),
+         qsec = scale(qsec),
+         vs = scale(vs),
+         am = scale(am),
+         gear = scale(gear),
+         carb = scale(carb))
+```
+
+Or we can let `mutate_all()` do the work for us. All we have to do is pass 
+the function we want applied:
+
+```{r}
+mtcars %>%
+  mutate_all(scale)
+```
+
+To supply your own expression, we use write our own function and pass it through 
+to `mutate_all`:
+
+```{r}
+divide_by_ten <- function(x) {
+  x / 10
+}
+
+mtcars %>%
+  mutate_all(divide_by_ten)
+```
+
+Or we can write it inline using the following syntax:
+
+```{r}
+mtcars %>%
+  mutate_all(~ . / 10)
+```
+
+Where the `~` let's `dplyr` know to expect an inline function, and the `.` is 
+used as a placeholder for the variable.
+
+Say we wanted to find the mean of every variable in the `mtcars` data. In this 
+case we'll use `summarise_all()`. 
+
+```{r}
+mtcars %>%
+  summarise_all(mean)
+```
+
+We can calculate multiple summary statistics by passing in a `list()` of the 
+statistics we want:
+
+```{r}
+mtcars %>%
+  summarise_all(list(mean=mean, median=median))
+```
+
+Finally, `select_all()` sounds like it may be redundant, but it can be a good 
+way to easily rename the columns of your data frame:
+
+```{r}
+mtcars %>%
+  select_all(toupper)
+```
+
+## Exercise
+
+<font color="#55b748">**Step 1:**</font> Open up a script, save it with a 
+meaningful name, and load the `tidyverse`.
+
+<font color="#55b748">**Step 2:**</font> Use the `mutate_all()` function to 
+take the `log` of each variable in `mtcars`.
+
+<font color="#55b748">**Step 3:**</font> Use the `summarise_all()` function to 
+find the standard deviation (`sd`) of each variable in `mtcars`.
+
+# The `*_if()` Functions
+
+## Example
+
+To demonstrate the `_if()` family of functions we'll use the `diamonds` data 
+frame from `ggplot2`:
+
+```{r}
+head(diamonds)
+```
+
+What happens if we try to use `mutate_all()` to `scale` this data frame?
+
+```{r, error=TRUE}
+diamonds %>%
+  mutate_all(scale)
+```
+
+It doesn't work because `diamonds` has some non-numeric columns. We could find 
+all the columns that are numeric:
+
+```{r}
+map(diamonds, is.numeric)
+```
+
+And then write a lot of repetitive `mutate()` statements again. Instead let's 
+use `mutate_if()` as follows:
+
+```{r}
+diamonds %>%
+  mutate_if(is.numeric, scale)
+```
+
+When using the `*_if()` family of functions, we first supply the condition that 
+must be met, and then the function to apply to the columns that meet that 
+condition. So in the above example, we first test if a column `is.numeric`, and 
+then apply `scale` to those that are.
+
+We can use `select_if()` to subset only those columns that are numeric:
+
+```{r}
+diamonds %>%
+  select_if(is.numeric)
+```
+
+## Exercise
+
+<font color="#55b748">**Step 1:**</font> Use `select_if()` to subset all the 
+columns from `diamonds` that are factor variables.
+
+<font color="#55b748">**Step 2:**</font> Use the `mutate_if()` function to 
+take the `sqrt` of each numeric variable in `diamonds`.
+
+<font color="#55b748">**Step 3:**</font> Use the `summarise_if()` function to 
+find the mean and standard deviation of each numeric variable in `diamonds`.
+
+<font color="#55b748">**Step 4:**</font> Use the `summarise_if()` function to 
+find the mean and standard deviation of each numeric variable in `diamonds`, 
+first using `group_by_if()` to group by all factor variables.
+
+# The `*_at()` Functions 
+
+## Example
+
+To demonstrate the `*_at()` functions, we'll use the built in `iris` data frame:
+
+```{r}
+iris <- as_tibble(iris)
+
+iris %>%
+  head()
+```
+
+With the various `*_at()` functions, we provide the variables we want to perform 
+one of our `dplyr` functions on. These can be given directly as a character 
+vector of variable names:
+
+```{r}
+iris %>%
+  mutate_at(c("Sepal.Length", "Sepal.Width"), scale)
+```
+
+Although this can still be time consuming for larger data frames. Thankfully 
+`dplyr` provides some nice helper functions for us:
+
+
+```{r}
+iris %>%
+  mutate_at(vars(starts_with("Sepal")), scale)
+```
+
+In this case:
+
+  - `vars()` will create a variable specification
+  - `starts_with()` then matches the variable names in `iris` that begin with "Sepal"
+  
+Some other good helpers include:
+  - `ends_with()`
+  - `contains()`
+
+## Exercise
+
+<font color="#55b748">**Step 1:**</font> Use `select_at` to subset all the 
+columns from `iris` that start with "Petal".
+
+<font color="#55b748">**Step 2:**</font> Use the `mutate_at()` function to 
+take the `sqrt` of each variable in `iris` that ends with "Length".
+
+<font color="#55b748">**Step 3:**</font> Use the `summarise_at()` function to 
+find the mean of each variable of `iris` that contains a period.
+
+<font color="#55b748">**Step 4:**</font> Use the `filter_at()` function to 
+subset the rows of `iris` where any variable that starts with "Sepal" is less 
+than 5. (HINT: remember the `~` and `.` syntax we used in `mutate_all()`)
+
+# Resources
+
+* [dplyr reference: scoped](https://dplyr.tidyverse.org/reference/scoped.html)
+

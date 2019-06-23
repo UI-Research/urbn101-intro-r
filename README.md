@@ -9,6 +9,7 @@ These are the materials for *Intro to R: A hands-on tutorial*, a nine class R tr
 * [Day 2: Data management](https://ui-research.github.io/urbn101-intro-r/lessons/02_lesson)
 * [Day 3: R programming](https://ui-research.github.io/urbn101-intro-r/lessons/03_lesson)
 * [Day 4: Data import](https://ui-research.github.io/urbn101-intro-r/lessons/04_lesson)
+* [Day 5: Iteration](https://ui-research.github.io/urbn101-intro-r/lessons/05_lesson)
 
 ## Homework
 

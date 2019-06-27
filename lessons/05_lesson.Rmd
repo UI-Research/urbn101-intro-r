@@ -22,30 +22,23 @@ output:
 
 # Review
 
-* What is tidy data?
-
 * The `tidyverse` contains three packages that should handle almost all of 
 your data import needs:
-  - `readr` - for plain text files
-  - `readxl` - for Excel files
-  - `haven` - for SAS, SPSS, and Stata data formats
+  - `readr` - for plain text files (`read_csv()`, `write_csv()`)
+  - `readxl` - for Excel files (`read_excel()`)
+  - `haven` - for SAS, SPSS, and Stata data formats (`read_dta()`, `read_sas()`, `write_dta()`)
   
 * Don't use `haven::write_sas()` to try to create a `sas7bdat` file!
 
 # Motivation
 
-* You want to apply a transformation to all variables in my data frame (or a 
+* You want to apply a transformation to all variables in a data frame (or a 
 subset of them).
-
-* You want to apply a function to each element of a vector or list.
 
 # Packages
 
 We'll be going back to the `dplyr` package and exploring the scoped 
-variants of some of the functions we've seen already. We'll also be introducing 
-some of the basic functionality of the `purrr` package. Both are included in 
-your `tidyverse` installation and loaded when you run `library(tidyverse)` in 
-your R session.
+variants of some of the functions we've seen already.
 
 # Primary Functions
 
@@ -58,7 +51,7 @@ On Day 2 we introduced a number of `dplyr` functions:
   - `group_by()`: to perform an operation by group
 
 In `dplyr` we also have scoped variants of these functions that will apply the 
-function onto a selection of variables:
+operation onto a selection of variables:
 
   - `*_all()`: will apply an operation on all variables of your data frame
   - `*_at()`: will apply an operation on a subset of variables specified
@@ -97,7 +90,7 @@ mtcars %>%
 ```
 
 Or we can let `mutate_all()` do the work for us. All we have to do is pass 
-the function we want applied:
+the function we want applied to all columns of our data frame:
 
 ```{r}
 mtcars %>%

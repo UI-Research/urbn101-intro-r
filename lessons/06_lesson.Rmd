@@ -1,0 +1,112 @@
+---
+title: 'Day 5: Putting it all together'
+author: "Aaron Williams (IBP)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    number_sections: TRUE
+    self_contained: TRUE
+    code_folding: show
+    toc: TRUE
+    toc_float: TRUE
+    css: ../www/web_report.css
+    editor_options:
+      chunk_output_type: console
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+# Review
+
+* [Data import](https://ui-research.github.io/urbn101-intro-r/lessons/04_lesson) with `read_csv()`
+* [Data management](https://ui-research.github.io/urbn101-intro-r/lessons/02_lesson) with `library(dplyr)`
+* [visualization](https://ui-research.github.io/urbn101-intro-r/lessons/01_lesson) with `library(ggplot2)`
+
+# Motivation
+
+* So you want to use R at work?
+
+# R Markdown
+
+* Formatted text and images
+* Code
+* Code output
+
+# Markdown
+
+It's tough to write about R Markdown in R Markdown!
+
+[R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+# urbntemplates
+
+```
+install.packages("devtools")
+devtools::install_github("UrbanInstitute/urbntemplates")
+```
+
+### start function
+
+  - `start_project()`
+
+### construct functions
+
+  - `construct_shiny()`
+  - `construct_fact_sheet_html()`
+  - `construct_fact_sheet_pdf()`
+  - `construct_slide_show()`
+  - `construct_web_report()`
+
+### use functions
+
+  - `use_content()`
+  - `use_css()`
+  - `use_fact_sheet_html()`
+  - `use_fact_sheet_pdf()`
+  - `use_git_ignore_urbn()`
+  - `use_instructions()`
+  - `use_iterate()`
+  - `use_preamble()`
+  - `use_revealjs()`
+  - `use_shiny_app()`
+  - `use_readme_readme()`
+  - `use_web_report()`
+
+# Put it together
+
+<font color="#55b748">**Step 1:**</font> Install `library(urbntemplates)`
+
+<font color="#55b748">**Step 2:**</font> Create a web report with `urbntemplates::construct_web_report()`
+
+<font color="#55b748">**Step 3:**</font> Give the `.Rmd` file a meaningful name
+
+<font color="#55b748">**Step 4:**</font> Download the IPEDs data with the following code. Read the data into R. 
+
+```
+download_data <- function(url, path) {
+  if (!file.exists(path)) {
+    download.file(url, path, mode = "wb")
+  }
+}
+
+download_data("https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers_2011-2015.csv",
+              "data/colleges_ipeds_completers_2011-2015.csv")
+```
+<font color="#55b748">**Step 5:**</font> Calculate interesting summary statistics
+
+<font color="#55b748">**Step 6:**</font> Create a plot
+
+<font color="#55b748">**Step 7:**</font> Knit the R Markdown into an html document
+
+# Resources
+
+* [RStudio R Markdown guide](https://rmarkdown.rstudio.com/)
+* [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+* [R4DS](https://r4ds.had.co.nz/communicate-intro.html)
+
+
+

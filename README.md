@@ -2,7 +2,7 @@
 
 These are the materials for *Intro to R: A hands-on tutorial*, a nine class R training hosted by the Urban Institute R Users Group.
 
-## Lessons
+## Core Lessons
 
 * [Day 0: Intro to statistical programming](https://ui-research.github.io/urbn101-intro-r/lessons/00_intro-to-statistical-programming#/intro-to-r-a-hands-on-tutorial)
 * [Day 1: Data visualization](https://ui-research.github.io/urbn101-intro-r/lessons/01_lesson)
@@ -11,6 +11,11 @@ These are the materials for *Intro to R: A hands-on tutorial*, a nine class R tr
 * [Day 4: Data import](https://ui-research.github.io/urbn101-intro-r/lessons/04_lesson)
 * [Day 5: Iteration](https://ui-research.github.io/urbn101-intro-r/lessons/05_lesson)
 * [Day 6: Putting it all together](https://ui-research.github.io/urbn101-intro-r/lessons/06_lesson)
+
+## Additional Lessons
+
+* [Regression in R](https://ui-research.github.io/urbn101-intro-r/lessons/07_linear-regression)
+
 
 ## Homework
 

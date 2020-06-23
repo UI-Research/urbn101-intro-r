@@ -1,5 +1,5 @@
 ---
-title: 'Day 5: Putting it all together'
+title: "Regression in R"
 author: "Aaron Williams (IBP)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:

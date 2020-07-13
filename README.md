@@ -15,6 +15,7 @@ These are the materials for *Intro to R: A hands-on tutorial*, a nine class R tr
 ## Additional Lessons
 
 * [Regression in R](https://ui-research.github.io/urbn101-intro-r/lessons/07_linear-regression)
+* [Survey Analysis in R](https://ui-research.github.io/urbn101-intro-r/lessons/08_survey-analysis)
 
 
 ## Homework

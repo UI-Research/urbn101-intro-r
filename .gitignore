@@ -24,3 +24,5 @@ vignettes/*.pdf
 *.knit.md
 *.db
 .Rproj.user
+
+lessons/08_survey-analysis/

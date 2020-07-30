@@ -27,9 +27,6 @@ knitr::opts_chunk$set(warning = FALSE)
 library(tidyverse)
 library(modelr)
 library(broom)
-library(urbnthemes)
-
-set_urbn_defaults(style = "print")
 
 options(scipen = 999)
 ```
@@ -124,6 +121,85 @@ data <- tribble(
 weighted.mean(x = data$x, w = data$weight)
 ```
 
+# American Community Survey (ACS)
+
+## Exercise 2a
+
+<font color="#55b748">**Step 1:**</font> [Sign up for a Census API key](https://api.census.gov/data/key_signup.html).
+
+<br>
+
+The Census Bureau publishes ACS tables online with this [data tool](https://data.census.gov/cedsci/table?q=dp&tid=ACSDP1Y2018.DP05). However, `library(tidycensus)` can be used to access many of the same tables directly in `R` in an easier and more reproducible way. [Here](https://walker-data.com/tidycensus/articles/basic-usage.html) is a brief introduction to `library(tidycensus)`.
+
+These tables already account for the sample weights. This is a huge help! However, we'll eventually want to calculate a statistic that isn't published in a table and we will need to use the microdata. 
+
+The following code pulls ACS 1-year estimates of median household income for all fifty states, DC, and Puerto Rico in 2018:
+
+```{r}
+library(tidycensus)
+
+get_acs(geography = "state",
+        variables = c(medincome = "B19013_001"),
+        survey = "acs1", 
+        year = 2018)
+```
+
+Note how the returned table includes an estimate and a margin of error. **Across repeated samples of the population, the true median household income is between the estimate minus the moe and the estimate plus the moe 90 percent of the time**. This range is a 90% confidence interval.
+
+## Exercise 2b
+
+<font color="#55b748">**Step 2:**</font> Install and load `library(tidycensus)`. Add the key with `census_api_key("YOUR API KEY GOES HERE")`.
+
+<font color="#55b748">**Step 3:**</font> Using the code above, pull the state-level median household income for 2016, 2017, and 2018. 
+
+<font color="#55b748">**Step 4:**</font> Add a variable called `year` to each data frame with the year of the data. 
+
+<font color="#55b748">**Step 5:**</font> Combine the three data frames with `bind_rows()`. 
+
+<font color="#55b748">**Step 6:**</font> Filter the data to the states with the ten smallest `moe` in 2016. You can use `arrange()` to order the states when picking a threshold. What do these fives states have in common?
+
+## Exercise 3
+
+<font color="#55b748">**Step 1:**</font> Filter the combined data set from Exercise 3 to just `"District of Columbia"`, `"Maryland"`, and `"Virginia"`.
+
+<font color="#55b748">**Step 2:**</font> Create the following plot. Note, use `theme_minimal()`.
+
+```{r echo = FALSE}
+library(tidycensus)
+
+acs2016 <- get_acs(geography = "state",
+                   variables = c(medincome = "B19013_001"),
+                   survey = "acs1", 
+                   year = 2016) %>%
+  mutate(year = 2016)
+
+acs2017 <- get_acs(geography = "state",
+        variables = c(medincome = "B19013_001"),
+        survey = "acs1", 
+        year = 2017) %>%
+  mutate(year = 2017)
+
+acs2018 <- get_acs(geography = "state",
+                   variables = c(medincome = "B19013_001"),
+                   survey = "acs1", 
+                   year = 2018) %>%
+  mutate(year = 2018)
+
+acs <- bind_rows(acs2016, acs2017, acs2018)
+
+acs <- acs %>%
+  mutate(state = ifelse(NAME == "Virginia", "Virginia", "Other state"))
+
+acs %>%
+  filter(NAME %in% c("District of Columbia", "Maryland", "Virginia")) %>%
+  ggplot(aes(year, estimate, color = NAME)) +
+  geom_point() +
+  geom_line(alpha = 0.5) +
+  labs(title = "Comparison of Household Incomes in Mid-Atlantic States",
+       caption = "Source: 2016, 2017, and 2018 ACS") +
+  theme_minimal()
+```
+
 # `library(srvyr)`
 
 `library(survey)` is a powerful package for survey analysis by Thomas Lumley’s book, the author of [Complex Surveys: A Guide to Analysis Using R](https://www.wiley.com/en-us/Complex+Surveys%3A+A+Guide+to+Analysis+Using+R-p-9780470284308). `library(srvyr)` is an extension package that works better with the tidyverse. 
@@ -163,7 +239,7 @@ apisrs %>%
   summarize(mean_weighted = survey_mean(api00, vartype = "ci"))
 ```
 
-## Exercise 2
+## Exercise 4
 
 <font color="#55b748">**Step 1:**</font> Install `library(survey)` and `library(srvyr)`
 
@@ -177,7 +253,7 @@ apisrs %>%
 
 We're now going to estimate the proportion of the population ages 40 to 61 who have a disability disability that limits or prevents work ("Disability limits or prevents work"). 
 
-## Exercise 3
+## Exercise 5
 
 <font color="#55b748">**Step 1:**</font> Put `cps_00004.csv.gz` and `cps_0004.xml` in the appropriate directory. 
 
@@ -196,13 +272,57 @@ Also, convert `AGE` to a numeric variable.
 
 <font color="#55b748">**Step 7:**</font> Calculate the weighted total and weighted mean of `disabwrk_dum`.
 
-# ACS
-
 # Solutions
 
 ## Exercise 2
 
-```{r}
+```{r eval = FALSE}
+library(tidycensus)
+
+acs2016 <- get_acs(geography = "state",
+                   variables = c(medincome = "B19013_001"),
+                   survey = "acs1", 
+                   year = 2016) %>%
+  mutate(year = 2016)
+
+acs2017 <- get_acs(geography = "state",
+        variables = c(medincome = "B19013_001"),
+        survey = "acs1", 
+        year = 2017) %>%
+  mutate(year = 2017)
+
+acs2018 <- get_acs(geography = "state",
+                   variables = c(medincome = "B19013_001"),
+                   survey = "acs1", 
+                   year = 2018) %>%
+  mutate(year = 2018)
+
+acs <- bind_rows(acs2016, acs2017, acs2018)
+
+acs %>%
+  filter(year == 2016) %>%
+  slice_min(moe, n = 10)
+```
+
+## Exercise 3
+
+```{r eval = FALSE}
+acs <- acs %>%
+  mutate(state = ifelse(NAME == "Virginia", "Virginia", "Other state"))
+
+acs %>%
+  filter(NAME %in% c("District of Columbia", "Maryland", "Virginia")) %>%
+  ggplot(aes(year, estimate, color = NAME)) +
+  geom_point() +
+  geom_line(alpha = 0.5) +
+  labs(title = "Comparison of Household Incomes in Mid-Atlantic States",
+       caption = "Source: 2016, 2017, and 2018 ACS") +
+  theme_minimal()
+```
+
+## Exercise 4
+
+```{r eval = FALSE}
 apistrat <- apistrat %>%
   as_survey_design(strata = stype, fpc = fpc, weight = pw)
 
@@ -211,9 +331,9 @@ apistrat %>%
   summarize(api00_mean = survey_mean(api00, vartype = "ci"))
 ```
 
-## Exercise 3
+## Exercise 5
 
-```{r}
+```{r eval = FALSE}
 library(tidyverse)
 library(srvyr)
 library(ipumsr)

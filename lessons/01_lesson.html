@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Aaron R. Williams (IBP)" />
@@ -1282,13 +1282,13 @@ window.initializeCodeFolding = function(show) {
   var currentIndex = 1;
 
   // select all R code blocks
-  var rCodeBlocks = $('pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan, pre.julia');
+  var rCodeBlocks = $('pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan, pre.julia, pre.foldable');
   rCodeBlocks.each(function() {
 
     // create a collapsable div to wrap the code in
     var div = $('<div class="collapse r-code-collapse"></div>');
-    if (show)
-      div.addClass('in');
+    show = (show || $(this).hasClass('fold-show')) && !$(this).hasClass('fold-hide');
+    if (show) div.addClass('in');
     var id = 'rcode-643E0F36' + currentIndex++;
     div.attr('id', id);
     $(this).before(div);
@@ -1456,7 +1456,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -1518,6 +1517,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -1530,56 +1530,12 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -1593,6 +1549,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -1673,7 +1635,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 1: data visualization</h1>
 <h4 class="author">Aaron R. Williams (IBP)</h4>
-<h4 class="date">June 09, 2019 21:10</h4>
+<h4 class="date">August 05, 2020 09:27</h4>
 
 </div>
 
@@ -1728,8 +1690,8 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <div id="exercise-1" class="section level1">
 <h1><span class="header-section-number">5</span> Exercise 1</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> <strong>Type</strong> (don’t copy &amp; paste) the following code below <code>library(tidyverse)</code> in <code>01_data-visualization.R</code>.</p>
-<pre><code>ggplot(data = storms, mapping = aes(x = pressure, y = wind)) + 
-  geom_point()</code></pre>
+<pre><code>ggplot(data = storms) + 
+  geom_point(mapping = aes(x = pressure, y = wind))</code></pre>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Add a comment above the ggplot2 code that describes the plot we created.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Add comments below the data visualization code that describes the argument or function that corresponds to each of the first three components of the grammar of graphics.</p>
 <p><font color="#ec008b"><strong>1 Data</strong></font> are the values represented in the visualization.</p>
@@ -1756,8 +1718,8 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <p><font color="#55b748"><strong>Step 1:</strong></font> Type the following code in your script.</p>
 <pre><code>data &lt;- tibble(x = 1:10, y = 1:10)
 
-ggplot(data = data, mapping = aes(x = x, y = y)) +
-  geom_blank()</code></pre>
+ggplot(data = data) +
+  geom_blank(mapping = aes(x = x, y = y))</code></pre>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Add <code>coord_polar()</code> to your plot.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Add <code>labs(title = &quot;Polar coordinate system&quot;)</code> to your plot.</p>
 <p><font color="#ec008b"><strong>5 Coordinate systems</strong></font> map scaled geometric objects to the position of objects on the plane of a plot. The two most popular coordinate systems are the Cartesian coordinate system and the polar coordinate system.</p>
@@ -1770,8 +1732,8 @@ ggplot(data = data, mapping = aes(x = x, y = y)) +
 <div id="exercise-6" class="section level1">
 <h1><span class="header-section-number">10</span> Exercise 6</h1>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Add the following code to your script. Submit it!</p>
-<pre><code>ggplot(storms, aes(category)) +
-  geom_bar()</code></pre>
+<pre><code>ggplot(storms) +
+  geom_bar(mapping = aes(category))</code></pre>
 <p><font color="#ec008b"><strong>7 Statistical transformations</strong></font> (optional) transform the data, typically through summary statistics and functions, before aesthetic mapping.</p>
 <p><strong>Note:</strong> <code>geom_bar()</code> performs statistical transformation. Use <code>geom_col()</code> to create a column chart with bars that encode individual observations in the data set.</p>
 </div>
@@ -1793,9 +1755,9 @@ set_urbn_defaults(style = &quot;print&quot;)</code></pre>
   filter(category &gt; 0) %&gt;%
   distinct(name, year) %&gt;%
   count(year) %&gt;%
-  ggplot(mapping = aes(x = year, y = n)) + 
-  geom_line()</code></pre>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Add <code>geom_point()</code> after <code>geom_line()</code>.</p>
+  ggplot() + 
+  geom_line(mapping = aes(x = year, y = n))</code></pre>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Add <code>geom_point(mapping = aes(x = year, y = n))</code> after <code>geom_line(mapping = aes(x = year, y = n))</code>.</p>
 </div>
 <div id="exercise-9" class="section level1">
 <h1><span class="header-section-number">13</span> Exercise 9</h1>
@@ -1841,13 +1803,13 @@ set_urbn_defaults(style = &quot;print&quot;)</code></pre>
 <ul>
 <li><a href="https://medium.com/@urban_institute/how-to-create-state-and-county-maps-easily-in-r-577d29300bb2">How to Create State and County Maps Easily in R</a></li>
 <li><a href="https://github.com/UrbanInstitute/urbnmapr">library(urbnmapr)</a></li>
-<li><a href="https://ui-research.github.io/r-at-urban/mapping.html">Urban Institute R Users Group website: mapping</a></li>
+<li><a href="https://UrbanInstitute.github.io/r-at-urban/mapping.html">Urban Institute R Users Group website: mapping</a></li>
 </ul>
 </div>
 <div id="resources" class="section level1">
 <h1><span class="header-section-number">17</span> Resources</h1>
 <ul>
-<li><a href="https://ui-research.github.io/r-at-urban/graphics-guide.html">Urban Institute R Users Group website</a></li>
+<li><a href="https://UrbanInstitute.github.io/r-at-urban/graphics-guide.html">Urban Institute R Users Group website</a></li>
 <li><a href="https://medium.com/@urban_institute/why-the-urban-institute-visualizes-data-with-ggplot2-46d8cfc7ee67">Why the Urban Institute visualizes data with ggplot2</a></li>
 <li><a href="http://r4ds.had.co.nz/data-visualisation.html">R for Data Science: data visualization</a></li>
 <li><a href="https://awunderground.github.io/ggplot2-themes/">awunderground themes</a></li>
@@ -1873,6 +1835,54 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

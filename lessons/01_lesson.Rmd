@@ -142,7 +142,7 @@ ggplot(storms) +
 
 <font color="#55b748">**Step 1:**</font> Duplicate Exercise 6.
 
-<font color="#55b748">**Step 2:**</font> Run `install.packages("devtools")` and `devtools::install_github("UI-Research/urbnthemes")` in the console. 
+<font color="#55b748">**Step 2:**</font> Run `install.packages("remotes")` and `remotes::install_github("UrbanInstitute/urbnthemes")` in the console. 
 
 <font color="#55b748">**Step 3:**</font> In the lines preceding the chart add and run the following code:
 

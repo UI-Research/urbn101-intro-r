@@ -63,8 +63,8 @@ theory -> code -> process
 <font color="#55b748">**Step 1:**</font> **Type** (don't copy & paste) the following code below `library(tidyverse)` in `01_data-visualization.R`.
 
 ```
-ggplot(data = storms, mapping = aes(x = pressure, y = wind)) + 
-  geom_point()
+ggplot(data = storms) + 
+  geom_point(mapping = aes(x = pressure, y = wind))
 ```
 
 <font color="#55b748">**Step 2:**</font> Add a comment above the ggplot2 code that describes the plot we created. 
@@ -109,8 +109,8 @@ Aesthetic mappings like x and y almost always vary with the data. Aesthetic mapp
 ```
 data <- tibble(x = 1:10, y = 1:10)
 
-ggplot(data = data, mapping = aes(x = x, y = y)) +
-  geom_blank()
+ggplot(data = data) +
+  geom_blank(mapping = aes(x = x, y = y))
 ```
 
 <font color="#55b748">**Step 2:**</font> Add `coord_polar()` to your plot.
@@ -130,8 +130,8 @@ ggplot(data = data, mapping = aes(x = x, y = y)) +
 <font color="#55b748">**Step 1:**</font> Add the following code to your script. Submit it!
 
 ```
-ggplot(storms, aes(category)) +
-  geom_bar()
+ggplot(storms) +
+  geom_bar(mapping = aes(category))
 ```
 
 <font color="#ec008b">**7 Statistical transformations**</font> (optional) transform the data, typically through summary statistics and functions, before aesthetic mapping.
@@ -167,11 +167,11 @@ storms %>%
   filter(category > 0) %>%
   distinct(name, year) %>%
   count(year) %>%
-  ggplot(mapping = aes(x = year, y = n)) + 
-  geom_line()
+  ggplot() + 
+  geom_line(mapping = aes(x = year, y = n))
 ```
 
-<font color="#55b748">**Step 2:**</font> Add `geom_point()` after `geom_line()`.
+<font color="#55b748">**Step 2:**</font> Add `geom_point(mapping = aes(x = year, y = n))` after `geom_line(mapping = aes(x = year, y = n))`.
 
 # Exercise 9
 
@@ -210,11 +210,11 @@ ggplot(data = storms, mapping = aes(x = pressure, y = wind)) +
 
 * [How to Create State and County Maps Easily in R](https://medium.com/@urban_institute/how-to-create-state-and-county-maps-easily-in-r-577d29300bb2)
 * [library(urbnmapr)](https://github.com/UrbanInstitute/urbnmapr)
-* [Urban Institute R Users Group website: mapping](https://ui-research.github.io/r-at-urban/mapping.html)
+* [Urban Institute R Users Group website: mapping](https://UrbanInstitute.github.io/r-at-urban/mapping.html)
 
 # Resources
 
-* [Urban Institute R Users Group website](https://ui-research.github.io/r-at-urban/graphics-guide.html)
+* [Urban Institute R Users Group website](https://UrbanInstitute.github.io/r-at-urban/graphics-guide.html)
 * [Why the Urban Institute visualizes data with ggplot2](https://medium.com/@urban_institute/why-the-urban-institute-visualizes-data-with-ggplot2-46d8cfc7ee67)
 * [R for Data Science: data visualization](http://r4ds.had.co.nz/data-visualisation.html)
 * [awunderground themes](https://awunderground.github.io/ggplot2-themes/)

@@ -169,11 +169,11 @@ filter(dataset, var1 %in% c("a", "b", "c"))
 
 <font color="#55b748">**Step 2:**</font> Compute a new variable, `average_price` by dividing `volume` by `sales`.
 
-<font color="#55b748">**Step 3:**</font> Use `ifelse()` to create a variable called `flag` that is 1 if the average sales price is larger than the median sales price.
+<font color="#55b748">**Step 3:**</font> Use `if_else()` to create a variable called `flag` that is 1 if the average sales price is larger than the median sales price.
 
 <font color="#ec008b">**If/then logic**</font>
 
-`ifelse()` is an important tool in combination with `mutate()`. It employs if-then logic: the first argument is a binary statement. The second statement says what to do if the first argument is evaluated to `TRUE`- the third is what to do if it is `FALSE` This is particularly useful for creating dummy or indicator variables.
+`if_else()` is an important tool in combination with `mutate()`. It employs if-then logic: the first argument is a binary statement. The second statement says what to do if the first argument is evaluated to `TRUE`- the third is what to do if it is `FALSE` This is particularly useful for creating dummy or indicator variables.
 When you have more than two possible outcomes, it is more efficient to use `case_when()`.
 
 <font color="#55b748">**Step 3a:**</font> Type `?case_when` into the console.

@@ -126,7 +126,7 @@ flights %>%
 
 ### Exercise 4
 
-We are going to summarize `flights_subset` from the previous example. `summairze()` can be used to create multiple statistics for one variable and statistics for many variables at the same time. 
+We are going to summarize `flights_subset` from the previous example. `summarize()` can be used to create multiple statistics for one variable and statistics for many variables at the same time. 
 
 <font color="#55b748">**Step 1:**</font> `group_by()` `week_day` and use `n()` in `summarize()` to count the number of observations. This should match Step 5 from the previous exercise. 
 
@@ -172,7 +172,7 @@ We want to add information about planes to the flights data set. We will perform
 
 <font color="#55b748">**Step 1:**</font> Use `left_join()` to join `planes` to `flights`. The common key is `tailnum`. 
 
-<font color="#55b748">**Step 2:**</font> Use `left_join()` to see observations from `flights` that don't have a match in `planes`. The common key is `tailnum`. 
+<font color="#55b748">**Step 2:**</font> Use `anti_join()` to see observations from `flights` that don't have a match in `planes`. The common key is `tailnum`. 
 
 <font color="#55b748">**Step 3:**</font> Use `filter()` to see if a random `tailnum` from the `anti_join()` is in `planes`. Hint: it shouldn't be!
 

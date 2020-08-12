@@ -1635,7 +1635,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 3: R programming</h1>
 <h4 class="author">Aaron R. Williams (IBP)</h4>
-<h4 class="date">August 12, 2020 09:56</h4>
+<h4 class="date">August 12, 2020 10:34</h4>
 
 </div>
 
@@ -1734,7 +1734,7 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <h1><span class="header-section-number">4</span> <code>summarize()</code></h1>
 <div id="exercise-4" class="section level3">
 <h3><span class="header-section-number">4.0.1</span> Exercise 4</h3>
-<p>We are going to summarize <code>flights_subset</code> from the previous example. <code>summairze()</code> can be used to create multiple statistics for one variable and statistics for many variables at the same time.</p>
+<p>We are going to summarize <code>flights_subset</code> from the previous example. <code>summarize()</code> can be used to create multiple statistics for one variable and statistics for many variables at the same time.</p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> <code>group_by()</code> <code>week_day</code> and use <code>n()</code> in <code>summarize()</code> to count the number of observations. This should match Step 5 from the previous exercise.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> In the same <code>summarize()</code>, calculate <code>mean()</code>, <code>median()</code>, and <code>max()</code> <code>distance</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> In the same <code>summarize()</code>, calculate mean and median <code>air_time</code>.</p>
@@ -1776,7 +1776,7 @@ left_join(x = students, y = teachers, by = &quot;subject&quot;)</code></pre>
 <p><code>flights</code> contains information about flights and the unit of observation is airplane flights. <code>planes</code> contains information about the airplanes and the unit of observation is the airplane. Common units of observation at Urban are household, person, state, and county.</p>
 <p>We want to add information about planes to the flights data set. We will perform a many-to-one join because we are joining planes multiple times to each unique flight. The above example is also a many-to-one join.</p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>left_join()</code> to join <code>planes</code> to <code>flights</code>. The common key is <code>tailnum</code>.</p>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Use <code>left_join()</code> to see observations from <code>flights</code> that don’t have a match in <code>planes</code>. The common key is <code>tailnum</code>.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Use <code>anti_join()</code> to see observations from <code>flights</code> that don’t have a match in <code>planes</code>. The common key is <code>tailnum</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>filter()</code> to see if a random <code>tailnum</code> from the <code>anti_join()</code> is in <code>planes</code>. Hint: it shouldn’t be!</p>
 <p>We highly recommend reading the <a href="https://r4ds.had.co.nz/relational-data.html">chapter on joins in R4DS</a>. It will inform all statistical programming.</p>
 </div>
@@ -1921,7 +1921,7 @@ if (x &gt; 999) {
 ##         }
 ##     }
 ## }
-## &lt;bytecode: 0x7f99f60cc300&gt;
+## &lt;bytecode: 0x7fd245ceb500&gt;
 ## &lt;environment: namespace:urbnmapr&gt;</code></pre>
 </div>
 <div id="exercise-9" class="section level3">

@@ -22,101 +22,161 @@ output:
 
 # Review
 
-* What is `<-` and why do we use it?
-* What is tidy data?
-* How do we create an indicator variable with `mutate()`?
+* `select()`
+* `filter()`
+* `rename()`
+* `arrange()`
+* `mutate()`
+* `summarize()`
+* `group_by()`
+* `%>%`
 
-```{r message = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 library(tidyverse)
 ```
 
 # Motivation
 
-* R contains a rich set of flexible tools for programming.
-* Most programs in R are the combination of relatively simple concepts.
-* Survey of building blocks for R programming.
+* Review and master `library(dplyr)`
+* Expand our skill set so we can do more types of analysis
 
-# Math operations
+### Exercise 0
 
-## Vectors
+<font color="#55b748">**Step 1:**</font> Open up your `.Rproj` for `urbn101`. You should now see `urbn101` in the top right of RStudio instead of “Project: (None)” . 
 
-Until now, we've mostly focused on data frames. Functions like `filter()` and `mutate()` all take data frames as arguments and can accept vectors in arguments without re-referencing their data frame.
+<font color="#55b748">**Step 2:**</font> Install the R package `nycflights13`. 
 
-### Example
+<font color="#55b748">**Step 3:**</font> Open a `.R` script and save it as `03_flights-analysis.R`.
 
-```{r}
-msleep %>%
-  mutate(name = tolower(name))
+<font color="#55b748">**Step 4:**</font> Load `tidyverse` and `nycflights13` at the top of your script. 
+
+<font color="#55b748">**Step 5:**</font> Add and run `data(flights)` to load the flights data set. Add and run `data(planes)` to load the planes data set. 
+
+<font color="#55b748">**Step 6:**</font> Use `glimpse()` and `View()` to look at the `flights` data set.
+
+# `mutate()`
+
+Last week, we showed how `mutate()` can be used to create new variables or to transform new variables. For example, we converted knots into miles per hour. In this section, we will walk through some useful transformations on the `flights` data set.  
+
+## Conditional transformation
+
+`case_when()` allows for a sequence of conditional logic that can be used to transform or create variables with `mutate()`. For example, here I create a variable called `lateness` that creates a character variable with the levels `"very late"`, `"late"`, and `"on time"`. The logic is evaluated from top to bottom and `TRUE` can be used as otherwise. The logical test goes to the left of `~` and the result goes to the right. `&` and `|` can be used to combine logical statements. 
+
+```{r eval = FALSE}
+flights %>%
+  mutate(
+    lateness = case_when(
+      arr_delay > 30 ~ "very late",
+      arr_delay > 0 ~ "late",
+      TRUE          ~ "on time"
+    )
+  )
+
 ```
 
-Base R and some R tasks require vectors instead of data frames. We'll focus on two main methods of pulling vectors from data frames and a method for creating a vector from scratch.
+### Exercise 1
 
-### Example
+`dep_delay` is the departure delay in minutes and `arr_delay` is the arrival delay in minutes. 
+
+<font color="#55b748">**Step 1:**</font> Set up `mutate()` and `case_when()` after a pipe from the `flights` data set. We are going to create a variable called `delay_status`. 
+
+<font color="#55b748">**Step 2:**</font> Create a condition for if `dep_delay` and `arr_delay` are both `> 0` (use `&` to combine) and assign the value `"both late"`. Use `count()` to count the number of observations with `"both late"`. There should be `NA`. 
+
+<font color="#55b748">**Step 3:**</font> Create a condition for if `dep_delay` and `arr_delay` are both `< 0` (use `&` to combine) and assign the value `"both early"`.
+
+<font color="#55b748">**Step 4:**</font> Create an otherwise with `TRUE` and assign the value `"mixed"`. 
+
+<font color="#55b748">**Step 5:**</font> Use `count()` to count the number of flights with each level of `delay_status`. 
+
+## Strings
+
+`library(stringr)` contains powerful and concise functions manipulating character variables. Reference the cheat sheet for a survey of the different possible transformations. 
+
+### Exercise 2
+
+`month` and `day` are currently integer variables. We want to turn them into character variables with leading zeros. For example, `1` should be `"01"`.
+
+<font color="#55b748">**Step 1:**</font> Use `mutate()` to overwrite `month` and `day` with `str_pad()`. The first argument should be `month` or `day`. The second argument, `width`, should be `2`. 
+
+<font color="#55b748">**Step 2:**</font> The padding character is currently a space, but we want it to be `"0"`. Use `?str_pad` to figure out how to switch the padding character. 
+
+<font color="#55b748">**Step 3:**</font> Pipe the result into the following line `mutate(flight_date = paste(year, month, day, sep = "-"))`
+
+<font color="#55b748">**Step 4:**</font> Drop all variables except `flight_date`, `distance`, and `air_time`. 
+
+<font color="#55b748">**Step 5:**</font> Assign the result to `flights_subset`. 
+
+## Dates
+
+`library(lubridate)` contains powerful and concise functions for creating and manipulating dates, times, and date-times. It is aware of leap days and leap seconds and is useful for calculating periods, durations, intervals, and more. 
+
+### Exercise 3
+
+<font color="#55b748">**Step 1:**</font> Add `library(lubridate)` after `library(nycflight13)` in your script. 
+
+<font color="#55b748">**Step 2:**</font> `library(lubridate)` is powerful but it needs variable in the correct format. Use `ymd()` inside of `mutate()` to create a new variable called `flight_date` for the `flights_subset` data. 
+
+<font color="#55b748">**Step 3:**</font> Use `mutate()` and `wday(flight_date)` to find the day of the week for each date.
+
+<font color="#55b748">**Step 4:**</font> Assign the result to `flights_subset`. 
+
+<font color="#55b748">**Step 5:**</font> Use `count()` to count the number of flights by day of the week. 
+
+# `summarize()`
+
+### Exercise 4
+
+We are going to summarize `flights_subset` from the previous example. `summairze()` can be used to create multiple statistics for one variable and statistics for many variables at the same time. 
+
+<font color="#55b748">**Step 1:**</font> `group_by()` `week_day` and use `n()` in `summarize()` to count the number of observations. This should match Step 5 from the previous exercise. 
+
+<font color="#55b748">**Step 2:**</font> In the same `summarize()`, calculate `mean()`, `median()`, and `max()` `distance`.
+
+<font color="#55b748">**Step 3:**</font> In the same `summarize()`, calculate mean and median `air_time`.
+
+<font color="#55b748">**Step 4:**</font> Rename the resulting variables *inside* `summarize()` so they have more useful names. 
+
+### Survey data
+
+`library(srvyr)`, a tidy extension of Thomas Lumley's `library(survey)`, allows for complex survey designs to be tabulated with `summarize()`. [This guide](https://ui-research.github.io/urbn101-intro-r/lessons/08_survey-analysis) contains background and a few examples. 
+
+# `left_join()`
+
+Joins are the main method for combining data sets. There are many types of joins. We will focus on the "left" join, which merges observations from the right data set to the left data set. Let's look at the cheat sheet.  
 
 ```{r}
-# $ operator
-msleep$sleep_total
+students <- tribble(
+  ~name, ~subject, 
+  "Aaron", "Math",
+  "Kyle", "History",
+  "Ajjit", "Math",
+  "Sarah", "Science"
+)
+
+teachers <- tribble(
+  ~subject, ~teacher,
+  "Math", "Mr. Smith",
+  "History", "Ms. Johnson",
+  "Science", "Mr. Robot"
+)
+
+left_join(x = students, y = teachers, by = "subject")
+
 ```
 
-### Example
+### Exercise 5
 
-```{r}
-# pull()
-msleep %>%
-  pull(sleep_total)
-```
+`flights` contains information about flights and the unit of observation is airplane flights. `planes` contains information about the airplanes and the unit of observation is the airplane. Common units of observation at Urban are household, person, state, and county.
 
-### Example
+We want to add information about planes to the flights data set. We will perform a many-to-one join because we are joining planes multiple times to each unique flight. The above example is also a many-to-one join. 
 
-```{r}
-# review: build your own vector
-c(8, 10, 1000, pi)
-```
+<font color="#55b748">**Step 1:**</font> Use `left_join()` to join `planes` to `flights`. The common key is `tailnum`. 
 
-## Math functions
+<font color="#55b748">**Step 2:**</font> Use `left_join()` to see observations from `flights` that don't have a match in `planes`. The common key is `tailnum`. 
 
-R contains many functions for common mathematical operations. 
+<font color="#55b748">**Step 3:**</font> Use `filter()` to see if a random `tailnum` from the `anti_join()` is in `planes`. Hint: it shouldn't be!
 
-* `sum()` = $\sum_{i = 1}^n x_i$
-* `prod()` = $\Pi_{i = 1}^n x_i$
-* `mean()`
-* `var()`
-* `sd()`
-* `cov()`
-* `cor()`
-* `median()`
-* `min()`
-* `max()`
-
-Math functions in R expect vectors. We can use them in `summarize()` without the above syntax.
-
-### Example
-
-```{r}
-summarize(msleep, max(sleep_total))
-```
-
-### Example
-
-We can also use math functions with the following syntax.
-
-```{r}
-mean(msleep$sleep_total)
-
-msleep %>%
-  pull(sleep_total) %>%
-  median()
-
-min(c(8, 10, 1000, pi))
-```
-
-### Exercise
-
-<font color="#55b748">**Step 1:**</font> Open up a script, save it with a meaningful name, and load the tidyverse.
-
-<font color="#55b748">**Step 2:**</font> Find the mean of `sleep_rem` from the `msleep` data set.
-
-<font color="#55b748">**Step 3:**</font> Find the 25th, 37th, and 92nd percentiles of `awake` from `msleep` with one function call.
+We highly recommend reading the [chapter on joins in R4DS](https://r4ds.had.co.nz/relational-data.html). It will inform all statistical programming. 
 
 # Custom functions
 
@@ -152,7 +212,7 @@ square(x = 4)
 
 **Note:** Use tidyverse functions inside of custom functions often requires non-standard evaluation. Please reach out for help when this is your goal. 
 
-### Exercise
+### Exercise 7
 
 <font color="#55b748">**Step 1:**</font> Write a function called `multiply_xy()` that takes arguments `x` and `y` and multiplies them together. 
 
@@ -160,63 +220,6 @@ square(x = 4)
 
 <font color="#55b748">**Step 3:**</font> Call the function and overwrite the default for `y` with your favorite number.
 
-### Example
-
-```{r}
-plot_cat <- function(cat) {
-  
-  storms %>%
-    filter(category == cat) %>%
-    ggplot(mapping = aes(pressure, wind)) +
-    geom_point() +
-    scale_y_continuous(limits = c(0, NA))
-}
-  
-plot_cat(cat = 1)
-plot_cat(cat = 5)
-```
-
-# String manipulation
-
-Character variables contain strings that are important for many programming tasks like person names, managing hundreds of `.csv` files, or analyzing text.  
-
-We often want to perform operations on these strings.
-
-## paste0()
-
-### Example
-
-```{r}
-paste("apples", "and", "oranges")
-
-directory <- "data/"
-file_name <- "criminal-justice.csv"
-paste0(directory, file_name)
-
-```
-
-### Exercise
-
-<font color="#55b748">**Step 1:**</font> Combine your first name, middle initial, and last name into one text string.
-
-## library(stringr)
-
-`paste()` and `paste0()` are two of many functions for string manipulation. 
-
-`library(stringr)` is a nearly comprehensive set of functions and tools for string manipulation. 
-
-
-## Vectorized
-
-### Example
-
-String functions are mostly vectorized. So iterating a function on each object is painless. 
-
-```{r}
-names <- c("Kyle", "Sarah", "Aaron")
-
-paste0("data/", names, ".csv")
-```
 
 # System functions
 
@@ -237,7 +240,7 @@ if (!file.exists("data/cps.csv")) {
 }
 ```
 
-### Exercise
+### Exercise 8
 
 <font color="#55b748">**Step 1:**</font> Check to see if you are in an R project. Use `file.exists()` to confirm that your `.R` script exists.  
 
@@ -283,7 +286,7 @@ if (x > 999) {
 urbnmapr::get_urbn_map
 ```
 
-### Exercise
+### Exercise 9
 
 <font color="#55b748">**Step 1:**</font> Create a custom function called `is_it_me` with one argument called `name`.
 

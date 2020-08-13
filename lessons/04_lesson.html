@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Kyle Ueyama (TECH)" />
 
-<meta name="date" content="2019-06-20" />
+<meta name="date" content="2020-08-13" />
 
 <title>Day 4: Data Import</title>
 
@@ -69,8 +69,6 @@ overflow: auto;
 margin-left: 2%;
 position: fixed;
 border: 1px solid #ccc;
-webkit-border-radius: 6px;
-moz-border-radius: 6px;
 border-radius: 6px;
 }
 
@@ -98,9 +96,14 @@ font-size: 12px;
 .tocify-subheader .tocify-subheader {
 text-indent: 30px;
 }
-
 .tocify-subheader .tocify-subheader .tocify-subheader {
 text-indent: 40px;
+}
+.tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader {
+text-indent: 50px;
+}
+.tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader {
+text-indent: 60px;
 }
 
 .tocify .tocify-item > a, .tocify .nav-list .nav-header {
@@ -504,13 +507,13 @@ float: none;
 
           item.append($("<a/>", {
 
-            "text": self.text()
+            "html": self.html()
 
           }));
 
         } else {
 
-          item.text(self.text());
+          item.html(self.html());
 
         }
 
@@ -1280,13 +1283,13 @@ window.initializeCodeFolding = function(show) {
   var currentIndex = 1;
 
   // select all R code blocks
-  var rCodeBlocks = $('pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan, pre.julia');
+  var rCodeBlocks = $('pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan, pre.julia, pre.foldable');
   rCodeBlocks.each(function() {
 
     // create a collapsable div to wrap the code in
     var div = $('<div class="collapse r-code-collapse"></div>');
-    if (show)
-      div.addClass('in');
+    show = (show || $(this).hasClass('fold-show')) && !$(this).hasClass('fold-hide');
+    if (show) div.addClass('in');
     var id = 'rcode-643E0F36' + currentIndex++;
     div.attr('id', id);
     $(this).before(div);
@@ -1402,7 +1405,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -1464,6 +1466,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -1476,56 +1479,12 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -1539,6 +1498,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -1574,8 +1539,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -1621,7 +1584,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 4: Data Import</h1>
 <h4 class="author">Kyle Ueyama (TECH)</h4>
-<h4 class="date">June 20, 2019</h4>
+<h4 class="date">August 13, 2020</h4>
 
 </div>
 
@@ -1666,7 +1629,7 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 </div>
 <div id="primary-functions" class="section level1">
 <h1><span class="header-section-number">4</span> Primary Functions</h1>
-<p>In general, <code>readr</code>, <code>readxl</code>, and <code>haven</code> will come with some variant of a <code>read</code> function for data import, and a variant of <code>write</code> (except for Excel!) for data export.</p>
+<p>In general, <code>readr</code>, <code>readxl</code>, and <code>haven</code> will come with some variant of a <code>read</code> function for data import, and a variant of <code>write</code> (except for Excel and SAS!) for data export.</p>
 <ul>
 <li><code>readr::read_csv()</code>, <code>readr::write_csv()</code></li>
 <li><code>readr::read_delim()</code>, <code>readr::write_delim()</code></li>
@@ -1685,7 +1648,7 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <h2><span class="header-section-number">5.1</span> Exercise</h2>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Open up your RStudio project, open a R script, save it with a meaningful name, and load the <code>tidyverse</code>, <code>readxl</code>, and <code>haven</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Use the <code>dir.create()</code> function to create subfolders called <code>data</code> and <code>modified</code> in your R Project.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> We’ll be downloading a couple different datasets for today’s examples. Staying DRY, let’s rework Aaron’s example code from Tuesday into a function we can reuse. Copy and paste the following into your file. Make sure to run the code so the function becomes a part of your environment.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> We’ll be downloading a couple different datasets for today’s examples. Staying DRY, let’s rework Aaron’s example code from Wednesday into a function we can reuse. Copy and paste the following into your file. Make sure to run the code so the function becomes a part of your environment.</p>
 <pre class="r"><code>download_data &lt;- function(url, path) {
   if (!file.exists(path)) {
     download.file(url, path, mode = &quot;wb&quot;)
@@ -1701,10 +1664,10 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <div id="example" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Example</h3>
 <p>First we’ll download an example <code>csv</code> file from the Urban Institute’s Education data portal:</p>
-<pre class="r"><code>download_data(&quot;https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers_2011-2015.csv&quot;,
-              &quot;data/colleges_ipeds_completers_2011-2015.csv&quot;)</code></pre>
+<pre class="r"><code>download_data(&quot;https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers.csv&quot;,
+              &quot;colleges_ipeds_completers.csv&quot;)</code></pre>
 <p>And then use <code>read_csv</code> from the <code>readr</code> package to load the data in.</p>
-<pre class="r"><code>ipeds &lt;- read_csv(&quot;data/colleges_ipeds_completers_2011-2015.csv&quot;)</code></pre>
+<pre class="r"><code>ipeds &lt;- read_csv(&quot;data/colleges_ipeds_completers.csv&quot;)</code></pre>
 <p>We now have a <code>tibble</code> that can be used with all the <code>ggplot2</code> and <code>dplyr</code> functions you’ve learned so far. Let’s filter the data to only 2011 and write it out as a separate file:</p>
 <pre class="r"><code>ipeds_2011 &lt;- ipeds %&gt;%
   filter(year == 2011)
@@ -1719,8 +1682,8 @@ write_csv(ipeds_2011, &quot;modified/colleges_ipeds_completers_2011.csv&quot;)</
 </div>
 <div id="other-delimiters" class="section level2">
 <h2><span class="header-section-number">6.2</span> Other Delimiters</h2>
-<p>Most plain text files will use a comma to seperate values. Sometimes you’ll see other delimiters used - the most common are tabs and vertical bar <code>|</code> (which is often called a pipe, not to be confused with the <code>tidyverse</code> pipe <code>%&gt;%</code>).</p>
-<p>To read in a plain text file that uses another delimiter, use the <code>read_delim</code> function. This function will take two arguments: the path to the file you want to load and the character to use as a delimter.</p>
+<p>Most plain text files will use a comma to separate values. Sometimes you’ll see other delimiters used - the most common are tabs <code>\t</code> and vertical bar <code>|</code> (which is often called a pipe, not to be confused with the <code>tidyverse</code> pipe <code>%&gt;%</code>).</p>
+<p>To read in a plain text file that uses another delimiter, use the <code>read_delim</code> function. This function will take two arguments: the path to the file you want to load and the character to use as a delimiter.</p>
 <div id="example-1" class="section level3">
 <h3><span class="header-section-number">6.2.1</span> Example</h3>
 <p>First we’ll download a tab delimited file from the North Carolina Board of Elections:</p>
@@ -1729,6 +1692,11 @@ write_csv(ipeds_2011, &quot;modified/colleges_ipeds_completers_2011.csv&quot;)</
 <p>Then load in the file with the correct delimiter set:</p>
 <pre class="r"><code>ncvhis &lt;- read_delim(&quot;data/ncvhis30.zip&quot;, delim = &quot;\t&quot;)</code></pre>
 <p>Note that <code>readr</code> was able to read the data directly from the zipfile!</p>
+<p>Similarly, the <code>write_delim()</code> function can be used to write out a plain text file with a specified <code>delim</code> argument.</p>
+</div>
+<div id="exercise-2" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Exercise</h3>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>write_delim()</code> to write out <code>ncvhis</code> to a pipe <code>|</code> separated file.</p>
 </div>
 </div>
 <div id="common-issues" class="section level2">
@@ -1745,7 +1713,7 @@ write_csv(ipeds_2011, &quot;modified/colleges_ipeds_completers_2011.csv&quot;)</
 <pre class="r"><code>challenge &lt;- read_csv(readr_example(&quot;challenge.csv&quot;),
                       guess_max = Inf)</code></pre>
 </div>
-<div id="exercise-2" class="section level3">
+<div id="exercise-3" class="section level3">
 <h3><span class="header-section-number">6.3.2</span> Exercise</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Pull up the documentation for <code>read_csv</code> and take a look of some of the function arguments. There are a lot! You don’t need to know how everything works, but it’s good to have an idea of some of the options available to you.</p>
 </div>
@@ -1765,7 +1733,7 @@ write_csv(ipeds_2011, &quot;modified/colleges_ipeds_completers_2011.csv&quot;)</
 <pre class="r"><code>purchases &lt;- read_excel(&quot;data/sfsnap.xlsx&quot;, sheet = &quot;Purchase Data April 2019&quot;)</code></pre>
 <p>Note that the <code>readxl</code> package only provides functionality to, as the name implies, read Excel files. If you need to write your data out to <code>.xls</code> or <code>.xlsx</code> formats - don’t! And if you really need to, look into the <code>writexl</code> or <code>openxlsx</code> packages.</p>
 </div>
-<div id="exercise-3" class="section level2">
+<div id="exercise-4" class="section level2">
 <h2><span class="header-section-number">7.2</span> Exercise</h2>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>read_excel()</code> to load in the table on the “Refinance Data April 2019” sheet into a data frame called <code>refinances</code>.</p>
 </div>
@@ -1793,10 +1761,10 @@ write_csv(ipeds_2011, &quot;modified/colleges_ipeds_completers_2011.csv&quot;)</
 <pre class="r"><code>download_data(&quot;https://www2.census.gov/programs-surveys/acs/data/pums/2017/1-Year/unix_pwy.zip&quot;,
               &quot;data/pums_wy.zip&quot;)</code></pre>
 </div>
-<div id="exercise-4" class="section level3">
+<div id="exercise-5" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> Exercise</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>read_sas()</code> function to load the SAS data set into your R session as an object named <code>pums</code>.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Use the <code>write_dta()</code> function to save the PUMS data in Stata format in your <code>modified</code> subfolder.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Use the <code>write_dta()</code> function to save the PUMS data in Stata format in your <code>modified</code> subfolder.</p>
 </div>
 </div>
 </div>
@@ -1825,6 +1793,54 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

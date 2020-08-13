@@ -58,8 +58,8 @@ packages must be loaded separately.
 # Primary Functions
 
 In general, `readr`, `readxl`, and `haven` will come with some variant of 
-a `read` function for data import, and a variant of `write` (except for Excel!) 
-for data export.
+a `read` function for data import, and a variant of `write` (except for Excel
+and SAS!) for data export.
 
 * `readr::read_csv()`, `readr::write_csv()`
 * `readr::read_delim()`, `readr::write_delim()`
@@ -94,7 +94,7 @@ create subfolders called `data` and `modified` in your R Project.
 
 <font color="#55b748">**Step 3:**</font> We'll be downloading a couple different 
 datasets for today's examples. Staying DRY, let's rework Aaron's example code 
-from Tuesday into a function we can reuse. Copy and paste the following into 
+from Wednesday into a function we can reuse. Copy and paste the following into 
 your file. Make sure to run the code so the function becomes a part of your 
 environment.
 
@@ -119,14 +119,14 @@ First we'll download an example `csv` file from the Urban Institute's
 Education data portal:
 
 ```{r, eval=FALSE}
-download_data("https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers_2011-2015.csv",
-              "data/colleges_ipeds_completers_2011-2015.csv")
+download_data("https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers.csv",
+              "colleges_ipeds_completers.csv")
 ```
 
 And then use `read_csv` from the `readr` package to load the data in.
 
 ```{r, eval=FALSE}
-ipeds <- read_csv("data/colleges_ipeds_completers_2011-2015.csv")
+ipeds <- read_csv("data/colleges_ipeds_completers.csv")
 ```
 
 We now have a `tibble` that can be used with all the `ggplot2` and `dplyr` 
@@ -151,13 +151,13 @@ file called "ipeds_completers_ca.csv" in your `modified` folder.
 
 ## Other Delimiters
 
-Most plain text files will use a comma to seperate values. Sometimes you'll see 
-other delimiters used - the most common are tabs and vertical bar `|` (which is 
+Most plain text files will use a comma to separate values. Sometimes you'll see 
+other delimiters used - the most common are tabs `\t` and vertical bar `|` (which is 
 often called a pipe, not to be confused with the `tidyverse` pipe `%>%`).
 
 To read in a plain text file that uses another delimiter, use the `read_delim` 
 function. This function will take two arguments: the path to the file you want 
-to load and the character to use as a delimter.
+to load and the character to use as a delimiter.
 
 ### Example
 
@@ -176,6 +176,14 @@ ncvhis <- read_delim("data/ncvhis30.zip", delim = "\t")
 ```
 
 Note that `readr` was able to read the data directly from the zipfile!
+
+Similarly, the `write_delim()` function can be used to write out a plain text 
+file with a specified `delim` argument.
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Use `write_delim()` to write out 
+`ncvhis` to a pipe `|` separated file.
 
 ## Common Issues
 
@@ -299,7 +307,7 @@ download_data("https://www2.census.gov/programs-surveys/acs/data/pums/2017/1-Yea
 <font color="#55b748">**Step 1:**</font> Use the `read_sas()` function 
 to load the SAS data set into your R session as an object named `pums`.
 
-<font color="#55b748">**Step 3:**</font> Use the `write_dta()` function 
+<font color="#55b748">**Step 2:**</font> Use the `write_dta()` function 
 to save the PUMS data in Stata format in your `modified` subfolder.
 
 # Resources

@@ -1669,6 +1669,8 @@ src: local('Lato Regular'), local('Lato-Regular'), url(data:font/ttf;base64,AAEA
 <h1><span class="header-section-number">2</span> Motivation</h1>
 <ul>
 <li>You want to apply a transformation to all variables in a data frame (or a subset of them).</li>
+<li>You want to summarize many variables, create many statistics for one variable, or some combination of the two.</li>
+<li>You want to read in may different .csv files.</li>
 </ul>
 </div>
 <div id="vectorization" class="section level1">
@@ -1818,17 +1820,18 @@ mtcars %&gt;%
 ## 1  20.1  6.19  231.  147.  3.60  3.22  17.8 0.438 0.406  3.69  2.81</code></pre>
 <p>We can calculate multiple summary statistics by passing in a <code>list()</code> of the statistics we want:</p>
 <pre class="r"><code>mtcars %&gt;%
-  summarize(across(.cols = everything(), 
+  summarize(n = n(),
+            across(.cols = everything(), 
                    .fns = list(mean = mean, median = median)))</code></pre>
-<pre><code>## # A tibble: 1 x 22
-##   mpg_mean mpg_median cyl_mean cyl_median disp_mean disp_median hp_mean
-##      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-## 1     20.1       19.2     6.19          6      231.        196.    147.
-## # … with 15 more variables: hp_median &lt;dbl&gt;, drat_mean &lt;dbl&gt;,
+<pre><code>## # A tibble: 1 x 25
+##       n mpg_mean mpg_median cyl_mean cyl_median disp_mean disp_median hp_mean
+##   &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+## 1    32     20.1       19.2     6.19          6      231.        196.    147.
+## # … with 17 more variables: hp_median &lt;dbl&gt;, drat_mean &lt;dbl&gt;,
 ## #   drat_median &lt;dbl&gt;, wt_mean &lt;dbl&gt;, wt_median &lt;dbl&gt;, qsec_mean &lt;dbl&gt;,
 ## #   qsec_median &lt;dbl&gt;, vs_mean &lt;dbl&gt;, vs_median &lt;dbl&gt;, am_mean &lt;dbl&gt;,
 ## #   am_median &lt;dbl&gt;, gear_mean &lt;dbl&gt;, gear_median &lt;dbl&gt;, carb_mean &lt;dbl&gt;,
-## #   carb_median &lt;dbl&gt;</code></pre>
+## #   carb_median &lt;dbl&gt;, n_mean &lt;dbl&gt;, n_median &lt;int&gt;</code></pre>
 </div>
 <div id="exercise-1" class="section level2">
 <h2><span class="header-section-number">4.3</span> Exercise 1</h2>
@@ -1854,11 +1857,10 @@ mtcars %&gt;%
 ## 6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48</code></pre>
 <p>What happens if we try to use <code>mutate(acoss(.cols = everything(), .fns = log))</code> to log transform each variable in this data frame?</p>
 <pre class="r"><code>diamonds %&gt;%
-  mutate(.cols = everything(), .fns = log)</code></pre>
-<pre><code>## Error: Problem with `mutate()` input `.cols`.
-## x `everything()` must be used within a *selecting* function.
-## ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-selection-context.html&gt;.
-## ℹ Input `.cols` is `everything()`.</code></pre>
+  mutate(across(.cols = everything(), .fns = log))</code></pre>
+<pre><code>## Error: Problem with `mutate()` input `..1`.
+## x &#39;log&#39; not meaningful for factors
+## ℹ Input `..1` is `across(.cols = everything(), .fns = log)`.</code></pre>
 <p>It doesn’t work because <code>diamonds</code> has some non-numeric columns. We could find all the columns that are numeric:</p>
 <pre class="r"><code>glimpse(diamonds)</code></pre>
 <pre><code>## Rows: 53,940

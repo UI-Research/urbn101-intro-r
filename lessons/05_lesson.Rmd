@@ -46,6 +46,8 @@ library(tidyverse)
 # Motivation
 
 * You want to apply a transformation to all variables in a data frame (or a subset of them).
+* You want to summarize many variables, create many statistics for one variable, or some combination of the two.
+* You want to read in may different .csv files. 
 
 # Vectorization
 
@@ -149,7 +151,8 @@ We can calculate multiple summary statistics by passing in a `list()` of the sta
 
 ```{r}
 mtcars %>%
-  summarize(across(.cols = everything(), 
+  summarize(n = n(),
+            across(.cols = everything(), 
                    .fns = list(mean = mean, median = median)))
 
 ```
@@ -177,7 +180,7 @@ What happens if we try to use `mutate(acoss(.cols = everything(), .fns = log))` 
 
 ```{r, error=TRUE}
 diamonds %>%
-  mutate(.cols = everything(), .fns = log)
+  mutate(across(.cols = everything(), .fns = log))
 
 ```
 

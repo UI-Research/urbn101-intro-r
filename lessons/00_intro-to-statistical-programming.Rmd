@@ -23,11 +23,16 @@ opts_chunk$set(fig.align = "center")
 
 ## Day 0: Intro to statistical programming
 
-Ajjit Narayanan, Sarah Strochak, Kyle Ueyama, Aaron R. Williams
+Ajjit Narayanan, Fay Walker, Aaron R. Williams
 
 ```{r out.width = "50%"}
 knitr::include_graphics(here::here("www", "images/Rlogo.png"))
 ```
+
+## Advertisement
+
+* [Join the R Users Group email list](https://urbaninstitute.github.io/r-at-urban/)
+* Join the #r-users-group Slack channel
 
 # <font color="#ffffff">Statistical Programming</font> {data-background=#1696d2}
 
@@ -416,10 +421,6 @@ knitr::include_graphics("www/images/directory.png")
 5) Use R, use it again, and then use R some more
 
 ## Schedule
-
-```{r out.width = "100%"}
-knitr::include_graphics("www/images/schedule.png")
-```
 
 # <font color="#ffffff">Software check</font> {data-background=#1696d2}
 

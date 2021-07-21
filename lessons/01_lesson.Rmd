@@ -54,7 +54,7 @@ output:
 
 # Exercise 1 (Make a plot)
 
-<font color="#55b748">**Step 1:**</font> Submit `data()` to the console. We will use the airquality dataset
+<font color="#55b748">**Step 1:**</font> Submit `data()` to the console. We will use the airquality dataset.
 
 <font color="#55b748">**Step 2:**</font> Type the following in your script:
 
@@ -124,23 +124,24 @@ set_urbn_defaults(style = "print")
 
 <font color="#ec008b">**Theme**</font> controls the visual style of plot with font types, font sizes, background colors, margins, and positioning.
 
-# Excercise 6
-<font color="#55b748">**Step 1:**</font> Read in #Zillow Observed Rent Index (ZORI) data using `read_csv('LINK')` ()
+# Excercise 6 (Multiple little graphs/Faceting)
+<font color="#55b748">**Step 1:**</font> Read in Zillow Observed Rent Index (ZORI) data using `read_csv('https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/zillow_clean.csv')` 
 
-<font color="#55b748">**Step 2:**</font> Read in zillow data using `read_csv('LINK')` ()
+<font color="#55b748">**Step 2:**</font> Clean the zillow data to just the most expensive ciites using code below:
 ```
-zillow_clean %>%
+zillow_clean <- zillow %>%
   arrange(desc(Avg_price)) %>%
   slice(1:10) %>%
   ggplot()+
-  geom_point(mapping=aes(x=Year, y=Avg_price))+
-  facet_wrap(~RegionName)
+  geom_point(mapping=aes(x=Year, y=Avg_price))
 ```
 
-<font color="#55b748">**Step 3:**</font> Read in zillow data using `read_csv('LINK')` ()
+<font color="#55b748">**Step 3:**</font> In ggplot, plot the zillow_clean data as a scatter plot with year on the x axis and avg_price on the y axis.
+
+<font color="#55b748">**Step 4:**</font> Add `facet_wrap(~RegionName)` after the `geom_point(mapping=aes(x=Year, y=Avg_price))` line.
   
 # Exercise 7 (Mapping)
-<font color="#55b748">**Step 1:**</font> Read in UFO sighting data (source: National UFO Reporting Center), link: _______________
+<font color="#55b748">**Step 1:**</font> Read in UFO sighting data (source: National UFO Reporting Center), link: https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/ufo_state.csv
 
 <font color="#55b748">**Step 1:**</font> Install urbnmapr `devtools::install_github("UrbanInstitute/urbnmapr")`, load the urbnmapr library, and update the urbnthemes style to map `set_urbn_defaults(style = "map")`.
 
@@ -154,7 +155,7 @@ states_ufo <- states_sf %>%
 ```
 <font color="#55b748">**Step 3:**</font>: In ggplot, plot the states_ufo dataset, fill it in using the "count" column, add labels, change the outline (colour). Instead of using geom_point or geom_bar using geom_sf.
 
-Mapping Resources
+<font color="#ec008b"> Mapping Resources </font>
 
 * [How to Create State and County Maps Easily in R](https://medium.com/@urban_institute/how-to-create-state-and-county-maps-easily-in-r-577d29300bb2)
 * [library(urbnmapr)](https://github.com/UrbanInstitute/urbnmapr)

@@ -1583,7 +1583,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 1: Data Visualization</h1>
 <h4 class="author">Fay Walker</h4>
-<h4 class="date">July 20, 2021 23:15</h4>
+<h4 class="date">July 20, 2021 23:22</h4>
 
 </div>
 
@@ -1632,7 +1632,7 @@ src: url(data:font/ttf;base64,AAEAAAAQAQAABAAAR1BPU7mh7ggAANmAAAASekdTVUKOOo58AA
 </div>
 <div id="exercise-1-make-a-plot" class="section level1">
 <h1><span class="header-section-number">3</span> Exercise 1 (Make a plot)</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Submit <code>data()</code> to the console. We will use the airquality dataset</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Submit <code>data()</code> to the console. We will use the airquality dataset.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Type the following in your script:</p>
 <pre><code>ggplot(data=airquality)+
   geom_point(mapping=aes(x=Temp, y=Ozone))</code></pre>
@@ -1678,21 +1678,21 @@ set_urbn_defaults(style = &quot;print&quot;)</code></pre>
 <p><font color="#55b748"><strong>Step 5:</strong></font> Add <code>scale_y_continuous(expand = expand_scale(mult = c(0, 0.1)))</code> and rerun the code.</p>
 <p><font color="#ec008b"><strong>Theme</strong></font> controls the visual style of plot with font types, font sizes, background colors, margins, and positioning.</p>
 </div>
-<div id="excercise-6" class="section level1">
-<h1><span class="header-section-number">8</span> Excercise 6</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Read in #Zillow Observed Rent Index (ZORI) data using <code>read_csv(&#39;LINK&#39;)</code> ()</p>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Read in zillow data using <code>read_csv(&#39;LINK&#39;)</code> ()</p>
-<pre><code>zillow_clean %&gt;%
+<div id="excercise-6-multiple-little-graphsfaceting" class="section level1">
+<h1><span class="header-section-number">8</span> Excercise 6 (Multiple little graphs/Faceting)</h1>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Read in Zillow Observed Rent Index (ZORI) data using <code>read_csv(&#39;https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/zillow_clean.csv&#39;)</code></p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Clean the zillow data to just the most expensive ciites using code below:</p>
+<pre><code>zillow_clean &lt;- zillow %&gt;%
   arrange(desc(Avg_price)) %&gt;%
   slice(1:10) %&gt;%
   ggplot()+
-  geom_point(mapping=aes(x=Year, y=Avg_price))+
-  facet_wrap(~RegionName)</code></pre>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Read in zillow data using <code>read_csv(&#39;LINK&#39;)</code> ()</p>
+  geom_point(mapping=aes(x=Year, y=Avg_price))</code></pre>
+<p><font color="#55b748"><strong>Step 3:</strong></font> In ggplot, plot the zillow_clean data as a scatter plot with year on the x axis and avg_price on the y axis.</p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Add <code>facet_wrap(~RegionName)</code> after the <code>geom_point(mapping=aes(x=Year, y=Avg_price))</code> line.</p>
 </div>
 <div id="exercise-7-mapping" class="section level1">
 <h1><span class="header-section-number">9</span> Exercise 7 (Mapping)</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Read in UFO sighting data (source: National UFO Reporting Center), link: _______________</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Read in UFO sighting data (source: National UFO Reporting Center), link: <a href="https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/ufo_state.csv" class="uri">https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/ufo_state.csv</a></p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Install urbnmapr <code>devtools::install_github(&quot;UrbanInstitute/urbnmapr&quot;)</code>, load the urbnmapr library, and update the urbnthemes style to map <code>set_urbn_defaults(style = &quot;map&quot;)</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font>: PUll a shapefile of US States using urbnmapr and join the UFO counts by state to the shapefile using the code below:</p>
 <pre><code>states_sf &lt;- get_urbn_map(&quot;states&quot;, sf = TRUE)
@@ -1700,7 +1700,7 @@ set_urbn_defaults(style = &quot;print&quot;)</code></pre>
 states_ufo &lt;- states_sf %&gt;% 
   left_join(ufo, by=c(&quot;state_abbv&quot;=&quot;state&quot;))</code></pre>
 <p><font color="#55b748"><strong>Step 3:</strong></font>: In ggplot, plot the states_ufo dataset, fill it in using the “count” column, add labels, change the outline (colour). Instead of using geom_point or geom_bar using geom_sf.</p>
-<p>Mapping Resources</p>
+<p><font color="#ec008b"> Mapping Resources </font></p>
 <ul>
 <li><a href="https://medium.com/@urban_institute/how-to-create-state-and-county-maps-easily-in-r-577d29300bb2">How to Create State and County Maps Easily in R</a></li>
 <li><a href="https://github.com/UrbanInstitute/urbnmapr">library(urbnmapr)</a></li>

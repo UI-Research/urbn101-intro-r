@@ -1,6 +1,6 @@
 ---
-title: "Day 2: data management"
-author: "Sarah Strochak (HFPC)"
+title: "Day 2: Data Munging 1"
+author: "Fay Walker"
 date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
 output:
   html_document:
@@ -22,14 +22,8 @@ output:
 
 # Review
 
-* assignment operator
-* functions
-* tidy data
+###### 
 
-# Motivation 
-
-"The toughest part of data visualization is data munging."
-- Aaron Williams
 
 # Primary functions
 
@@ -44,35 +38,32 @@ output:
 All of these functions have the same structure.
 
 1. The first argument is the dataframe
-2. The subsequent arguments describe what to do with the data frame, using the variable names (without quotes).
-3. The result is a new data frame.
+2. The subsequent arguments describe what to do with the data frame, using the variable names (without quotes because you're already refering to that df)
+3. Separate functions by %>%
+4. The result is a new data frame.
+
+* If you have hit an error, trying running it line by line (function by function)
 
 Source: [R for data science](https://r4ds.had.co.nz/transform.html)
 
 
 # The pipe operator
 
-
 # Exercise 0
 
 If you are using a different computer or didn't attend last Friday's session, follow steps 1 and 2. If not- skip to step 3.
 
-<font color="#55b748">**Step 1:**</font> Create a new directory called `urbn101`
+<font color="#55b748">**Step 1:**</font> Open RStudio. File > New Project > New Directory > Select the location where you would like to create a new folder that houses your R Project. Call it `urbn101`
 
-<font color="#55b748">**Step 2:**</font> Open RStudio. Click "Project: (None)" in the top right corner. Click "New Project" and create a project based on the existing `urbn101` directory.
+<font color="#55b748">**Step 2:**</font> Open an `.R` script with the button in the top left (sheet with a plus sign icon). Save the script as `02_data-munging1.R`.
 
-<font color="#55b748">**Step 3:**</font> Open a `.R` script with the button in the top left. Save the script as `02_data-management.R`.
+<font color="#55b748">**Step 3:**</font> If you have not previously installed `library(tidyverse)`: submit `install.packages("tidyverse")` to the Console (type and hit enter)
 
-<font color="#55b748">**Step 4:**</font> If you have not previously installed `library(tidyverse)`: submit `install.packages("tidyverse")` to the Console.
-
-<font color="#55b748">**Step 5:**</font> Write `library(tidyverse)` at the top of `02_data-management.R`. With the cursor on the line of text, click Control-Enter.
+<font color="#55b748">**Step 4:**</font> Write `library(tidyverse)` at the top of `02_data-management.R`. With the cursor on the line of text, click Control-Enter.
 
 
 # Exercise 1
-
 <font color="#55b748">**Step 1:**</font> Assign the `storms` dataset to be called storms. Submit `View(storms)` in the console.
-
-
 
 You can also deselect specific columns in your data by using the `-` operator
 

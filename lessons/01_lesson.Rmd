@@ -141,11 +141,11 @@ zillow_clean <- zillow %>%
 <font color="#55b748">**Step 4:**</font> Add `facet_wrap(~RegionName)` after the `geom_point(mapping=aes(x=Year, y=Avg_price))` line.
   
 # Exercise 7 (Mapping)
-<font color="#55b748">**Step 1:**</font> Read in UFO sighting data (source: National UFO Reporting Center), link: https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/ufo_state.csv
+<font color="#55b748">**Step 1:**</font> Read in UFO sighting data (source: National UFO Reporting Center), link: `https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/ufo_state.csv`
 
 <font color="#55b748">**Step 1:**</font> Install urbnmapr `devtools::install_github("UrbanInstitute/urbnmapr")`, load the urbnmapr library, and update the urbnthemes style to map `set_urbn_defaults(style = "map")`.
 
-<font color="#55b748">**Step 2:**</font>: PUll a shapefile of US States using urbnmapr and join the UFO counts by state to the shapefile using the code below:
+<font color="#55b748">**Step 2:**</font>: Pull a shapefile of US States using urbnmapr and join the UFO counts by state to the shapefile using the code below:
 
 ```
 states_sf <- get_urbn_map("states", sf = TRUE)

@@ -41,11 +41,11 @@ output:
 
 <font color="#55b748">**Step 1:**</font> Open RStudio. File > New Project > New Directory > Select the location where you would like to create a new folder that houses your R Project. Call it `urbn101`
 
-<font color="#55b748">**Step 2:**</font> Open an `.R` script with the button in the top left (sheet with a plus sign icon). Save the script as `01_data-munging1.R`.
+<font color="#55b748">**Step 2:**</font> Open an `.R` script with the button in the top left (sheet with a plus sign icon). Save the script as `01_data-visualization.R`.
 
 <font color="#55b748">**Step 3:**</font> Type `install.packages("tidyverse")` and hit enter (submit) to the Console.
 
-<font color="#55b748">**Step 4:**</font> Write `library(tidyverse)` and at the top of `01_data-munging1.R`. With the cursor on the line of text, hit Control-Enter (at the same time). 
+<font color="#55b748">**Step 4:**</font> Write `library(tidyverse)` and at the top of `01_data-visualization.R`. With the cursor on the line of text, hit Control-Enter (at the same time). 
 
 <font color="#55b748">**Step 5:**</font> Repeat steps 3 & 4 with `install.packages("ggplot2")` and `library(ggplot2)`, respectively.
 

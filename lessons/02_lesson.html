@@ -1583,7 +1583,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Day 2: Data Munging 1</h1>
 <h4 class="author">Fay Walker</h4>
-<h4 class="date">July 25, 2021 21:02</h4>
+<h4 class="date">July 25, 2021 21:23</h4>
 
 </div>
 
@@ -1683,7 +1683,8 @@ filter(col1&gt;0)</code></pre>
 <p>The <code>%in%</code> operator is useful for filtering based on more than one option within one variable.</p>
 <pre><code>filter(dataset, var1 == &quot;a&quot; | var1 == &quot;b&quot; | var1 == &quot;c&quot;)</code></pre>
 <p>is equivalent to</p>
-<pre><code>filter(dataset, var1 %in% c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))</code></pre>
+<pre><code>dataset %&gt;%
+filter(var1 %in% c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))</code></pre>
 </div>
 <div id="exercise-2-ifthen-and-summarizing" class="section level1">
 <h1><span class="header-section-number">6</span> Exercise 2: If/Then and Summarizing</h1>
@@ -1698,14 +1699,19 @@ filter(col1&gt;0)</code></pre>
   group_by(year) %&gt;% 
   summarize(yearly_sales = sum(sales))</code></pre>
 <p><font color="#ec008b"><strong>Group By</strong></font></p>
-<p><code>group_by</code> groups your dataframe into discrete categories. It can be very powerful when used with <code>summarize</code> <font color="#ec008b"><strong>Summarize</strong></font></p>
+<p><code>group_by</code> groups your dataframe into discrete categories. It can be very powerful when used with <code>summarize</code>.</p>
+<p><font color="#ec008b"><strong>Summarize</strong></font></p>
 <p><code>summarize</code> computes summary statistics for as set of observations in your data. The syntax is:</p>
 <pre><code>dataset %&gt;% 
   mutate(max = max(other_column))</code></pre>
+<p>or</p>
+<pre><code>dataset %&gt;%
+  group_by(col1) %&gt;%
+  summarize(count=n())</code></pre>
 <p><font color="#55b748"><strong>Step 5:</strong></font> Add the argument <code>na.rm = TRUE</code> to the <code>sum()</code> function and rerun the code. Add a comment to explain the code.</p>
 <p><font color="#55b748"><strong>Step 6:</strong></font> Sort the results of the previous code in order from most to least sales by adding <code>%&gt;% arrange(desc(yearly_sales))</code> to the end of the code.</p>
-<p><font color="#55b748"><strong>Step 7a:</strong></font> Which county had the most home sales in January 2008? (Hint: use <code>filter()</code> and <code>arrange()</code>).</p>
-<p><font color="#55b748"><strong>Step 7b:</strong></font> Which county had the least home sales in 2006? (Hint: group by the county and the year- then use <code>summarize()</code>).</p>
+<p><font color="#55b748"><strong>Step 7a:</strong></font> Which city had the most home sales in January 2008? (Hint: use <code>filter()</code> and <code>arrange()</code>).</p>
+<p><font color="#55b748"><strong>Step 7b:</strong></font> Which city had the least home sales in 2006? (Hint: group by the city and the year- then use <code>summarize()</code>).</p>
 <p><font color="#55b748"><strong>BONUS:</strong></font> Plot the number of annual home sales over time!</p>
 </div>
 <div id="exercise-3-put-it-all-together" class="section level1">

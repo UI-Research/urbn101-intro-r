@@ -22,8 +22,16 @@ output:
 
 # Review
 
-###### 
+* Assignment Operator
+* Console/Environment/Script
+* Comment your code and read your error messages
 
+# The tidyverse package
+
+* Collection of packages using same syntax and grammar
+* Works with "tidy" data 
+* Uses tibbles (https://r4ds.had.co.nz/tibbles.html)
+* %>%
 
 # Primary functions
 
@@ -32,8 +40,8 @@ output:
 * `filter()`
 * `arrange()`
 * `mutate()`
-* `summarize()`
 * `group_by()`
+* `summarize()`
 
 All of these functions have the same structure.
 
@@ -42,32 +50,30 @@ All of these functions have the same structure.
 3. Separate functions by %>%
 4. The result is a new data frame.
 
+![](C:/Users/fwalker/Downloads/image.png)
+
 * If you have hit an error, trying running it line by line (function by function)
+
 
 Source: [R for data science](https://r4ds.had.co.nz/transform.html)
 
 
-# The pipe operator
+# Exercise 0: Creating a Project and Loading Packages
 
-# Exercise 0
+If you are using a different computer or didn't attend sessions 0 or 1, follow steps 1 and 2. If not- skip to step 3.
 
-If you are using a different computer or didn't attend last Friday's session, follow steps 1 and 2. If not- skip to step 3.
-
-<font color="#55b748">**Step 1:**</font> Open RStudio. File > New Project > New Directory > Select the location where you would like to create a new folder that houses your R Project. Call it `urbn101`
+<font color="#55b748">**Step 1:**</font> Open RStudio. File > New Project > New Directory > Select the location where you would like to create a new folder that houses your R Project. Call it `urbn101`.
 
 <font color="#55b748">**Step 2:**</font> Open an `.R` script with the button in the top left (sheet with a plus sign icon). Save the script as `02_data-munging1.R`.
 
 <font color="#55b748">**Step 3:**</font> If you have not previously installed `library(tidyverse)`: submit `install.packages("tidyverse")` to the Console (type and hit enter)
 
-<font color="#55b748">**Step 4:**</font> Write `library(tidyverse)` at the top of `02_data-management.R`. With the cursor on the line of text, click Control-Enter.
+<font color="#55b748">**Step 4:**</font> Write `library(tidyverse)` at the top of `02_data-munging1.R`. With the cursor on the line of text, click Control-Enter.
 
-
-# Exercise 1
+# Exercise 1: Tidyverse Function Overview
 <font color="#55b748">**Step 1:**</font> Assign the `storms` dataset to be called storms. Submit `View(storms)` in the console.
 
 You can also deselect specific columns in your data by using the `-` operator
-
-<font color="#55b748">**Step 2:**</font> Create a new dataset with all the variables except for `ts_diameter` and `hu_diameter`, by using `select` and `-`.
 
 <font color="#ec008b">**Select**</font>
 
@@ -75,11 +81,13 @@ You can also deselect specific columns in your data by using the `-` operator
 For example:
 
 ```
-  select(dataset, col1, col2)
+dataset %>%
+  select(col1, col2)
 ```
 
-<font color="#55b748">**Step 3:**</font> Create a new dataset that only category 5 storms using  `filter()`.
+<font color="#55b748">**Step 2:**</font> Create a new dataset with all the variables except for `ts_diameter` and `hu_diameter`, by using `select` and `-`.
 
+<font color="#55b748">**Step 3:**</font> Create a new dataset that only category 5 storms using  `filter()`.
 
 <font color="#ec008b">**Filter**</font>
 
@@ -91,18 +99,10 @@ For example:
 You can also chain together multiple condtions with `&` (and) or `|` (or). The arguments after the dataframe should be conditions you want to filter your dataset on. For example
 
 ```
-filter(dataset, col1 > 0)
+dataset %>%
+filter(col1>0)
 ```
-
-
-
-<font color="#55b748">**Step 4:**</font> Chain all three of these commands together with the `%>%` operator. Then rename the column `pressure` to `air_pressure`.
-
-<font color="#ec008b">**%>%**</font>
-
-The pipe operator allows you to string together a set of different functions.
-The first argument in the next function you are using will be replaced with what precedes `%>%`
-
+<font color="#55b748">**Step 4:**</font> Chain all  of these commands together with the `%>%` operator. Then rename the column `pressure` to `air_pressure`.
 
 <font color="#ec008b">**Rename**</font>
 
@@ -125,19 +125,7 @@ This same syntax can be used inside `select()`, and you can rename and select va
 dataset %>% 
   mutate(new_column = 100 * other_column)
 ```
-
-
-<font color="#55b748">**Step 6:**</font> Use `summarize()` to find the average wind speed (in MPH) of a category 5 storm.
-
-<font color="#ec008b">**Summarize**</font>
-
-`summarize` computes summary statistics for as set of observations in your data. The syntax is:
-
-```
-dataset %>% 
-  mutate(max = max(other_column))
-```
-<font color="#55b748">**Step 7:**</font> Make a dataset with storms that occured in the summer (June, July, August).
+<font color="#55b748">**Step 6:**</font> Make a dataset with storms that occured in the summer (June, July, August).
 
 <font color="#ec008b">**The `%in%` operator**</font>
 
@@ -150,11 +138,11 @@ filter(dataset, var1 == "a" | var1 == "b" | var1 == "c")
 is equivalent to 
 
 ```
-filter(dataset, var1 %in% c("a", "b", "c"))
+dataset %>%
+filter(var1 %in% c("a", "b", "c"))
 ```
 
-
-# Exercise 2 
+# Exercise 2: If/Then and Summarizing
 
 <font color="#55b748">**Step 1:**</font> Use the `txhousing` dataset. Assign the dataset to an object in your global environment named `tx_housing`.
 
@@ -179,21 +167,36 @@ tx_housing %>%
 
 <font color="#ec008b">**Group By**</font>
 
-`group_by` groups your dataframe into discrete categories. It can be very powerful when used with `summarize`
+`group_by` groups your dataframe into discrete categories. It can be very powerful when used with `summarize`.
 
+<font color="#ec008b">**Summarize**</font>
+
+`summarize` computes summary statistics for as set of observations in your data. The syntax is:
+
+```
+dataset %>% 
+  mutate(max = max(other_column))
+```
+or
+
+```
+dataset %>%
+  group_by(col1) %>%
+  summarize(count=n())
+```
 
 <font color="#55b748">**Step 5:**</font> Add the argument `na.rm = TRUE` to the `sum()` function and rerun the code. Add a comment to explain the code.
 
 <font color="#55b748">**Step 6:**</font> Sort the results of the previous code in order from most to least sales by adding ` %>% arrange(desc(yearly_sales))` to the end of the code.
 
-<font color="#55b748">**Step 7a:**</font> Which county had the most home sales in January 2008? (Hint: use `filter()` and `arrange()`).
+<font color="#55b748">**Step 7a:**</font> Which city had the most home sales in January 2008? (Hint: use `filter()` and `arrange()`).
 
-<font color="#55b748">**Step 7b:**</font> Which county had the least home sales in 2006? (Hint: group by the county and the year- then use `summarize()`).
+<font color="#55b748">**Step 7b:**</font> Which city had the least home sales in 2006? (Hint: group by the city and the year- then use `summarize()`).
 
 <font color="#55b748">**BONUS:**</font> Plot the number of annual home sales over time!
 
 
-# Exercise 3
+# Exercise 3: Put it all together
 
 <font color="#55b748">**Step 1:**</font> Use the `starwars` dataframe. Type `count(starwars, homeworld)` into your script.
 

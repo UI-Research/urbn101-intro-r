@@ -29,3 +29,4 @@ These are the materials for *Intro to R: A hands-on tutorial*, a nine class R tr
 * Sarah Strochak (HFPC)
 * Kyle Ueyama (TECH)
 * Aaron R. Williams (IBP)
+* Fay Walker (MET)

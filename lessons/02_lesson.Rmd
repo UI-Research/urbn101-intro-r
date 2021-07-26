@@ -197,10 +197,9 @@ dataset %>%
 
 
 # Exercise 3: Put it all together
-
 <font color="#55b748">**Step 1:**</font> Use the `starwars` dataframe. Type `count(starwars, homeworld)` into your script.
 
-<font color="#55b748">**Step 2:**</font> Repeat the first exercise, but first filter out any characters that have a missing `homeworld`.
+<font color="#55b748">**Step 2:**</font> Filter out any characters that have a missing `homeworld`.
 
 <font color="#55b748">**Step 3:**</font> Find the average and median height and mass for humans vs. droids. (Hint: use `group_by()` and `summarize()`). Make sure that you are correcting for observations with missing values!
 

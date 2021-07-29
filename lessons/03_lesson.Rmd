@@ -98,9 +98,9 @@ The `month` and `day` columns are currently integer variables. We want to turn t
 
 <font color="#55b748">**Step 1:**</font> Add `library(lubridate)` after `library(nycflight13)` in your script. 
 
-<font color="#55b748">**Step 2:**</font> `library(lubridate)` is powerful but it needs variables in the correct format. Use `ymd()` inside of `mutate()` to create a new variable called `flight_date` for the `flights_subset` data. 
+<font color="#55b748">**Step 2:**</font> `library(lubridate)` is powerful but it needs variables in the correct format. Use `ymd()` inside of `mutate()` to turn the `flight_date` variable into a date rather than a character vector.   
 
-<font color="#55b748">**Step 3:**</font> Use `mutate()` and `wday(flight_date)` to find the day of the week for each date.
+<font color="#55b748">**Step 3:**</font> Inside the previous `mutate` statement, add another column called `weekday` for the weekday of the flight. You can use `wday(flight_date)` to find the day of the week for each date.
 
 <font color="#55b748">**Step 4:**</font> Assign the result to `flights_subset`. 
 

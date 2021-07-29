@@ -1,6 +1,6 @@
 # urbn101
 
-These are the materials for *Intro to R: A hands-on tutorial*, a nine class R training hosted by the Urban Institute R Users Group.
+These are the materials for *Intro to R: A hands-on tutorial*, a multi class R training hosted by the Urban Institute R Users Group.
 
 ## Core Lessons
 
@@ -24,9 +24,15 @@ These are the materials for *Intro to R: A hands-on tutorial*, a nine class R tr
 * [Day 2: Data management](https://ui-research.github.io/urbn101-intro-r/homework/02_homework)
 
 
-## Instructors
+## Instructors (across all years these classes were taught at Urban)
 
+* Aaron R. Williams (IBP/TECH)
+* Ajjit Narayanan (TECH)
+* Fay Walker (MET)
 * Sarah Strochak (HFPC)
 * Kyle Ueyama (TECH)
-* Aaron R. Williams (IBP)
-* Fay Walker (MET)
+
+
+## Questions?
+
+Contact awilliams@urban.org

@@ -54,7 +54,7 @@ library(tidyverse)
 
 
 
-## Conditional transformation
+# Conditional transformation
 Last week, we showed how `mutate()` can be used to create new variables or to transform new variables. For example, we converted knots into miles per hour. We also learned about `if_else` last week which works great for one condition. But what if you have multiple conditions? `case_when()` allows for a sequence of conditional logic that can be used to transform or create variables with `mutate()`. For example, here I create a variable called `lateness` that creates a character variable with the levels `"very late"`, `"late"`, and `"on time"`. The logic is evaluated from top to bottom and `TRUE` is used to refer to all other remaining cases.
 
 The syntax may look a little weird at first but it's easy to pick up! The logical condition goes to the left of `~` and the output results goes to the right. `&` and `|` can be used to combine logical statements. 
@@ -71,11 +71,11 @@ flights %>%
 
 ```
 
-## Strings
+# Strings
 
 `library(stringr)` contains powerful and concise functions manipulating character variables. Reference the [cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/strings.pdf) for an overview of the different string maniuplation functions.
 
-### Exercise 1
+## Exercise 1
 
 The `month` and `day` columns are currently integer variables. We want to turn them into character variables with leading zeros. For example, `1` should be `"01"`.
 
@@ -90,11 +90,11 @@ The `month` and `day` columns are currently integer variables. We want to turn t
 
 <font color="#55b748">**Step 5:**</font> Assign the result to `flights_subset`. 
 
-## Dates
+# Dates
 
 `library(lubridate)` contains powerful and concise functions for creating and manipulating dates, times, and date-times. It is aware of leap days and leap seconds and is useful for calculating periods, durations, intervals, and more. 
 
-### Exercise 2
+## Exercise 2
 
 <font color="#55b748">**Step 1:**</font> Add `library(lubridate)` after `library(nycflight13)` in your script. 
 
@@ -106,13 +106,13 @@ The `month` and `day` columns are currently integer variables. We want to turn t
 
 <font color="#55b748">**Step 5:**</font> Use `count()` to count the number of flights by day of the week. 
 
-## `group_by` and `summarize()`
+# `group_by` and `summarize()`
 
 This is often the hardest concept to fully grasp, but it's also the most powerful!
 ![group by summarize visualizations](www/images/group_by_summarize_visualized.png){width=70%}
 
 
-### Exercise 3
+## Exercise 3
 
 We are going to summarize `flights_subset` from the previous example by `week_day`
 
@@ -125,7 +125,7 @@ We are going to summarize `flights_subset` from the previous example by `week_da
 <font color="#55b748">**Step 4:**</font> Rename the resulting variables *inside* `summarize()` so they have more useful names. 
 
 
-## `left_join()`
+# `left_join()`
 
 Joins are the main method for combining two datasets with a commmon key column together. There are many types of joins, and we highly recommend you read this [chapter on joins in R4DS](https://r4ds.had.co.nz/relational-data.html) if you want more info. Below is a quick visual summary of the types of joins you can perform in R.
 ![join_types](www/images/join_types.png){width=60%}
@@ -152,7 +152,7 @@ left_join(x = people, y = team_locations, by = "team")
 
 ```
 
-### Exercise 4
+## Exercise 4
 
 `flights` contains information about flights and the unit of observation is airplane flights. `planes` contains information about the airplanes and the unit of observation is the airplane. The common column between these tables is the `tailnum` column.
 
@@ -200,7 +200,7 @@ square(x = 4)
 
 **Note:** Using tidyverse functions inside of custom functions often requires non-standard evaluation. Please reach out for help when this is your goal.
 
-### Exercise 5
+## Exercise 5
 
 <font color="#55b748">**Step 1:**</font> Write a function called `multiply_xy()` that takes arguments `x` and `y` and multiplies them together. 
 
@@ -229,7 +229,7 @@ if (!file.exists("data/cps.csv")) {
 }
 ```
 
-### Exercise 6
+## Exercise 6
 
 <font color="#55b748">**Step 1:**</font> Check to see if you are in an R project. Use `dir.create()` to create a folder called `final-data/`.  
 
@@ -255,7 +255,7 @@ Three ingredients
 * Conditional statement (`==`, `>`, `<`, `%in%`)
 * Code body
 
-### Example
+## Example
 
 ```{r}
 x <- 1000

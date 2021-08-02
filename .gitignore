@@ -28,3 +28,5 @@ vignettes/*.pdf
 lessons/08_survey-analysis/
 lessons/.DS_Store
 lessons/www/.DS_Store
+www/.DS_Store
+.DS_Store

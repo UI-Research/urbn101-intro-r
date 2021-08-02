@@ -1,6 +1,6 @@
 ---
 title: 'Day 4: Data Import'
-author: "Kyle Ueyama (TECH)"
+author: "R Users Group"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
@@ -24,9 +24,19 @@ output:
 
 * What is tidy data?
 
+```{r, echo = FALSE}
+knitr::include_graphics(here::here("lessons", "www", "images", "what_is_tidydata.jpeg"))
+```
+
+
 * What is a file path?
 
 * What is an R Studio Project?
+
+```{r, echo = FALSE}
+knitr::include_graphics(here::here("lessons", "www", "images", "cracked_setwd.png"))
+```
+
 
 * Stay DRY: if you find yourself copying and pasting chunks of code, write a 
 function instead.
@@ -93,7 +103,7 @@ script, save it with a meaningful name, and load the `tidyverse`, `readxl`, and
 create subfolders called `data` and `modified` in your R Project.
 
 <font color="#55b748">**Step 3:**</font> We'll be downloading a couple different 
-datasets for today's examples. Staying DRY, let's rework Aaron's example code 
+datasets for today's examples. Staying DRY, let's rework the example code 
 from Wednesday into a function we can reuse. Copy and paste the following into 
 your file. Make sure to run the code so the function becomes a part of your 
 environment.
@@ -120,7 +130,7 @@ Education data portal:
 
 ```{r, eval=FALSE}
 download_data("https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers.csv",
-              "colleges_ipeds_completers.csv")
+              "data/colleges_ipeds_completers.csv")
 ```
 
 And then use `read_csv` from the `readr` package to load the data in.
@@ -257,7 +267,7 @@ purchases <- read_excel("data/sfsnap.xlsx", sheet = "Purchase Data April 2019")
 ```
 Note that the `readxl` package only provides functionality to, as the name 
 implies, read Excel files. If you need to write your data out to `.xls` or 
-`.xlsx` formats - don't! And if you really need to, look into the `writexl` or 
+`.xlsx` formats - [don't](https://www.moderncsv.com/why-excel-sucks-and-modern-csv-is-awesome-at-least-for-csvs/)! We highly recommend saving data files as `.csv` files wherever possible. But if you you really need to, look into the `writexl` or 
 `openxlsx` packages.
 
 ## Exercise
@@ -313,4 +323,5 @@ to save the PUMS data in Stata format in your `modified` subfolder.
 # Resources
 
 * [R4DS: Data import](https://r4ds.had.co.nz/data-import.html)
+* Data Import [Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
 

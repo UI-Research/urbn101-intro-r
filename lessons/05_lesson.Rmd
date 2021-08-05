@@ -1,6 +1,6 @@
 ---
-title: "Day 5: Iteration"
-author: "Kyle Ueyama (TECH) and Aaron R. Williams (IBP)"
+title:"Day 5: Iteration (or becoming an R Superhero)"
+author: "R Users Group"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
@@ -22,9 +22,10 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(messages = FALSE)
-knitr::opts_chunk$set(warning
-                      = FALSE)
-
+knitr::opts_chunk$set(
+  warning
+  = FALSE
+)
 ```
 
 # Review
@@ -47,7 +48,7 @@ library(tidyverse)
 
 * You want to apply a transformation to all variables in a data frame (or a subset of them).
 * You want to summarize many variables, create many statistics for one variable, or some combination of the two.
-* You want to read in may different .csv files. 
+* You want to read in many different .csv files. 
 
 # Vectorization
 
@@ -55,14 +56,12 @@ There is less need to write code for control flow in `R`. First, everything is v
 
 ```{r}
 1:10 * 2
-
 ```
 
 ```{r}
 diamonds %>%
   select(carat, price) %>%
   mutate(price_canadian = price * 1.31)
-
 ```
 
 # `across()`
@@ -82,7 +81,6 @@ library(tidyverse)
 
 mtcars <- as_tibble(mtcars)
 head(mtcars)
-
 ```
 
 ## `mutate()`
@@ -91,18 +89,19 @@ Say we wanted to round all the variables of this data frame. We could write some
 
 ```{r}
 mtcars %>%
-  mutate(mpg = round(mpg),
-         cyl = round(cyl),
-         disp = round(disp),
-         hp = round(hp),
-         drat = round(drat),
-         wt = round(wt),
-         qsec = round(qsec),
-         vs = round(vs),
-         am = round(am),
-         gear = round(gear),
-         carb = round(carb))
-
+  mutate(
+    mpg = round(mpg),
+    cyl = round(cyl),
+    disp = round(disp),
+    hp = round(hp),
+    drat = round(drat),
+    wt = round(wt),
+    qsec = round(qsec),
+    vs = round(vs),
+    am = round(am),
+    gear = round(gear),
+    carb = round(carb)
+  )
 ```
 
 Or we can let `across()` do the work for us. All we have to do is pass the function we want applied to all columns of our data frame:
@@ -110,23 +109,19 @@ Or we can let `across()` do the work for us. All we have to do is pass the funct
 ```{r}
 mtcars %>%
   mutate(across(.cols = everything(), .fns = round))
-
 ```
 
 To supply your own expression, we can write our own function and pass it through to `across()`:
 
 ```{r}
 divide_by_ten <- function(x) {
-  
   new_x <- x / 10
 
   return(new_x)
-  
 }
 
 mtcars %>%
   mutate(across(.cols = everything(), .fns = divide_by_ten))
-
 ```
 
 Or we can write it inline using the following syntax where `~` lets `dplyr` know to expect an inline function, and `.` is used as a placeholder for the variable.
@@ -134,7 +129,6 @@ Or we can write it inline using the following syntax where `~` lets `dplyr` know
 ```{r}
 mtcars %>%
   mutate(across(.cols = everything(), .fns = ~ . / 10))
-
 ```
 
 ## `summarize()`
@@ -144,17 +138,19 @@ Say we wanted to find the mean of every variable in the `mtcars` data. In this c
 ```{r}
 mtcars %>%
   summarize(across(.cols = everything(), .fns = mean))
-
 ```
 
 We can calculate multiple summary statistics by passing in a `list()` of the statistics we want:
 
 ```{r}
 mtcars %>%
-  summarize(n = n(),
-            across(.cols = everything(), 
-                   .fns = list(mean = mean, median = median)))
-
+  summarize(
+    n = n(),
+    across(
+      .cols = everything(),
+      .fns = list(mean = mean, median = median)
+    )
+  )
 ```
 
 ## Exercise 1
@@ -173,7 +169,6 @@ To demonstrate `where()` we'll use the `diamonds` data frame from `ggplot2`:
 
 ```{r}
 head(diamonds)
-
 ```
 
 What happens if we try to use `mutate(acoss(.cols = everything(), .fns = log))` to log transform each variable in this data frame?
@@ -181,7 +176,6 @@ What happens if we try to use `mutate(acoss(.cols = everything(), .fns = log))` 
 ```{r, error=TRUE}
 diamonds %>%
   mutate(across(.cols = everything(), .fns = log))
-
 ```
 
 It doesn't work because `diamonds` has some non-numeric columns. We could find 
@@ -189,7 +183,6 @@ all the columns that are numeric:
 
 ```{r}
 glimpse(diamonds)
-
 ```
 
 And then write a lot of repetitive `mutate()` statements again. Instead let's use `where()` as follows:
@@ -197,7 +190,6 @@ And then write a lot of repetitive `mutate()` statements again. Instead let's us
 ```{r}
 diamonds %>%
   mutate(across(.cols = where(is.numeric), .fns = log))
-
 ```
 
 When using the `where()` with `across()`, we first supply the condition that must be met, and then the function to apply to the columns that meet that condition. So in the above example, we first test if a column `is.numeric`, and then apply `log` to those that are.
@@ -207,7 +199,6 @@ We can use `select()` and `where()` to subset only those columns that are numeri
 ```{r}
 diamonds %>%
   select(where(is.numeric))
-
 ```
 
 ## Exercise 2
@@ -229,7 +220,6 @@ Sometimes we want to use `across()` with many variables but not all variables or
 ```{r}
 diamonds %>%
   mutate(across(.cols = c("x", "y", "z"), .fns = log))
-
 ```
 
 Sometimes this is cumbersome. Fortunately, `library(dplyr)` has helpers that can create character vectors for use. For instance, if all of the variables we care about start with "e", then we can
@@ -259,7 +249,6 @@ data <- tribble(
   "Maryland", 100, 110, 121,
   "Virginia", 205, 204, 203
 )
-
 ```
 
 We use `pivot_longer()` to transform data from wide to long and `pivot_wider()` to transform data from long to wide. 
@@ -268,22 +257,24 @@ We can fix the above data with `pivot_longer()`
 
 ```{r}
 data_long <- data %>%
-  pivot_longer(cols = -state,
-               names_to = "year",
-               values_to = "widget_factories")
+  pivot_longer(
+    cols = -state,
+    names_to = "year",
+    values_to = "widget_factories"
+  )
 
 data_long
-
 ```
 
 We can unfix the data with `pivot_wider()`
 
 ```{r}
 data_long %>%
-  pivot_wider(id_cols = state,
-              names_from = year, 
-              values_from = widget_factories)
-
+  pivot_wider(
+    id_cols = state,
+    names_from = year,
+    values_from = widget_factories
+  )
 ```
 
 ## Tidy data
@@ -308,13 +299,12 @@ One approach is to use for loops. For loops are useful and should be understood.
 dir.create("data")
 
 for (i in 1:9) {
-  
-  tibble(id = 1:1000,
-         value = rnorm(1000)) %>%
+  tibble(
+    id = 1:1000,
+    value = rnorm(1000)
+  ) %>%
     write_csv(path = paste0("data/data", i, ".csv"))
-  
 }
-
 ```
 
 `library(purrr)` is a powerful alternative to for loops that is designed for functional programming. This code reads in the nine .csv files!
@@ -323,14 +313,12 @@ for (i in 1:9) {
 files <- list.files(path = "data", full.names = TRUE)
 
 map(.x = files, .f = read_csv)
-
 ```
 
 `map()` always returns a list! `map_*()` functions can be used to return different data structures. For instance, `map_chr()` will always return a character vector. `map_df()` is like the code above but returns one data frame instead of a list of smaller data frames. 
 
 ```{r eval = FALSE}
 map_df(.x = files, .f = read_csv)
-
 ```
 
 ## Many models
@@ -341,11 +329,11 @@ library(broom)
 # estimate a linear model for each of seven colors
 many_models <- diamonds %>%
   split(diamonds$color) %>%
-  map(~lm(formula = price ~ carat + cut, data = .))
+  map(~ lm(formula = price ~ carat + cut, data = .))
 
 # extract model diagnostics from each model
 many_models_results <- bind_cols(
-  color = names(many_models), 
+  color = names(many_models),
   map_df(many_models, glance)
 )
 
@@ -353,11 +341,12 @@ many_models_results <- bind_cols(
 many_models_results %>%
   ggplot(aes(color, r.squared)) +
   geom_col() +
-  scale_y_continuous(expand = c(0, 0),
-                     limits = c(0, 1)) +
+  scale_y_continuous(
+    expand = c(0, 0),
+    limits = c(0, 1)
+  ) +
   labs(title = "R-Squared for linear models estimated on subsets by color") +
   theme_minimal()
-
 ```
 
 These examples are beyond the scope of an introductory class but I wanted to demonstrate the power of iteration in `R`. These tools can be used iterate data visualizations, R Markdown reports, statistical models, computer operations like file creation and transfer, and more. 

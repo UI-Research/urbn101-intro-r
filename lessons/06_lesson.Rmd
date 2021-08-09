@@ -1,10 +1,10 @@
 ---
-title: "Regression in R"
-author: "Aaron Williams (IBP)"
+title: "Day 6: Putting it All Together"
+author: "Aaron Williams (IBP/TECH)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
-    number_sections: TRUE
+    number_sections: FALSE
     self_contained: TRUE
     code_folding: show
     toc: TRUE
@@ -28,25 +28,38 @@ output:
 
 # Motivation
 
-* So you want to use R at work?
+* You want to use R for project work?
 
 # R Markdown
+
+```{r echo = FALSE}
+knitr::include_graphics(here::here("www", "images", "rmarkdown.png"))
+
+```
 
 * Formatted text and images
 * Code
 * Code output
 
-# Markdown
+## 1. YAML Header
 
-It's tough to write about R Markdown in R Markdown!
+Controls the settings of the document. 
+
+## 2. Markdown
+
+Controls the text and styles of the document. 
 
 [R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+## 3. Code Chunks
+
+Creates the code output for the document. 
 
 # urbntemplates
 
 ```
-install.packages("devtools")
-devtools::install_github("UrbanInstitute/urbntemplates")
+install.packages("remotes")
+remotes::install_github("UrbanInstitute/urbntemplates")
 ```
 
 ### start function
@@ -78,35 +91,24 @@ devtools::install_github("UrbanInstitute/urbntemplates")
 
 # Put it together
 
-<font color="#55b748">**Step 1:**</font> Install `library(urbntemplates)`
+<font color="#55b748">**Step 1:**</font> Create a new directory called `asec-analysis`
 
-<font color="#55b748">**Step 2:**</font> Create a web report with `urbntemplates::construct_web_report()`
+<font color="#55b748">**Step 2:**</font> Create an RStudio project (`.Rproj`). Open the project.
 
-<font color="#55b748">**Step 3:**</font> Give the `.Rmd` file a meaningful name
+<font color="#55b748">**Step 3:**</font> Create a data folder and add `cps-asec.csv`
 
-<font color="#55b748">**Step 4:**</font> Download the IPEDs data with the following code. Read the data into R. 
+<font color="#55b748">**Step 4:**</font> Install `library(urbntemplates)`
 
-```
-download_data <- function(url, path) {
-  if (!file.exists(path)) {
-    download.file(url, path, mode = "wb")
-  }
-}
+<font color="#55b748">**Step 5:**</font> Create a web report with `urbntemplates::construct_web_report()`
 
-download_data("https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers_2011-2015.csv",
-              "data/colleges_ipeds_completers_2011-2015.csv")
-```
-<font color="#55b748">**Step 5:**</font> Calculate interesting summary statistics
+<font color="#55b748">**Step 6:**</font> Give the `.Rmd` file a meaningful name
 
-<font color="#55b748">**Step 6:**</font> Create a plot
+<font color="#55b748">**Step 7:**</font> Load `cps-asec.csv` and create summary statistics and data visualizations. 
 
-<font color="#55b748">**Step 7:**</font> Knit the R Markdown into an html document
+<font color="#55b748">**Step 8:**</font> Knit the R Markdown into an html document
 
 # Resources
 
 * [RStudio R Markdown guide](https://rmarkdown.rstudio.com/)
 * [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
 * [R4DS](https://r4ds.had.co.nz/communicate-intro.html)
-
-
-

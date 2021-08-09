@@ -37,6 +37,8 @@ knitr::include_graphics(here::here("www", "images", "rmarkdown.png"))
 
 ```
 
+Source: [RStudio](https://rmarkdown.rstudio.com/)
+
 * Formatted text and images
 * Code
 * Code output

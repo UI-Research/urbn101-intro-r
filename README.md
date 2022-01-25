@@ -29,12 +29,15 @@ These are the materials for *Intro to R: A hands-on tutorial*, a multi class R t
 * [Day 2: Data management](https://ui-research.github.io/urbn101-intro-r/homework/02_homework)
 
 
-## Instructors
+## Instructors (across all years)
 
-Claire McKay Bowen, PhD (cbowen@urban.org)
-Aaron R. Williams, MS (awilliams@urban.org)
-Ajjit Narayanan (anarayanan@urban.org)
-Madeline Pickens, MS (mpickens@urban.org)
+* Aaron R. Williams (IBP/TECH)
+* Ajjit Narayanan (TECH)
+* Fay Walker (MET)
+* Sarah Strochak (HFPC)
+* Kyle Ueyama (TECH)
 
 
+## Questions?
 
+Contact awilliams@urban.org

@@ -1,0 +1,367 @@
+---
+title: "Survey Analysis in R"
+author: "Aaron R. Williams (IBP)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    number_sections: TRUE
+    self_contained: TRUE
+    code_folding: show
+    toc: TRUE
+    toc_float: TRUE
+    css: ../www/web_report.css
+    editor_options:
+      chunk_output_type: console
+---
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+library(tidyverse)
+library(modelr)
+library(broom)
+
+options(scipen = 999)
+```
+
+# Why Surveys?
+
+A *population* (or universe) is the collection of all elements or units that we wish to consider in an investigation. A *parameter* is any characteristic of the population. Common parameters are totals, means, median, and proportions.
+
+A key task in social and economic policy research is estimating and studying population parameters. Examples include:
+
+* Median household income in the United States
+* Total unemployed, as a percent of the civilian labor force (official unemployment rate)
+
+A *census* is a procedure by which a questionnaire is given to every element or unit in a population. The Decennial Census is an example of a census. 
+
+A census can be expensive and challenging. To save time and money, parameters are often estimated by statistics from samples. A *sample* is a (nonempty) subset or portion of a population. A *statistic* is any characteristic of a sample. 
+
+In addition to estimating parameters, researchers want to understand any uncertainty of the estimates. Later sections will focus on estimating uncertainty caused by sampling and other sources. 
+
+*All italicized definitions come from Wright (unpublished).*
+
+<br>
+
+# Federal Surveys
+
+Federal surveys are rich sources of information for social and economic policy research. The U.S. Census Bureau is the largest source of federal surveys including the American Community Survey and the Current Population Survey. 
+
+## American Community Survey
+
+The American Community Survey is an annual survey of about 3.5 million households administered by the U.S. Census Bureau. It is one of the best sources for information about small geographies. It is common to combine five years of surveys to increase the precision of parameter estimates. 
+
+The Census Bureau releases published tables of many population parameters for many geographies and demographic variables. The Census Bureau also releases microdata, which allow for calculating additional parameter estimates with considerably more effort than the published tables. 
+
+## Current Population Survey
+
+The Current Population Survey is a monthly survey of about 60,000 households administered by the U.S. Census Bureau for the Bureau of Labor Statistics. It is the source of the official U.S. employment rate. 
+
+# IPUMS
+
+The [Integrated Public Use Microdata Series (IPUMS)](https://ipums.org/) releases cleaned versions of the ACS and CPS that are easier to use and are cleaned over time for consistency. IPUMS maintains an R packages called `library(ipumsr)` that makes easy loading data from IPUMS. A brief intro to `library(ipumsr)` is available [here](https://cran.r-project.org/web/packages/ipumsr/vignettes/ipums.html).
+
+## Exercise 1
+
+<font color="#55b748">**Step 1:**</font> Sign up for [IPUMS USA](https://usa.ipums.org/usa/)
+
+<font color="#55b748">**Step 2:**</font> Install `library(ipumsr)`
+
+# Weights 
+
+A *simple random sample* is a random sample of $n$ units from a finite population of size $N$. In this case, an unweighted sample total will be a poor estimate of the population total. 
+
+```{r}
+# define a population
+population <- c(12, 14, 16, 19, 10, 
+                20, 22, 10, 10, 12)
+
+# set a seed for reproducibility and sample
+set.seed(20200722)
+
+sample <- sample(population, size = 5)
+
+# calculate the sample statistic and population parameter
+c(`Sample total` = sum(sample), `Population total` = sum(population))
+```
+
+<br>
+<br>
+
+Weights improve the accuracy of sample statistics so they better match the population parameter of interest. Accordingly, a weighted total is calculated with weights equal to the inverse of the probability of selection. 
+
+```{r}
+# weight the observation by the inverse of 1/2
+c(`Weighted sample total` = sum(sample * 2))
+```
+
+<br>
+<br>
+
+Different sampling schemes and adjustments for factors like non-response often result in weights that are far more complicated than above. Oftentimes, weights are reported as variables in microdata.
+
+```{r}
+data <- tribble(
+  ~x, ~weight,
+  12, 100, 
+  14, 200, 
+  16, 150,
+  19, 500,
+  10, 100
+)
+
+# calculate the weighted mean
+weighted.mean(x = data$x, w = data$weight)
+```
+
+# American Community Survey (ACS)
+
+## Exercise 2a
+
+<font color="#55b748">**Step 1:**</font> [Sign up for a Census API key](https://api.census.gov/data/key_signup.html).
+
+<br>
+
+The Census Bureau publishes ACS tables online with this [data tool](https://data.census.gov/cedsci/table?q=dp&tid=ACSDP1Y2018.DP05). However, `library(tidycensus)` can be used to access many of the same tables directly in `R` in an easier and more reproducible way. [Here](https://walker-data.com/tidycensus/articles/basic-usage.html) is a brief introduction to `library(tidycensus)`.
+
+These tables already account for the sample weights. This is a huge help! However, we'll eventually want to calculate a statistic that isn't published in a table and we will need to use the microdata. 
+
+The following code pulls ACS 1-year estimates of median household income for all fifty states, DC, and Puerto Rico in 2018:
+
+```{r}
+library(tidycensus)
+
+get_acs(geography = "state",
+        variables = c(medincome = "B19013_001"),
+        survey = "acs1", 
+        year = 2018)
+```
+
+Note how the returned table includes an estimate and a margin of error. **Across repeated samples of the population, the true median household income is between the estimate minus the moe and the estimate plus the moe 90 percent of the time**. This range is a 90% confidence interval.
+
+## Exercise 2b
+
+<font color="#55b748">**Step 2:**</font> Install and load `library(tidycensus)`. Add the key with `census_api_key("YOUR API KEY GOES HERE")`.
+
+<font color="#55b748">**Step 3:**</font> Using the code above, pull the state-level median household income for 2016, 2017, and 2018. 
+
+<font color="#55b748">**Step 4:**</font> Add a variable called `year` to each data frame with the year of the data. 
+
+<font color="#55b748">**Step 5:**</font> Combine the three data frames with `bind_rows()`. 
+
+<font color="#55b748">**Step 6:**</font> Filter the data to the states with the ten smallest `moe` in 2016. You can use `arrange()` to order the states when picking a threshold. What do these fives states have in common?
+
+## Exercise 3
+
+<font color="#55b748">**Step 1:**</font> Filter the combined data set from Exercise 3 to just `"District of Columbia"`, `"Maryland"`, and `"Virginia"`.
+
+<font color="#55b748">**Step 2:**</font> Create the following plot. Note, use `theme_minimal()`.
+
+```{r echo = FALSE}
+library(tidycensus)
+
+acs2016 <- get_acs(geography = "state",
+                   variables = c(medincome = "B19013_001"),
+                   survey = "acs1", 
+                   year = 2016) %>%
+  mutate(year = 2016)
+
+acs2017 <- get_acs(geography = "state",
+        variables = c(medincome = "B19013_001"),
+        survey = "acs1", 
+        year = 2017) %>%
+  mutate(year = 2017)
+
+acs2018 <- get_acs(geography = "state",
+                   variables = c(medincome = "B19013_001"),
+                   survey = "acs1", 
+                   year = 2018) %>%
+  mutate(year = 2018)
+
+acs <- bind_rows(acs2016, acs2017, acs2018)
+
+acs <- acs %>%
+  mutate(state = ifelse(NAME == "Virginia", "Virginia", "Other state"))
+
+acs %>%
+  filter(NAME %in% c("District of Columbia", "Maryland", "Virginia")) %>%
+  ggplot(aes(year, estimate, color = NAME)) +
+  geom_point() +
+  geom_line(alpha = 0.5) +
+  labs(title = "Comparison of Household Incomes in Mid-Atlantic States",
+       caption = "Source: 2016, 2017, and 2018 ACS") +
+  theme_minimal()
+```
+
+# `library(srvyr)`
+
+`library(survey)` is a powerful package for survey analysis by Thomas Lumley’s book, the author of [Complex Surveys: A Guide to Analysis Using R](https://www.wiley.com/en-us/Complex+Surveys%3A+A+Guide+to+Analysis+Using+R-p-9780470284308). `library(srvyr)` is an extension package that works better with the tidyverse. 
+
+There are two main steps. 
+
+1. Identify the survey design and create a `survey` object with `as_survey_design()`. 
+2. Calculate summary statistics and estimates of uncertainty like confidence intervals with `summarize()` and `survey_*()` functions. 
+
+Important arguments in `as_survey_design()` are `weights =` for picking a weight, `fpc =` for finite population correction, and `strat =` for identifying strata.
+
+`survey_*()` functions include:
+
+* `survey_count()`
+* `survey_mean()`
+* `survey_median()`
+* `survey_quantile()`
+* `survey_ratio()`
+* `survey_sd()`
+* `survey_tally()`
+* `survey_total()`
+* `survey_var()`
+
+```{r}
+library(survey)
+library(srvyr)
+
+# add api data to the global environment
+data(api)
+
+# create a survey object 
+apisrs <- apisrs %>% 
+  as_survey_design(fpc = fpc, weight = pw)
+
+# calculate the weighted mean
+apisrs %>%
+  summarize(mean_weighted = survey_mean(api00, vartype = "ci"))
+```
+
+## Exercise 4
+
+<font color="#55b748">**Step 1:**</font> Install `library(survey)` and `library(srvyr)`
+
+<font color="#55b748">**Step 2:**</font> Create a `survey` object for `apistrat`. Identify the strata ID and add it using the `strat =` argument. 
+
+<font color="#55b748">**Step 3:**</font> Calculate the mean, median, and 75th percentile of `api00` in one `summarize()` call. Include confidence intervals. 
+
+<font color="#55b748">**Step 4:**</font> Group by school type (`stype`) and calculate the mean of `api00`. 
+
+# CPS
+
+We're now going to estimate the proportion of the population ages 40 to 61 who have a disability disability that limits or prevents work ("Disability limits or prevents work"). 
+
+## Exercise 5
+
+<font color="#55b748">**Step 1:**</font> Put `cps_00004.csv.gz` and `cps_0004.xml` in the appropriate directory. 
+
+<font color="#55b748">**Step 2:**</font> Create an object called `cps_ddi` by using `read_ipums_ddid()` and the `"cps_00004.xml"`.
+
+<font color="#55b748">**Step 3:**</font> Create an object called `cps` with `read_ipums_micro()`. 
+
+<font color="#55b748">**Step 4:**</font> Create a labeled factor with the following code `mutate(disabwrk = as_factor(lbl_clean(DISABWRK)))`
+Also, convert `AGE` to a numeric variable. 
+
+<font color="#55b748">**Step 5:**</font> Create a `survey` object with `as_survey_design()`
+
+**Note:** The confidence intervals created by this will be underestimates. We need replicate weights for the most accurate confidence intervals. For now, set `vartype = NULL`. 
+
+<font color="#55b748">**Step 6:**</font> Create a dummy variable called `disabwrk_dum` if `DISABWRK == "Disability limits or prevents work"`. 
+
+<font color="#55b748">**Step 7:**</font> Calculate the weighted total and weighted mean of `disabwrk_dum`.
+
+# Solutions
+
+## Exercise 2
+
+```{r eval = FALSE}
+library(tidycensus)
+
+acs2016 <- get_acs(geography = "state",
+                   variables = c(medincome = "B19013_001"),
+                   survey = "acs1", 
+                   year = 2016) %>%
+  mutate(year = 2016)
+
+acs2017 <- get_acs(geography = "state",
+        variables = c(medincome = "B19013_001"),
+        survey = "acs1", 
+        year = 2017) %>%
+  mutate(year = 2017)
+
+acs2018 <- get_acs(geography = "state",
+                   variables = c(medincome = "B19013_001"),
+                   survey = "acs1", 
+                   year = 2018) %>%
+  mutate(year = 2018)
+
+acs <- bind_rows(acs2016, acs2017, acs2018)
+
+acs %>%
+  filter(year == 2016) %>%
+  slice_min(moe, n = 10)
+```
+
+## Exercise 3
+
+```{r eval = FALSE}
+acs <- acs %>%
+  mutate(state = ifelse(NAME == "Virginia", "Virginia", "Other state"))
+
+acs %>%
+  filter(NAME %in% c("District of Columbia", "Maryland", "Virginia")) %>%
+  ggplot(aes(year, estimate, color = NAME)) +
+  geom_point() +
+  geom_line(alpha = 0.5) +
+  labs(title = "Comparison of Household Incomes in Mid-Atlantic States",
+       caption = "Source: 2016, 2017, and 2018 ACS") +
+  theme_minimal()
+```
+
+## Exercise 4
+
+```{r eval = FALSE}
+apistrat <- apistrat %>%
+  as_survey_design(strata = stype, fpc = fpc, weight = pw)
+
+apistrat %>%
+  group_by(stype) %>%
+  summarize(api00_mean = survey_mean(api00, vartype = "ci"))
+```
+
+## Exercise 5
+
+```{r eval = FALSE}
+library(tidyverse)
+library(srvyr)
+library(ipumsr)
+
+# create the DDI
+cps_ddi <- read_ipums_ddi(here::here("lessons", "08_survey-analysis", "cps_00004.xml"))
+
+# read the data
+cps <- read_ipums_micro(cps_ddi)
+
+
+# convert age into a numeric variable
+cps <- cps %>%
+  mutate(DISABWRK = as_factor(lbl_clean(DISABWRK))) %>%
+  mutate(AGE = as.numeric(AGE)) 
+
+# create a survey object
+cps <- cps %>%
+  as_survey_design(weight = ASECWT)
+
+# limit the sample to ages of interest and create a dummy variable
+cps <- cps %>%
+  filter(AGE >= 40, AGE <= 61) %>%
+  mutate(disabwrk_dum = DISABWRK == "Disability limits or prevents work")
+
+# calculate the sample statistics to estimate the population proportions
+cps %>%
+  summarize(
+    `Count with a Self-Reported Work Limitation` = survey_total(disabwrk_dum, vartype = NULL),
+    `Proportion with a Self-Reported Work Limitation` = survey_mean(disabwrk_dum, vartype = NULL)) 
+```

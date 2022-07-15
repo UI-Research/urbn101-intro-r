@@ -23,7 +23,7 @@ opts_chunk$set(fig.align = "center")
 
 ## Day 0: Intro to statistical programming
 
-Ajjit Narayanan, Fay Walker, Aaron R. Williams
+Olivia Fiol, Ajjit Narayanan, Amy Rogin, Fay Walker, Aaron R. Williams
 
 ```{r out.width = "50%"}
 knitr::include_graphics(here::here("www", "images/Rlogo.png"))
@@ -118,7 +118,7 @@ include_graphics("www/images/map.png")
 
 ## urbnthemes
 
-<iframe width="2000" height="600" src="https://UrbanInstitute.github.io/r-at-urban/graphics-guide.html"></iframe>
+<iframe width="2000" height="600" src="https://urbaninstitute.github.io/r-at-urban/graphics-guide.html"></iframe>
 
 ## R packages
 
@@ -428,7 +428,7 @@ knitr::include_graphics("www/images/directory.png")
 
 1) Open RStudio
 2) Submit `sessionInfo()`
-3) Is R Version > 3.6.0?
+3) Is R Version > 4.0.0?
 
 ## Check RStudio
 

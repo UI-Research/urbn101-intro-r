@@ -36,6 +36,8 @@ These are the materials for *Intro to R: A hands-on tutorial*, a multi class R t
 * Fay Walker (MET)
 * Sarah Strochak (HFPC)
 * Kyle Ueyama (TECH)
+* Olivia Fiol (MET)
+* Amy Rogin (MET)
 
 
 ## Questions?

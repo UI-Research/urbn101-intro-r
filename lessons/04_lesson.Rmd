@@ -74,7 +74,7 @@ Urban.
 -   `readr` - for plain text files
 -   `readxl` - for Excel files (`.xlsx`, `.xls`)
 -   `haven` - for SAS (`.sas7bdat` + `.sas7bcat` files), SPSS (`.sav`
-    files), and Stata (`.dta` files up to Stata version 15) formats
+    files), and Stata (`.dta` files up to Stata version 17) formats
 
 One note - while all three packages are installed with the `tidyverse`,
 only `readr` is loaded when you run `library(tidyverse)` in your R

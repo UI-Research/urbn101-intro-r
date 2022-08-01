@@ -38,17 +38,18 @@ library(arrow)
 
 -   What is tidy data?
 
-```{r, echo = FALSE}
-knitr::include_graphics(here::here("lessons", "www", "images", "what_is_tidydata.jpeg"))
-```
+    ![](www/images/what_is_tidydata.jpeg){width="396"}
+
+    Artwork by \@allison_horst
+
 
 -   What is a file path?
 
 -   What is an R Studio Project?
 
-```{r, echo = FALSE}
-knitr::include_graphics(here::here("lessons", "www", "images", "cracked_setwd.png"))
-```
+    ![Artwork by
+    \@allison_horst](www/images/cracked_setwd.png){width="291"}
+
 
 -   Stay DRY: if you find yourself copying and pasting chunks of code,
     write a function instead.
@@ -131,9 +132,9 @@ download_data <- function(url, path) {
 }
 ```
 
-<img style="float: right;width: 106px" src="www/images/readr_sticker.png">
+<img src="www/images/readr_sticker.png" style="float: right;width: 106px"/>
 
-# The `readr` Package 
+# The `readr` Package
 
 `readr` provides functions to read plain text rectangular data - think
 csv, txt or tsv files.
@@ -273,10 +274,9 @@ examples of how to deal with all the above problems.
 a lot! You don't need to know how everything works, but it's good to
 have an idea of some of the options available to you.
 
-<img style="float: right;width: 106px" src="www/images/readxl.png">
+<img src="www/images/readxl.png" style="float: right;width: 106px"/>
 
 # The `readxl` Package
-
 
 For data that is saved as `.xls` or `.xlsx`, use the `readxl` package.
 
@@ -321,10 +321,9 @@ packages.
 the table on the "Refinance Data April 2019" sheet into a data frame
 called `refinances`.
 
-<img style="float: right;width: 106px" src="www/images/haven.png">
+<img src="www/images/haven.png" style="float: right;width: 106px"/>
 
 # The `haven` Package
-
 
 Finally, your SAS, SPSS, or Stata data can find safe `haven` in R.
 
@@ -381,23 +380,32 @@ pums_data = read_sas("data/pums_wy.zip")
 pums_data %>% write_dta("modified/pums_wy.dta")
 ```
 
-
 # The `arrow` Package
 
-Sometimes when you save text files, the column types (ie numeric, date, time, text, etc.) get lost and won't be read back in upon reimporting In this case you may want to save your files as a binary file. One binary file format we suggest  is `.feather` files, which you can [read more about](https://arrow.apache.org/docs/python/feather.html). The main benefits of storing data in a binary format is:
+Sometimes when you save text files, the column types (ie numeric, date,
+time, text, etc.) get lost and won't be read back in upon reimporting In
+this case you may want to save your files as a binary file. One binary
+file format we suggest is `.feather` files, which you can [read more
+about](https://arrow.apache.org/docs/python/feather.html). The main
+benefits of storing data in a binary format is:
 
-- Column types will be recorded and preserved
-- Importing and exporting will be faster than other methods
-- File sizes will be smaller as binary files often use compression methods
+-   Column types will be recorded and preserved
+-   Importing and exporting will be faster than other methods
+-   File sizes will be smaller as binary files often use compression
+    methods
 
 The cons are that:
 
-- `.feather` files can only easily be read into R and python currently
-- There are no nice GUI viewers (like Excel/Notepad for CSV data) to actually "see" the data files
+-   `.feather` files can only easily be read into R and python currently
+-   There are no nice GUI viewers (like Excel/Notepad for CSV data) to
+    actually "see" the data files
 
-So think before exercising this option! If you mainly will be working with your data in R and have large file sizes or complicated column types, `.feather` files may be a good option.
+So think before exercising this option! If you mainly will be working
+with your data in R and have large file sizes or complicated column
+types, `.feather` files may be a good option.
 
-You can read and write these files with `read_feather()` and `write_feather` respectively. 
+You can read and write these files with `read_feather()` and
+`write_feather` respectively.
 
 ```{r, eval = FALSE}
 # Write out a feather file to `modified/folder`
@@ -406,7 +414,6 @@ write_feather(ipeds_2011, "modified/colleges_ipeds_completers_2011.feather")
 # Read in a feather file
 ipeds_2011 = read_feather("modified/colleges_ipeds_completers_2011.feather")
 ```
-
 
 # Resources
 

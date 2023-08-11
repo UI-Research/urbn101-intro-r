@@ -1,31 +1,41 @@
 ---
-output:
-  revealjs::revealjs_presentation:
-    css: www/revealjs.css
-    incremental: TRUE
-    reveal_options:
-      slideNumber: TRUE
-      previewLinks: TRUE
-editor_options:
-  chunk_output_type: console
+title: "Intro to R: A hands-on tutorial"
+title-slide-attributes:
+  data-background-color: "#1696d2"
+author: "Aaron R. Williams and Amy Rogin"
+format: 
+  revealjs:
+    fig-align: "center"    
+    incremental: true
+    reveal_options: true
+    slide-number: true
+    show-slide-number: print
+    preview-links: true 
+execute: 
+  echo: false
+  message: false
+  warning: false
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        color: #ffffff;
+      }
+      </style> 
 ---
 
 ```{r setup, echo = FALSE, warning = FALSE, message = FALSE}
 library(knitr)
 
-opts_chunk$set(echo = FALSE)
-opts_chunk$set(message = FALSE)
-opts_chunk$set(warning = FALSE)
-opts_chunk$set(fig.align = "center")
 ```
-
-# <font color="#ffffff">Intro to R: A hands-on tutorial</font> {data-background=#1696d2}
 
 ## Day 0: Intro to statistical programming
 
-Olivia Fiol, Ajjit Narayanan, Amy Rogin, Fay Walker, Aaron R. Williams
+Aaron R. Williams
 
 ```{r out.width = "50%"}
+#| fig-align: "center"
+
 knitr::include_graphics(here::here("www", "images/Rlogo.png"))
 ```
 
@@ -60,7 +70,7 @@ What is the median diamond price with carat > 1 and a "Good" cut?
 
 ## Example 2
 
-What is the median price of diamonds with carat > 1 and a Good cut?
+What is the median diamond price with carat > 1 and a "Good" cut?
 
 ```{r, echo = TRUE}
 library(tidyverse)
@@ -79,6 +89,8 @@ How could increasing the retirement age affect the poverty rates of Hispanic wom
 How could increasing the retirement age affect the poverty rates of Hispanic women ages 62 and older?
 
 ```{r out.width = "50%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/out-of-sync.gif")
 ```
 
@@ -89,30 +101,40 @@ knitr::include_graphics("www/images/out-of-sync.gif")
 ## R Shiny
 
 ```{r out.width = "50%"}
+#| fig-align: "center"
+
 include_graphics("www/images/cosic-shiny.png")
 ```
 
 ## Fact sheets
 
 ```{r out.width = "50%"}
+#| fig-align: "center"
+
 include_graphics("www/images/factsheets.png")
 ```
 
 ## Fact sheets
 
 ```{r out.width = "50%"}
+#| fig-align: "center"
+
 include_graphics("www/images/factsheet_template.png")
 ```
 
 ## urbnmapr
 
 ```{r out.width = "50%"}
+#| fig-align: "center"
+
 include_graphics("www/images/urbnmapr.png")
 ```
 
 ## urbnmapr
 
 ```{r out.width = "100%"}
+#| fig-align: "center"
+
 include_graphics("www/images/map.png")
 ```
 
@@ -123,6 +145,8 @@ include_graphics("www/images/map.png")
 ## R packages
 
 ```{r out.width = "50%"}
+#| fig-align: "center"
+
 include_graphics("www/images/educationdata.png")
 ```
 
@@ -173,6 +197,8 @@ Analysts **should** seek to make all parts of the research process more efficien
 ## Text editor/IDE
 
 ```{r out.width = "60%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/rstudio.png")
 ```
 
@@ -182,24 +208,30 @@ knitr::include_graphics("www/images/rstudio.png")
 ## RStudio
 
 ```{r out.width = "30%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/rstudio.svg")
 ```
 
 ## The R console
 
 ```{r out.width = "60%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/rstudio-console.png")
 ```
 
 ## Script
 
 ```{r out.width = "60%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/rstudio-script.png")
 ```
 
 * A plain text document that contains code and comments
 * **Map to the answer**
-* `.R` and `.Rmd`
+* `.R` and `.qmd` (`.Rmd` is older)
 
 ## Comments
 
@@ -229,6 +261,8 @@ mutate(bad_drivers, perc_speeding = perc_speeding * 1.2)
 Collections of R, C, C++, and FORTRAN code that expand the functionality of R. 
 
 ```{r out.width = "40%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/urbnmapr.png")
 ```
 
@@ -240,6 +274,8 @@ knitr::include_graphics("www/images/urbnmapr.png")
 ## tidyverse {data-background=#fdeba4}
 
 ```{r out.width = "30%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/tidyverse.png")
 ```
 
@@ -250,6 +286,8 @@ Core: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
 ## tidyverse {data-background=#fdeba4}
 
 ```{r out.width = "30%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/r4ds.png")
 ```
 
@@ -393,6 +431,8 @@ What will it take to convince you that your code is correct?
 * Sort document data, scripts, and outputs into sub directories with names like `data/`, `scripts/`, and `outputs/`
 
 ```{r out.width = "80%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/directory.png")
 ```
 
@@ -446,6 +486,8 @@ knitr::include_graphics("www/images/directory.png")
 ## Stata
 
 ```{r out.width = "30%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/Stata.png")
 ```
 
@@ -458,6 +500,8 @@ knitr::include_graphics("www/images/Stata.png")
 ## SAS
 
 ```{r out.width = "30%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/SAS.png")
 ```
 
@@ -468,6 +512,8 @@ knitr::include_graphics("www/images/SAS.png")
 ## Python
 
 ```{r out.width = "30%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/python.png")
 ```
 
@@ -478,6 +524,8 @@ knitr::include_graphics("www/images/python.png")
 ## R
 
 ```{r out.width = "30%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/Rlogo.png")
 ```
 
@@ -500,6 +548,8 @@ knitr::include_graphics("www/images/Rlogo.png")
 ## Comparison
 
 ```{r out.width = "60%"}
+#| fig-align: "center"
+
 knitr::include_graphics("www/images/languages.jpg")
 ```
 

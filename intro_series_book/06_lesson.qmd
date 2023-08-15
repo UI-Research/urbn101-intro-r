@@ -4,11 +4,11 @@ author: "Fay Walker (MET) and Aaron Williams (IBP/TECH)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html-document:
-    number-sections: FALSE
-    self-contained: TRUE
+    number-sections: false
+    embed-resources: true
     code-folding: show
-    toc: TRUE
-    toc-float: TRUE
+    toc: true
+    toc-float: true
     css: style.css
     editor-options:
       chunk-output-type: console
@@ -21,7 +21,7 @@ output:
 ```
 <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
-# Key Takeaways
+## Key Takeaways
 
 -   Take notes/annotate code as you go
 -   Use the assignment operator
@@ -30,7 +30,7 @@ output:
 -   [Data management](https://ui-research.github.io/urbn101-intro-r/lessons/02_lesson) with `library(dplyr)`
 -   [Visualization](https://ui-research.github.io/urbn101-intro-r/lessons/01_lesson) with `library(ggplot2)`
 
-# Helpful Packages
+## Helpful Packages
 
 -   Import Data
     -   readr - for plain text files
@@ -50,7 +50,7 @@ output:
     -   urbnthemes - format and style according to Urban Style
     -   urbnmapr - create Urban themed maps
 
-# What is R Markdown?
+## What is R Markdown?
 
 ```{r echo = FALSE}
 knitr::include_graphics(here::here("www", "images", "rmarkdown.png"))
@@ -63,7 +63,7 @@ Source: [RStudio](https://rmarkdown.rstudio.com/)
     -   Code output (graphs/charts/tables)
     -   Formatted text and images
 
-# urbntemplates
+## urbntemplates
 
 `library(urbntemplates)` contains three families of functions:
 
@@ -73,11 +73,11 @@ Source: [RStudio](https://rmarkdown.rstudio.com/)
 
 A sensible workflow is: 1. Start a new project and create a .Rproj by submitting urbntemplates::start_project(). This will create and open a new .Rproj. 2. Inside the .Rproj, add the necessary documents for a part of a project, like a Shiny application, with a construct\_*() function. 3. Add any desired remaining templates or documents with use\_*() functions.
 
-### start function
+#### start function
 
 -   `start_project()`
 
-### construct functions
+#### construct functions
 
 -   `construct_shiny()`
 -   `construct_fact_sheet_html()`
@@ -85,7 +85,7 @@ A sensible workflow is: 1. Start a new project and create a .Rproj by submitting
 -   `construct_slide_show()`
 -   `construct_web_report()`
 
-### use functions
+#### use functions
 
 -   `use_content()`
 -   `use_css()`
@@ -100,21 +100,21 @@ A sensible workflow is: 1. Start a new project and create a .Rproj by submitting
 -   `use_readme_readme()`
 -   `use_web_report()`
 
-## 1. YAML Header
+### YAML Header
 
 Controls the settings of the document.
 
-## 2. Markdown
+### Markdown
 
 Markdown is a lightweight markup language for creating formatted text using a plain-text editor. [R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 
-## 3. Code Chunks
+### Code Chunks
 
 Creates the code output for the document.
 
-# Create a Markdown HTML Fact Sheet - Piece by Piece
+### Create a Markdown HTML Fact Sheet - Piece by Piece
 
-<font color="#55b748">**Step 1:**</font> Install `library(urbntemplates)`
+### <font color="#55b748">**Step 1:**</font> Install `library(urbntemplates)`
 
     install.packages("remotes")
     remotes::install_github("UrbanInstitute/urbntemplates")
@@ -127,7 +127,7 @@ Creates the code output for the document.
 
 <font color="#55b748">**Step 5:**</font> Add some text into the markdown, some code that appears as code, and some code that shows the result but not the code. Every code chunk should start with `{r name}` and then set the parameters (T/F, separated by comma. See full [factsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) for more parameters.
 
-# Resources
+## Resources
 
 -   [RStudio R Markdown guide](https://rmarkdown.rstudio.com/)
 -   [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)

@@ -64,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.scss">
 </head>
 
 <body class="nav-sidebar floating">
@@ -140,14 +140,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">3</span>  Review</a></li>
-  <li><a href="#the-tidyverse-package" id="toc-the-tidyverse-package" class="nav-link" data-scroll-target="#the-tidyverse-package"><span class="toc-section-number">4</span>  The tidyverse package</a></li>
-  <li><a href="#primary-functions" id="toc-primary-functions" class="nav-link" data-scroll-target="#primary-functions"><span class="toc-section-number">5</span>  Primary functions</a></li>
-  <li><a href="#exercise-0-creating-a-project-and-loading-packages" id="toc-exercise-0-creating-a-project-and-loading-packages" class="nav-link" data-scroll-target="#exercise-0-creating-a-project-and-loading-packages"><span class="toc-section-number">6</span>  Exercise 0: Creating a Project and Loading Packages</a></li>
-  <li><a href="#exercise-1-tidyverse-function-overview" id="toc-exercise-1-tidyverse-function-overview" class="nav-link" data-scroll-target="#exercise-1-tidyverse-function-overview"><span class="toc-section-number">7</span>  Exercise 1: Tidyverse Function Overview</a></li>
-  <li><a href="#exercise-2-ifthen-and-summarizing" id="toc-exercise-2-ifthen-and-summarizing" class="nav-link" data-scroll-target="#exercise-2-ifthen-and-summarizing"><span class="toc-section-number">8</span>  Exercise 2: If/Then and Summarizing</a></li>
-  <li><a href="#exercise-3-put-it-all-together" id="toc-exercise-3-put-it-all-together" class="nav-link" data-scroll-target="#exercise-3-put-it-all-together"><span class="toc-section-number">9</span>  Exercise 3: Put it all together</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">10</span>  Resources</a></li>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">2.1</span>  Review</a></li>
+  <li><a href="#the-tidyverse-package" id="toc-the-tidyverse-package" class="nav-link" data-scroll-target="#the-tidyverse-package"><span class="toc-section-number">2.2</span>  The tidyverse package</a></li>
+  <li><a href="#primary-functions" id="toc-primary-functions" class="nav-link" data-scroll-target="#primary-functions"><span class="toc-section-number">2.3</span>  Primary functions</a></li>
+  <li><a href="#exercise-0-creating-a-project-and-loading-packages" id="toc-exercise-0-creating-a-project-and-loading-packages" class="nav-link" data-scroll-target="#exercise-0-creating-a-project-and-loading-packages"><span class="toc-section-number">2.4</span>  Exercise 0: Creating a Project and Loading Packages</a></li>
+  <li><a href="#exercise-1-tidyverse-function-overview" id="toc-exercise-1-tidyverse-function-overview" class="nav-link" data-scroll-target="#exercise-1-tidyverse-function-overview"><span class="toc-section-number">2.5</span>  Exercise 1: Tidyverse Function Overview</a></li>
+  <li><a href="#exercise-2-ifthen-and-summarizing" id="toc-exercise-2-ifthen-and-summarizing" class="nav-link" data-scroll-target="#exercise-2-ifthen-and-summarizing"><span class="toc-section-number">2.6</span>  Exercise 2: If/Then and Summarizing</a></li>
+  <li><a href="#exercise-3-put-it-all-together" id="toc-exercise-3-put-it-all-together" class="nav-link" data-scroll-target="#exercise-3-put-it-all-together"><span class="toc-section-number">2.7</span>  Exercise 3: Put it all together</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">2.8</span>  Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -187,25 +187,25 @@ ul.task-list li input[type="checkbox"] {
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 </style>
 <p><link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet"></p>
-<section id="review" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Review</h1>
+<section id="review" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="review"><span class="header-section-number">2.1</span> Review</h2>
 <ul>
 <li>Assignment Operator</li>
 <li>Console/Environment/Script</li>
 <li>Comment your code and read your error messages</li>
 </ul>
 </section>
-<section id="the-tidyverse-package" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> The tidyverse package</h1>
+<section id="the-tidyverse-package" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="the-tidyverse-package"><span class="header-section-number">2.2</span> The tidyverse package</h2>
 <ul>
 <li>Collection of packages using same syntax and grammar</li>
 <li>Works with “tidy” data</li>
-<li>Uses tibbles (https://r4ds.had.co.nz/tibbles.html)</li>
+<li><a href="https://r4ds.had.co.nz/tibbles.html">Uses tibbles</a></li>
 <li>%&gt;%</li>
 </ul>
 </section>
-<section id="primary-functions" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Primary functions</h1>
+<section id="primary-functions" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="primary-functions"><span class="header-section-number">2.3</span> Primary functions</h2>
 <ul>
 <li><code>select()</code></li>
 <li><code>rename()</code></li>
@@ -228,16 +228,16 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Source: <a href="https://r4ds.had.co.nz/transform.html">R for data science</a></p>
 </section>
-<section id="exercise-0-creating-a-project-and-loading-packages" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Exercise 0: Creating a Project and Loading Packages</h1>
+<section id="exercise-0-creating-a-project-and-loading-packages" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="exercise-0-creating-a-project-and-loading-packages"><span class="header-section-number">2.4</span> Exercise 0: Creating a Project and Loading Packages</h2>
 <p>If you are using a different computer or didn’t attend sessions 0 or 1, follow steps 1 and 2. If not- skip to step 3.</p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Open RStudio. File &gt; New Project &gt; New Directory &gt; Select the location where you would like to create a new folder that houses your R Project. Call it <code>urbn101</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Open an <code>.R</code> script with the button in the top left (sheet with a plus sign icon). Save the script as <code>02_data-munging1.R</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> If you have not previously installed <code>library(tidyverse)</code>: submit <code>install.packages("tidyverse")</code> to the Console (type and hit enter)</p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Write <code>library(tidyverse)</code> at the top of <code>02_data-munging1.R</code>. With the cursor on the line of text, click Control-Enter.</p>
 </section>
-<section id="exercise-1-tidyverse-function-overview" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Exercise 1: Tidyverse Function Overview</h1>
+<section id="exercise-1-tidyverse-function-overview" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="exercise-1-tidyverse-function-overview"><span class="header-section-number">2.5</span> Exercise 1: Tidyverse Function Overview</h2>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Assign the <code>storms</code> dataset to be called storms. Submit <code>View(storms)</code> in the console.</p>
 <p>You can also deselect specific columns in your data by using the <code>-</code> operator</p>
 <p><font color="#ec008b"><strong>Select</strong></font></p>
@@ -274,8 +274,8 @@ filter(col1&gt;0)</code></pre>
 <pre><code>dataset %&gt;%
 filter(var1 %in% c("a", "b", "c"))</code></pre>
 </section>
-<section id="exercise-2-ifthen-and-summarizing" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Exercise 2: If/Then and Summarizing</h1>
+<section id="exercise-2-ifthen-and-summarizing" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="exercise-2-ifthen-and-summarizing"><span class="header-section-number">2.6</span> Exercise 2: If/Then and Summarizing</h2>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>txhousing</code> dataset. Assign the dataset to an object in your global environment named <code>tx_housing</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Compute a new variable, <code>average_price</code> by dividing <code>volume</code> by <code>sales</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>if_else()</code> to create a variable called <code>flag</code> that is 1 if the average sales price is larger than the median sales price.</p>
@@ -302,16 +302,16 @@ filter(var1 %in% c("a", "b", "c"))</code></pre>
 <p><font color="#55b748"><strong>Step 7b:</strong></font> Which city had the least home sales in 2006? (Hint: group by the city and the year- then use <code>summarize()</code>).</p>
 <p><font color="#55b748"><strong>BONUS:</strong></font> Plot the number of annual home sales over time!</p>
 </section>
-<section id="exercise-3-put-it-all-together" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Exercise 3: Put it all together</h1>
+<section id="exercise-3-put-it-all-together" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="exercise-3-put-it-all-together"><span class="header-section-number">2.7</span> Exercise 3: Put it all together</h2>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>starwars</code> dataframe. Type <code>count(starwars, homeworld)</code> into your script.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Filter out any characters that have a missing <code>homeworld</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Find the average and median height and mass for humans vs.&nbsp;droids. (Hint: use <code>group_by()</code> and <code>summarize()</code>). Make sure that you are correcting for observations with missing values!</p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Make a dummy variable called <code>droid</code> that is <code>1</code> for droids and <code>0</code> for humans. Make a variable called <code>tall</code> that is <code>1</code> if the characters are more than 200 cm tall. How many tall humans are there?</p>
 <p><font color="#55b748"><strong>Step 5:</strong></font> What is the most common skin color for droids?</p>
 </section>
-<section id="resources" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Resources</h1>
+<section id="resources" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="resources"><span class="header-section-number">2.8</span> Resources</h2>
 <ul>
 <li><a href="https://r4ds.had.co.nz/transform.html">R for Data Science: data transformation</a></li>
 <li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Data wrangling cheat sheet</a></li>

@@ -4,12 +4,12 @@ author: "Fay Walker"
 date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
 output:
   html-document:
-    number-sections: TRUE
-    self-contained: TRUE
+    number-sections: false
+    embed-resources: true
     code-folding: hide
-    toc: TRUE
-    toc-float: TRUE
-    css: style.css
+    toc: true
+    toc-float: true
+    css: style.scss
     editor-options:
       chunk_output_type: console
 ---
@@ -21,7 +21,7 @@ output:
 ```
 <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
-# Review
+## Review
 
 <font color="#55b748">**Why Use R instead of Excel?**</font>
 
@@ -39,7 +39,7 @@ output:
 -   Where possible, type, don't copy and paste - you will remember better!
 -   The assignment operator
 
-# Exercise 0 (Set up a project and load packages)
+## Exercise 0 (Set up a project and load packages)
 
 <font color="#55b748">**Step 1:**</font> Open RStudio. File \> New Project \> New Directory \> Select the location where you would like to create a new folder that houses your R Project. Call it `urbn101`
 
@@ -54,7 +54,7 @@ output:
 -   tidyverse - a collection of libraries that use the same syntax/grammar (more on this on Monday)
 -   ggplot2 - for making plots/graphs
 
-# Exercise 1 (Make a plot)
+## Exercise 1 (Make a plot)
 
 <font color="#55b748">**Step 1:**</font> Submit `data()` to the console. We will use the airquality dataset.
 
@@ -75,7 +75,7 @@ output:
 
 <font color="#ec008b">**Geometric objects**</font> are representations of the data, including points, lines, and polygons.
 
-# Exercise 2 (Change some of the plot settings)
+## Exercise 2 (Change some of the plot settings)
 
 <font color="#55b748">**Step 1:**</font> Duplicate the code from your first chart. Inside `aes()`, add `color = "red"` (separated by a comma)
 
@@ -89,11 +89,11 @@ output:
 
 Aesthetic mappings like x and y almost always vary with the data. Aesthetic mappings like color, fill, shape, transparency, and size can vary with the data. But those arguments can also be added as styles that don't vary with the data. If you include those arguments in `aes()`, they will show up in the legend (which can be annoying!).
 
-# Exercise 3 (Add a regression line/confidence interval)
+## Exercise 3 (Add a regression line/confidence interval)
 
 <font color="#55b748">**Step 1:**</font> Reconfigure the data so that the geompoint parentheses are empty (move `mapping=aes(x=Temp, y=Ozone)` to the ggplot line. Add + to the labs line and add `geom_smooth()`
 
-# Exercise 4 (Scale the axes)
+## Exercise 4 (Scale the axes)
 
 <font color="#55b748">**Step 1:**</font> Create a new scatter plot using the `msleep` data set. Use `bodywt` on the x-axis and `sleep_total` on the y-axis.
 
@@ -103,7 +103,7 @@ Aesthetic mappings like x and y almost always vary with the data. Aesthetic mapp
 
 <font color="#ec008b">**Scales**</font> Turn data values, which are quantitative or categorical, into aesthetic values. This includes not only the x-axis and y-axis, but the ranges of sizes, shapes, and colors of aesthetics.
 
-# Exercise 5 (Make it look nice!!)
+## Exercise 5 (Make it look nice!!)
 
 <font color="#55b748">**Step 1:**</font> Add the following code to your script. Submit it!
 
@@ -123,7 +123,7 @@ Aesthetic mappings like x and y almost always vary with the data. Aesthetic mapp
 
 <font color="#ec008b">**Theme**</font> controls the visual style of plot with font types, font sizes, background colors, margins, and positioning.
 
-# Excercise 6 (Multiple little graphs/Faceting)
+## Excercise 6 (Multiple little graphs/Faceting)
 
 <font color="#55b748">**Step 1:**</font> Read in Zillow Observed Rent Index (ZORI) data using `read_csv('https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/zillow_clean.csv')`
 
@@ -139,7 +139,7 @@ Aesthetic mappings like x and y almost always vary with the data. Aesthetic mapp
 
 <font color="#55b748">**Step 4:**</font> Add `facet_wrap(~RegionName)` after the `geom_point(mapping=aes(x=Year, y=Avg_price))` line.
 
-# Exercise 7 (Mapping)
+## Exercise 7 (Mapping)
 
 <font color="#55b748">**Step 1:**</font> Read in UFO sighting data (source: National UFO Reporting Center), link: `https://raw.githubusercontent.com/UI-Research/urbn101-intro-r/master/homework/ufo_state.csv`
 
@@ -160,7 +160,7 @@ Aesthetic mappings like x and y almost always vary with the data. Aesthetic mapp
 -   [library(urbnmapr)](https://github.com/UrbanInstitute/urbnmapr)
 -   [Urban Institute R Users Group website: mapping](https://UrbanInstitute.github.io/r-at-urban/mapping.html)
 
-# Functions
+## Functions
 
 -   `ggplot()`: Create a plot, pull in data
 -   `aes()`: The aesthetics that show up in the legend
@@ -175,7 +175,7 @@ Aesthetic mappings like x and y almost always vary with the data. Aesthetic mapp
 -   `labs()`: Labels
     -   x/y/title/fill/colour
 
-# Theory
+## Theory
 
 1.  *Data*
 2.  *Aesthetic mappings*
@@ -186,7 +186,7 @@ Aesthetic mappings like x and y almost always vary with the data. Aesthetic mapp
 7.  *Statistical transformations*
 8.  *Theme*
 
-# Resources
+## Resources
 
 -   [Urban Institute R Users Group website](https://UrbanInstitute.github.io/r-at-urban/graphics-guide.html)
 -   [Why the Urban Institute visualizes data with ggplot2](https://medium.com/@urban_institute/why-the-urban-institute-visualizes-data-with-ggplot2-46d8cfc7ee67)

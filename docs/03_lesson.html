@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="R Users Group">
-<meta name="dcterms.date" content="2023-08-11">
+<meta name="dcterms.date" content="2023-08-15">
 
 <title>Intro to R - 3&nbsp; Data Munging (II)</title>
 <style>
@@ -127,7 +127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -203,41 +203,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">4</span>  Review</a></li>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="toc-section-number">5</span>  Motivation</a>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">3.1</span>  Review</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="toc-section-number">3.2</span>  Motivation</a>
   <ul class="collapse">
-  <li><a href="#exercise-0" id="toc-exercise-0" class="nav-link" data-scroll-target="#exercise-0"><span class="toc-section-number">5.0.1</span>  Exercise 0</a></li>
+  <li><a href="#exercise-0" id="toc-exercise-0" class="nav-link" data-scroll-target="#exercise-0"><span class="toc-section-number">3.2.1</span>  Exercise 0</a></li>
   </ul></li>
-  <li><a href="#conditional-transformation" id="toc-conditional-transformation" class="nav-link" data-scroll-target="#conditional-transformation"><span class="toc-section-number">6</span>  Conditional transformation</a></li>
-  <li><a href="#strings" id="toc-strings" class="nav-link" data-scroll-target="#strings"><span class="toc-section-number">7</span>  Strings</a>
+  <li><a href="#conditional-transformation" id="toc-conditional-transformation" class="nav-link" data-scroll-target="#conditional-transformation"><span class="toc-section-number">3.3</span>  Conditional transformation</a></li>
+  <li><a href="#strings" id="toc-strings" class="nav-link" data-scroll-target="#strings"><span class="toc-section-number">3.4</span>  Strings</a>
   <ul class="collapse">
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="toc-section-number">7.1</span>  Exercise 1</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="toc-section-number">3.4.1</span>  Exercise 1</a></li>
   </ul></li>
-  <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates"><span class="toc-section-number">8</span>  Dates</a>
+  <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates"><span class="toc-section-number">3.5</span>  Dates</a>
   <ul class="collapse">
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="toc-section-number">8.1</span>  Exercise 2</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="toc-section-number">3.5.1</span>  Exercise 2</a></li>
   </ul></li>
-  <li><a href="#group_by-and-summarize" id="toc-group_by-and-summarize" class="nav-link" data-scroll-target="#group_by-and-summarize"><span class="toc-section-number">9</span>  <code>group_by</code> and <code>summarize()</code></a>
+  <li><a href="#group_by-and-summarize" id="toc-group_by-and-summarize" class="nav-link" data-scroll-target="#group_by-and-summarize"><span class="toc-section-number">3.6</span>  <code>group_by</code> and <code>summarize()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="toc-section-number">9.1</span>  Exercise 3</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="toc-section-number">3.6.1</span>  Exercise 3</a></li>
   </ul></li>
-  <li><a href="#left_join" id="toc-left_join" class="nav-link" data-scroll-target="#left_join"><span class="toc-section-number">10</span>  <code>left_join()</code></a>
+  <li><a href="#left_join" id="toc-left_join" class="nav-link" data-scroll-target="#left_join"><span class="toc-section-number">3.7</span>  <code>left_join()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="toc-section-number">10.1</span>  Exercise 4</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="toc-section-number">3.7.1</span>  Exercise 4</a></li>
   </ul></li>
-  <li><a href="#custom-functions" id="toc-custom-functions" class="nav-link" data-scroll-target="#custom-functions"><span class="toc-section-number">11</span>  Custom functions</a>
+  <li><a href="#custom-functions" id="toc-custom-functions" class="nav-link" data-scroll-target="#custom-functions"><span class="toc-section-number">3.8</span>  Custom functions</a>
   <ul class="collapse">
-  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="toc-section-number">11.1</span>  Exercise 5</a></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="toc-section-number">3.8.1</span>  Exercise 5</a></li>
   </ul></li>
-  <li><a href="#system-functions" id="toc-system-functions" class="nav-link" data-scroll-target="#system-functions"><span class="toc-section-number">12</span>  System functions</a>
+  <li><a href="#system-functions" id="toc-system-functions" class="nav-link" data-scroll-target="#system-functions"><span class="toc-section-number">3.9</span>  System functions</a>
   <ul class="collapse">
-  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="toc-section-number">12.1</span>  Exercise 6</a></li>
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="toc-section-number">3.9.1</span>  Exercise 6</a></li>
   </ul></li>
-  <li><a href="#conditional-logic" id="toc-conditional-logic" class="nav-link" data-scroll-target="#conditional-logic"><span class="toc-section-number">13</span>  Conditional logic</a>
+  <li><a href="#conditional-logic" id="toc-conditional-logic" class="nav-link" data-scroll-target="#conditional-logic"><span class="toc-section-number">3.10</span>  Conditional logic</a>
   <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">13.1</span>  Example</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">3.10.1</span>  Example</a></li>
   </ul></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">14</span>  Resources</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">3.11</span>  Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -263,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 11, 2023</p>
+      <p class="date">August 15, 2023</p>
     </div>
   </div>
   
@@ -277,8 +277,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 </style>
 <p><link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet"></p>
-<section id="review" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Review</h1>
+<section id="review" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="review"><span class="header-section-number">3.1</span> Review</h2>
 <ul>
 <li><code>%&gt;%</code>: The pipe operator</li>
 <li><code>dplyr</code> verbs for data manipulation
@@ -296,14 +296,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </section>
-<section id="motivation" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Motivation</h1>
+<section id="motivation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">3.2</span> Motivation</h2>
 <ul>
 <li>Review and master <code>library(dplyr)</code></li>
 <li>Expand our skill set so we can do more types of analysis</li>
 </ul>
-<section id="exercise-0" class="level3" data-number="5.0.1">
-<h3 data-number="5.0.1" class="anchored" data-anchor-id="exercise-0"><span class="header-section-number">5.0.1</span> Exercise 0</h3>
+<section id="exercise-0" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="exercise-0"><span class="header-section-number">3.2.1</span> Exercise 0</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Open up your <code>.Rproj</code> for <code>urbn101</code>. You should now see <code>urbn101</code> in the top right of RStudio instead of “Project: (None)” .</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Install the R package <code>nycflights13</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Load <code>tidyverse</code> and <code>nycflights13</code> at the top of your script.</p>
@@ -311,8 +311,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><font color="#55b748"><strong>Step 5:</strong></font> Look at the <code>flights</code> data set (how many ways can you do this?)</p>
 </section>
 </section>
-<section id="conditional-transformation" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Conditional transformation</h1>
+<section id="conditional-transformation" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="conditional-transformation"><span class="header-section-number">3.3</span> Conditional transformation</h2>
 <p>Last week, we showed how <code>mutate()</code> can be used to create new variables or to transform new variables. For example, we converted knots into miles per hour. We also learned about <code>if_else</code> last week which works great for one condition. But what if you have multiple conditions? <code>case_when()</code> allows for a sequence of conditional logic that can be used to transform or create variables with <code>mutate()</code>. For example, here I create a variable called <code>lateness</code> that creates a character variable with the levels <code>"very late"</code>, <code>"late"</code>, and <code>"on time"</code>. The logic is evaluated from top to bottom and <code>TRUE</code> is used to refer to all other remaining cases.</p>
 <p>The syntax may look a little weird at first but it’s easy to pick up! The logical condition goes to the left of <code>~</code> and the output results goes to the right. <code>&amp;</code> and <code>|</code> can be used to combine logical statements.</p>
 <div class="cell">
@@ -326,11 +326,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="strings" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Strings</h1>
+<section id="strings" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="strings"><span class="header-section-number">3.4</span> Strings</h2>
 <p><code>library(stringr)</code> contains powerful and concise functions manipulating character variables. Reference the <a href="https://github.com/rstudio/cheatsheets/blob/master/strings.pdf">cheat sheet</a> for an overview of the different string maniuplation functions.</p>
-<section id="exercise-1" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">7.1</span> Exercise 1</h2>
+<section id="exercise-1" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">3.4.1</span> Exercise 1</h3>
 <p>The <code>month</code> and <code>day</code> columns are currently integer variables. We want to turn them into character variables with leading zeros. For example, <code>1</code> should be <code>"01"</code>.</p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>mutate()</code> to overwrite <code>month</code> and <code>day</code> with <code>str_pad()</code>. The first argument should be <code>month</code> or <code>day</code>. The second argument, <code>width</code>, should be <code>2</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> The padding character is currently a space, but we want it to be <code>"0"</code>. Use <code>?str_pad</code> to figure out how to switch the padding character.</p>
@@ -339,11 +339,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><font color="#55b748"><strong>Step 5:</strong></font> Assign the result to <code>flights_subset</code>.</p>
 </section>
 </section>
-<section id="dates" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Dates</h1>
+<section id="dates" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="dates"><span class="header-section-number">3.5</span> Dates</h2>
 <p><code>library(lubridate)</code> contains powerful and concise functions for creating and manipulating dates, times, and date-times. It is aware of leap days and leap seconds and is useful for calculating periods, durations, intervals, and more.</p>
-<section id="exercise-2" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">8.1</span> Exercise 2</h2>
+<section id="exercise-2" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">3.5.1</span> Exercise 2</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Add <code>library(lubridate)</code> after <code>library(nycflight13)</code> in your script.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> <code>library(lubridate)</code> is powerful but it needs variables in the correct format. Use <code>ymd()</code> inside of <code>mutate()</code> to turn the <code>flight_date</code> variable into a date rather than a character vector.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Inside the previous <code>mutate</code> statement, add another column called <code>weekday</code> for the weekday of the flight. You can use <code>wday(flight_date)</code> to find the day of the week for each date.</p>
@@ -351,11 +351,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><font color="#55b748"><strong>Step 5:</strong></font> Use <code>count()</code> to count the number of flights by day of the week.</p>
 </section>
 </section>
-<section id="group_by-and-summarize" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> <code>group_by</code> and <code>summarize()</code></h1>
+<section id="group_by-and-summarize" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="group_by-and-summarize"><span class="header-section-number">3.6</span> <code>group_by</code> and <code>summarize()</code></h2>
 <p>This is often the hardest concept to fully grasp, but it’s also the most powerful! <img src="www/images/group_by_summarize_visualized.png" class="img-fluid" style="width:70.0%" alt="group by summarize visualizations"></p>
-<section id="exercise-3" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">9.1</span> Exercise 3</h2>
+<section id="exercise-3" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">3.6.1</span> Exercise 3</h3>
 <p>We are going to summarize <code>flights_subset</code> from the previous example by <code>week_day</code></p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> <code>group_by()</code> <code>week_day</code> and use <code>n()</code> in <code>summarize()</code> to count the number of observations. This should match Step 5 from the previous exercise.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> In the same <code>summarize()</code>, calculate <code>mean()</code>, and <code>max()</code> <code>distance</code>.</p>
@@ -363,8 +363,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><font color="#55b748"><strong>Step 4:</strong></font> Rename the resulting variables <em>inside</em> <code>summarize()</code> so they have more useful names.</p>
 </section>
 </section>
-<section id="left_join" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> <code>left_join()</code></h1>
+<section id="left_join" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="left_join"><span class="header-section-number">3.7</span> <code>left_join()</code></h2>
 <p>Joins are the main method for combining two datasets with a commmon key column together. There are many types of joins, and we highly recommend you read this <a href="https://r4ds.had.co.nz/relational-data.html">chapter on joins in R4DS</a> if you want more info. Below is a quick visual summary of the types of joins you can perform in R. <img src="www/images/join_types.png" class="img-fluid" style="width:60.0%" alt="join_types"></p>
 <p>For now we will focus on the “left” join, which merges observations from the right data set to the left data set. This is the join type I use 90% of the time in R. Below is an example of how the <code>left_join()</code> function works.</p>
 <div class="cell">
@@ -394,8 +394,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 4 Fay   Wizards  Washington DC</code></pre>
 </div>
 </div>
-<section id="exercise-4" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">10.1</span> Exercise 4</h2>
+<section id="exercise-4" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">3.7.1</span> Exercise 4</h3>
 <p><code>flights</code> contains information about flights and the unit of observation is airplane flights. <code>planes</code> contains information about the airplanes and the unit of observation is the airplane. The common column between these tables is the <code>tailnum</code> column.</p>
 <p>We want to add information about planes to the flights data set. This is a left join because for every flight in the dataset, we want to append flight information. This is also called a many-to-one join because we are joining many rows from the <code>flights</code> data to one row from the <code>planes</code> data.</p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>left_join()</code> to join <code>planes</code> to <code>flights</code>. The common key is <code>tailnum</code>.</p>
@@ -404,8 +404,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>filter()</code> to see if <code>first_unmatched_tailnum</code> is in <code>planes</code>. Hint: it shouldn’t be!</p>
 </section>
 </section>
-<section id="custom-functions" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Custom functions</h1>
+<section id="custom-functions" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="custom-functions"><span class="header-section-number">3.8</span> Custom functions</h2>
 <p>Sometimes functions don’t exist for desired calculations or we want to combine many calculations into one function to reduce copying-and-pasting.</p>
 <p>“You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e.&nbsp;you now have three copies of the same code).” ~ <a href="https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function">R4DS</a></p>
 <p>R has a flexible function system that makes it very easy to define custom functions!</p>
@@ -433,15 +433,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p><strong>Note:</strong> Using tidyverse functions inside of custom functions often requires non-standard evaluation. Please reach out for help when this is your goal.</p>
-<section id="exercise-5" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">11.1</span> Exercise 5</h2>
+<section id="exercise-5" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">3.8.1</span> Exercise 5</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Write a function called <code>multiply_xy()</code> that takes arguments <code>x</code> and <code>y</code> and multiplies them together.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Add your favorite number as the default for <code>x</code> and your least favorite number as the default for <code>y</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Call the function and overwrite the default for <code>y</code> with your favorite number.</p>
 </section>
 </section>
-<section id="system-functions" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> System functions</h1>
+<section id="system-functions" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="system-functions"><span class="header-section-number">3.9</span> System functions</h2>
 <p>R contains a full set of functions for managing files and folders on your computer</p>
 <ul>
 <li><code>file.create()</code></li>
@@ -455,14 +455,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>if (!file.exists("data/cps.csv")) {
   download.file("https//:cps-download.gov", "data/cps.csv")
 }</code></pre>
-<section id="exercise-6" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">12.1</span> Exercise 6</h2>
+<section id="exercise-6" class="level3" data-number="3.9.1">
+<h3 data-number="3.9.1" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">3.9.1</span> Exercise 6</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Check to see if you are in an R project. Use <code>dir.create()</code> to create a folder called <code>final-data/</code>.</p>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>file.copy()</code> to duplicate your script and then delete the copy with <code>file.remove()</code>. CAREFUL! There is no undo button!</p>
 </section>
 </section>
-<section id="conditional-logic" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Conditional logic</h1>
+<section id="conditional-logic" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="conditional-logic"><span class="header-section-number">3.10</span> Conditional logic</h2>
 <p>Conditional logic is an important concept in computer programming. We already used <code>ifelse()</code> and <code>case_when()</code> to create indicator variables and conditional variables. Sometimes it’s also useful to run entire chunks of code conditionally.</p>
 <pre><code>if () {
 
@@ -477,8 +477,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Conditional statement (<code>==</code>, <code>&gt;</code>, <code>&lt;</code>, <code>%in%</code>)</li>
 <li>Code body</li>
 </ul>
-<section id="example" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="example"><span class="header-section-number">13.1</span> Example</h2>
+<section id="example" class="level3" data-number="3.10.1">
+<h3 data-number="3.10.1" class="anchored" data-anchor-id="example"><span class="header-section-number">3.10.1</span> Example</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -493,8 +493,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="resources" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Resources</h1>
+<section id="resources" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="resources"><span class="header-section-number">3.11</span> Resources</h2>
 <ul>
 <li><a href="https://r4ds.had.co.nz/functions.html">R4DS: functions</a></li>
 <li><code>stringr</code> <a href="https://github.com/rstudio/cheatsheets/raw/master/strings.pdf">cheat sheet</a></li>

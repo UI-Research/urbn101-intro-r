@@ -4,11 +4,11 @@ author: "R Users Group"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html-document:
-    number-sections: FALSE
-    self-contained: TRUE
+    number-sections: false
+    embed-resources: true
     code-folding: show
-    toc: TRUE
-    toc-float: TRUE
+    toc: true
+    toc-float: true
     css: style.css
 editor-options:
   chunk-output-type: console
@@ -34,7 +34,7 @@ library(arrow)
 
 ```
 
-# Review
+## Review
 
 -   What is tidy data?
 
@@ -52,13 +52,13 @@ library(arrow)
 
 -   Writing functions that use capabilities of the `tidyverse` can be tricky due to something called Nonstandard Evaluation - feel free to ask any of us for help!
 
-# Motivation
+## Motivation
 
 -   `diamonds`, `storms`, or `starwars` are nice examples, but how do I load data for an actual research project?
 
 -   Data import is a crucial yet often overlooked step of truly replicable and reproducible research.
 
-# Packages
+## Packages
 
 We'll be using three packages from the `tidyverse` for data import and export. These three should cover just about all of your use cases at Urban.
 
@@ -68,7 +68,7 @@ We'll be using three packages from the `tidyverse` for data import and export. T
 
 One note - while all three packages are installed with the `tidyverse`, only `readr` is loaded when you run `library(tidyverse)` in your R session. The other packages must be loaded separately.
 
-# Primary Functions
+## Primary Functions
 
 In general, `readr`, `readxl`, and `haven` will come with some variant of a `read` function for data import, and a variant of `write` (except for Excel and SAS!) for data export.
 
@@ -90,9 +90,9 @@ The various `write` functions will need two arguments: the data frame you want t
 write_csv(df, "path/to/your/modified/data.csv")
 ```
 
-# Setup
+## Setup
 
-## Exercise
+### Exercise
 
 <font color="#55b748">**Step 1:**</font> Open up your RStudio project, open a R script, save it with a meaningful name, and load the `tidyverse`, `readxl`, `haven`, and `arrow`.
 
@@ -110,13 +110,13 @@ download_data <- function(url, path) {
 
 <img src="www/images/readr_sticker.png" style="float: right;width: 106px"/>
 
-# The `readr` Package
+## The `readr` Package
 
 `readr` provides functions to read plain text rectangular data - think csv, txt or tsv files.
 
-## CSV Files
+### CSV Files
 
-### Example
+#### Example
 
 First we'll download an example `csv` file from the Urban Institute's Education data portal:
 
@@ -142,19 +142,19 @@ ipeds_2011 <- ipeds %>%
 write_csv(ipeds_2011, "modified/colleges_ipeds_completers_2011.csv")
 ```
 
-### Exercise
+#### Exercise
 
 <font color="#55b748">**Step 1:**</font> Filter the `ipeds` data frame to years 2014-2015 for the state of California (HINT: fips code of 6). Be sure to use `<-` to save it to a new object!
 
 <font color="#55b748">**Step 2:**</font> Write the filtered data frame to a file called "ipeds_completers_ca.csv" in your `modified` folder.
 
-## Other Delimiters
+### Other Delimiters
 
 Most plain text files will use a comma to separate values. Sometimes you'll see other delimiters used - the most common are tabs `\t` and vertical bar `|` (which is often called a pipe, not to be confused with the `tidyverse` pipe `%>%`).
 
 To read in a plain text file that uses another delimiter, use the `read_delim` function. This function will take two arguments: the path to the file you want to load and the character to use as a delimiter.
 
-### Example
+#### Example
 
 First we'll download a tab delimited file from the North Carolina Board of Elections:
 
@@ -173,15 +173,15 @@ Note that `readr` was able to read the data directly from the zipfile!
 
 Similarly, the `write_delim()` function can be used to write out a plain text file with a specified `delim` argument.
 
-### Exercise
+#### Exercise
 
 <font color="#55b748">**Step 1:**</font> Use `write_delim()` to write out `ncvhis` to a pipe `|` separated file.
 
-## Common Issues
+### Common Issues
 
 Not all data import will be quick and easy. Often times you will run into issues - these can be daunting at first but are often not as bad as they seem.
 
-### Example
+#### Example
 
 The `readr` package provides a `challenge.csv` file that will throw numerous parsing issues.
 
@@ -218,11 +218,11 @@ Luckily `read_csv()` and its friends have a lot of built in arguments to help de
 
 <img src="www/images/readxl.png" style="float: right;width: 106px"/>
 
-# The `readxl` Package
+## The `readxl` Package
 
 For data that is saved as `.xls` or `.xlsx`, use the `readxl` package.
 
-## Example
+### Example
 
 For this example we'll download data from the HUD FHA Single Family Portfolio Snap Shot.
 
@@ -245,19 +245,19 @@ purchases <- read_excel("data/sfsnap.xlsx", sheet = "Purchase Data April 2019")
 
 Note that the `readxl` package only provides functionality to, as the name implies, read Excel files. If you need to write your data out to `.xls` or `.xlsx` formats - [don't](https://www.moderncsv.com/why-excel-sucks-and-modern-csv-is-awesome-at-least-for-csvs/)! We highly recommend saving data files as `.csv` files wherever possible. But if you you really need to, look into the `writexl` or `openxlsx` packages.
 
-## Exercise
+### Exercise
 
 <font color="#55b748">**Step 1:**</font> Use `read_excel()` to load in the table on the "Refinance Data April 2019" sheet into a data frame called `refinances`.
 
 <img src="www/images/haven.png" style="float: right;width: 106px"/>
 
-# The `haven` Package
+## The `haven` Package
 
 Finally, your SAS, SPSS, or Stata data can find safe `haven` in R.
 
-## Stata Data (.dta)
+### Stata Data (.dta)
 
-### Example
+#### Example
 
 First we'll download and unzip the 2018 General Social Survey, which comes as a zipped `.dta` file.
 
@@ -278,11 +278,11 @@ gss <- read_dta("data/gss.zip")
 
 ```
 
-## SAS Data (.sas7bdat)
+### SAS Data (.sas7bdat)
 
 We use `read_sas` to read in SAS files. This works mostly identical to `read_stata`, and you can read in `.sas7bdat` + `.sas7bcat`, or zipped folders with sas files. Note that while the `write_sas()` function exists, it doesn't appear to actually work at the current version of `haven`.
 
-### Example
+#### Example
 
 Download and read in the 2017 1-year Public Use Microsample for Wyoming from the Census:
 
@@ -300,7 +300,7 @@ pums_data = read_sas("data/pums_wy.zip")
 pums_data %>% write_dta("modified/pums_wy.dta")
 ```
 
-# The `arrow` Package
+## The `arrow` Package
 
 Sometimes when you save text files, the column types (ie numeric, date, time, text, etc.) get lost and won't be read back in upon reimporting In this case you may want to save your files as a binary file. One binary file format we suggest is `.feather` files, which you can [read more about](https://arrow.apache.org/docs/python/feather.html). The main benefits of storing data in a binary format is:
 
@@ -325,7 +325,7 @@ write_feather(ipeds_2011, "modified/colleges_ipeds_completers_2011.feather")
 ipeds_2011 = read_feather("modified/colleges_ipeds_completers_2011.feather")
 ```
 
-# Resources
+## Resources
 
 -   [R4DS: Data import](https://r4ds.had.co.nz/data-import.html)
 -   Data Import [Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)

@@ -63,7 +63,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.scss">
 </head>
 
 <body class="nav-sidebar floating">
@@ -139,20 +139,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link active" data-scroll-target="#key-takeaways"><span class="toc-section-number">7</span>  Key Takeaways</a></li>
-  <li><a href="#helpful-packages" id="toc-helpful-packages" class="nav-link" data-scroll-target="#helpful-packages"><span class="toc-section-number">8</span>  Helpful Packages</a></li>
-  <li><a href="#what-is-r-markdown" id="toc-what-is-r-markdown" class="nav-link" data-scroll-target="#what-is-r-markdown"><span class="toc-section-number">9</span>  What is R Markdown?</a></li>
-  <li><a href="#urbntemplates" id="toc-urbntemplates" class="nav-link" data-scroll-target="#urbntemplates"><span class="toc-section-number">10</span>  urbntemplates</a>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link active" data-scroll-target="#key-takeaways"><span class="toc-section-number">6.1</span>  Key Takeaways</a></li>
+  <li><a href="#helpful-packages" id="toc-helpful-packages" class="nav-link" data-scroll-target="#helpful-packages"><span class="toc-section-number">6.2</span>  Helpful Packages</a></li>
+  <li><a href="#what-is-r-markdown" id="toc-what-is-r-markdown" class="nav-link" data-scroll-target="#what-is-r-markdown"><span class="toc-section-number">6.3</span>  What is R Markdown?</a></li>
+  <li><a href="#urbntemplates" id="toc-urbntemplates" class="nav-link" data-scroll-target="#urbntemplates"><span class="toc-section-number">6.4</span>  urbntemplates</a>
   <ul class="collapse">
-  <li><a href="#start-function" id="toc-start-function" class="nav-link" data-scroll-target="#start-function"><span class="toc-section-number">10.0.1</span>  start function</a></li>
-  <li><a href="#construct-functions" id="toc-construct-functions" class="nav-link" data-scroll-target="#construct-functions"><span class="toc-section-number">10.0.2</span>  construct functions</a></li>
-  <li><a href="#use-functions" id="toc-use-functions" class="nav-link" data-scroll-target="#use-functions"><span class="toc-section-number">10.0.3</span>  use functions</a></li>
-  <li><a href="#yaml-header" id="toc-yaml-header" class="nav-link" data-scroll-target="#yaml-header"><span class="toc-section-number">10.1</span>  1. YAML Header</a></li>
-  <li><a href="#markdown" id="toc-markdown" class="nav-link" data-scroll-target="#markdown"><span class="toc-section-number">10.2</span>  2. Markdown</a></li>
-  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks"><span class="toc-section-number">10.3</span>  3. Code Chunks</a></li>
+  <li><a href="#yaml-header" id="toc-yaml-header" class="nav-link" data-scroll-target="#yaml-header"><span class="toc-section-number">6.4.1</span>  YAML Header</a></li>
+  <li><a href="#markdown" id="toc-markdown" class="nav-link" data-scroll-target="#markdown"><span class="toc-section-number">6.4.2</span>  Markdown</a></li>
+  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks"><span class="toc-section-number">6.4.3</span>  Code Chunks</a></li>
+  <li><a href="#create-a-markdown-html-fact-sheet---piece-by-piece" id="toc-create-a-markdown-html-fact-sheet---piece-by-piece" class="nav-link" data-scroll-target="#create-a-markdown-html-fact-sheet---piece-by-piece"><span class="toc-section-number">6.4.4</span>  Create a Markdown HTML Fact Sheet - Piece by Piece</a></li>
+  <li><a href="#step-1-install-libraryurbntemplates" id="toc-step-1-install-libraryurbntemplates" class="nav-link" data-scroll-target="#step-1-install-libraryurbntemplates"><span class="toc-section-number">6.4.5</span>  <font color="#55b748"><strong>Step 1:</strong></font> Install <code>library(urbntemplates)</code></a></li>
   </ul></li>
-  <li><a href="#create-a-markdown-html-fact-sheet---piece-by-piece" id="toc-create-a-markdown-html-fact-sheet---piece-by-piece" class="nav-link" data-scroll-target="#create-a-markdown-html-fact-sheet---piece-by-piece"><span class="toc-section-number">11</span>  Create a Markdown HTML Fact Sheet - Piece by Piece</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">12</span>  Resources</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">6.5</span>  Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -192,8 +190,8 @@ ul.task-list li input[type="checkbox"] {
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 </style>
 <p><link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet"></p>
-<section id="key-takeaways" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Key Takeaways</h1>
+<section id="key-takeaways" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">6.1</span> Key Takeaways</h2>
 <ul>
 <li>Take notes/annotate code as you go</li>
 <li>Use the assignment operator</li>
@@ -203,8 +201,8 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://ui-research.github.io/urbn101-intro-r/lessons/01_lesson">Visualization</a> with <code>library(ggplot2)</code></li>
 </ul>
 </section>
-<section id="helpful-packages" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Helpful Packages</h1>
+<section id="helpful-packages" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="helpful-packages"><span class="header-section-number">6.2</span> Helpful Packages</h2>
 <ul>
 <li>Import Data
 <ul>
@@ -231,8 +229,8 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="what-is-r-markdown" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> What is R Markdown?</h1>
+<section id="what-is-r-markdown" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="what-is-r-markdown"><span class="header-section-number">6.3</span> What is R Markdown?</h2>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="www/images/rmarkdown.png" class="img-fluid" width="630"></p>
@@ -248,8 +246,8 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="urbntemplates" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> urbntemplates</h1>
+<section id="urbntemplates" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="urbntemplates"><span class="header-section-number">6.4</span> urbntemplates</h2>
 <p><code>library(urbntemplates)</code> contains three families of functions:</p>
 <ul>
 <li><code>start_project()</code> generates a new project with a .Rproj, README, and .gitignore at the specified location on a machine.</li>
@@ -257,14 +255,14 @@ ul.task-list li input[type="checkbox"] {
 <li><code>use_*()</code> functions add individual templates and documents to a project directory or sub directory.</li>
 </ul>
 <p>A sensible workflow is: 1. Start a new project and create a .Rproj by submitting urbntemplates::start_project(). This will create and open a new .Rproj. 2. Inside the .Rproj, add the necessary documents for a part of a project, like a Shiny application, with a construct_<em>() function. 3. Add any desired remaining templates or documents with use_</em>() functions.</p>
-<section id="start-function" class="level3" data-number="10.0.1">
-<h3 data-number="10.0.1" class="anchored" data-anchor-id="start-function"><span class="header-section-number">10.0.1</span> start function</h3>
+<section id="start-function" class="level4" data-number="6.4.0.1">
+<h4 data-number="6.4.0.1" class="anchored" data-anchor-id="start-function"><span class="header-section-number">6.4.0.1</span> start function</h4>
 <ul>
 <li><code>start_project()</code></li>
 </ul>
 </section>
-<section id="construct-functions" class="level3" data-number="10.0.2">
-<h3 data-number="10.0.2" class="anchored" data-anchor-id="construct-functions"><span class="header-section-number">10.0.2</span> construct functions</h3>
+<section id="construct-functions" class="level4" data-number="6.4.0.2">
+<h4 data-number="6.4.0.2" class="anchored" data-anchor-id="construct-functions"><span class="header-section-number">6.4.0.2</span> construct functions</h4>
 <ul>
 <li><code>construct_shiny()</code></li>
 <li><code>construct_fact_sheet_html()</code></li>
@@ -273,8 +271,8 @@ ul.task-list li input[type="checkbox"] {
 <li><code>construct_web_report()</code></li>
 </ul>
 </section>
-<section id="use-functions" class="level3" data-number="10.0.3">
-<h3 data-number="10.0.3" class="anchored" data-anchor-id="use-functions"><span class="header-section-number">10.0.3</span> use functions</h3>
+<section id="use-functions" class="level4" data-number="6.4.0.3">
+<h4 data-number="6.4.0.3" class="anchored" data-anchor-id="use-functions"><span class="header-section-number">6.4.0.3</span> use functions</h4>
 <ul>
 <li><code>use_content()</code></li>
 <li><code>use_css()</code></li>
@@ -290,22 +288,23 @@ ul.task-list li input[type="checkbox"] {
 <li><code>use_web_report()</code></li>
 </ul>
 </section>
-<section id="yaml-header" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="yaml-header"><span class="header-section-number">10.1</span> 1. YAML Header</h2>
+<section id="yaml-header" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="yaml-header"><span class="header-section-number">6.4.1</span> YAML Header</h3>
 <p>Controls the settings of the document.</p>
 </section>
-<section id="markdown" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="markdown"><span class="header-section-number">10.2</span> 2. Markdown</h2>
+<section id="markdown" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="markdown"><span class="header-section-number">6.4.2</span> Markdown</h3>
 <p>Markdown is a lightweight markup language for creating formatted text using a plain-text editor. <a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown Reference Guide</a></p>
 </section>
-<section id="code-chunks" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="code-chunks"><span class="header-section-number">10.3</span> 3. Code Chunks</h2>
+<section id="code-chunks" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="code-chunks"><span class="header-section-number">6.4.3</span> Code Chunks</h3>
 <p>Creates the code output for the document.</p>
 </section>
+<section id="create-a-markdown-html-fact-sheet---piece-by-piece" class="level3" data-number="6.4.4">
+<h3 data-number="6.4.4" class="anchored" data-anchor-id="create-a-markdown-html-fact-sheet---piece-by-piece"><span class="header-section-number">6.4.4</span> Create a Markdown HTML Fact Sheet - Piece by Piece</h3>
 </section>
-<section id="create-a-markdown-html-fact-sheet---piece-by-piece" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Create a Markdown HTML Fact Sheet - Piece by Piece</h1>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Install <code>library(urbntemplates)</code></p>
+<section id="step-1-install-libraryurbntemplates" class="level3" data-number="6.4.5">
+<h3 data-number="6.4.5" class="anchored" data-anchor-id="step-1-install-libraryurbntemplates"><span class="header-section-number">6.4.5</span> <font color="#55b748"><strong>Step 1:</strong></font> Install <code>library(urbntemplates)</code></h3>
 <pre><code>install.packages("remotes")
 remotes::install_github("UrbanInstitute/urbntemplates")</code></pre>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Create a new project using <code>start_project()</code>(Parenthesis should have directory and name of new project). Once you create the project, open a new script and create an html fact sheet using <code>urbntemplates::construct_fact_sheet_html()</code></p>
@@ -313,8 +312,9 @@ remotes::install_github("UrbanInstitute/urbntemplates")</code></pre>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Knit the R Markdown into a pdf document.</p>
 <p><font color="#55b748"><strong>Step 5:</strong></font> Add some text into the markdown, some code that appears as code, and some code that shows the result but not the code. Every code chunk should start with <code>{r name}</code> and then set the parameters (T/F, separated by comma. See full <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">factsheet</a> for more parameters.</p>
 </section>
-<section id="resources" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Resources</h1>
+</section>
+<section id="resources" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="resources"><span class="header-section-number">6.5</span> Resources</h2>
 <ul>
 <li><a href="https://rmarkdown.rstudio.com/">RStudio R Markdown guide</a></li>
 <li><a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a></li>

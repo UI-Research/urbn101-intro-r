@@ -19,7 +19,7 @@ bibliography: references.bib
 
 format:
   html:
-    css: style.css
+    css: style.scss
   pdf:
     documentclass: scrreprt
 

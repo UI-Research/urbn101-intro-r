@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="R Users Group">
-<meta name="dcterms.date" content="2023-08-11">
+<meta name="dcterms.date" content="2023-08-15">
 
 <title>Intro to R - 4&nbsp; Data Import</title>
 <style>
@@ -127,7 +127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.scss">
 </head>
 
 <body class="nav-sidebar floating">
@@ -203,50 +203,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">5</span>  Review</a></li>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="toc-section-number">6</span>  Motivation</a></li>
-  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="toc-section-number">7</span>  Packages</a></li>
-  <li><a href="#primary-functions" id="toc-primary-functions" class="nav-link" data-scroll-target="#primary-functions"><span class="toc-section-number">8</span>  Primary Functions</a></li>
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">9</span>  Setup</a>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">4.1</span>  Review</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="toc-section-number">4.2</span>  Motivation</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="toc-section-number">4.3</span>  Packages</a></li>
+  <li><a href="#primary-functions" id="toc-primary-functions" class="nav-link" data-scroll-target="#primary-functions"><span class="toc-section-number">4.4</span>  Primary Functions</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">4.5</span>  Setup</a>
   <ul class="collapse">
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="toc-section-number">9.1</span>  Exercise</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="toc-section-number">4.5.1</span>  Exercise</a></li>
   </ul></li>
-  <li><a href="#the-readr-package" id="toc-the-readr-package" class="nav-link" data-scroll-target="#the-readr-package"><span class="toc-section-number">10</span>  The <code>readr</code> Package</a>
+  <li><a href="#the-readr-package" id="toc-the-readr-package" class="nav-link" data-scroll-target="#the-readr-package"><span class="toc-section-number">4.6</span>  The <code>readr</code> Package</a>
   <ul class="collapse">
-  <li><a href="#csv-files" id="toc-csv-files" class="nav-link" data-scroll-target="#csv-files"><span class="toc-section-number">10.1</span>  CSV Files</a>
+  <li><a href="#csv-files" id="toc-csv-files" class="nav-link" data-scroll-target="#csv-files"><span class="toc-section-number">4.6.1</span>  CSV Files</a></li>
+  <li><a href="#other-delimiters" id="toc-other-delimiters" class="nav-link" data-scroll-target="#other-delimiters"><span class="toc-section-number">4.6.2</span>  Other Delimiters</a></li>
+  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues"><span class="toc-section-number">4.6.3</span>  Common Issues</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="toc-section-number">4.6.4</span>  Exercise</a></li>
+  </ul></li>
+  <li><a href="#the-readxl-package" id="toc-the-readxl-package" class="nav-link" data-scroll-target="#the-readxl-package"><span class="toc-section-number">4.7</span>  The <code>readxl</code> Package</a>
   <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">10.1.1</span>  Example</a></li>
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="toc-section-number">10.1.2</span>  Exercise</a></li>
+  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3"><span class="toc-section-number">4.7.1</span>  Example</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="toc-section-number">4.7.2</span>  Exercise</a></li>
   </ul></li>
-  <li><a href="#other-delimiters" id="toc-other-delimiters" class="nav-link" data-scroll-target="#other-delimiters"><span class="toc-section-number">10.2</span>  Other Delimiters</a>
+  <li><a href="#the-haven-package" id="toc-the-haven-package" class="nav-link" data-scroll-target="#the-haven-package"><span class="toc-section-number">4.8</span>  The <code>haven</code> Package</a>
   <ul class="collapse">
-  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1"><span class="toc-section-number">10.2.1</span>  Example</a></li>
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="toc-section-number">10.2.2</span>  Exercise</a></li>
+  <li><a href="#stata-data-.dta" id="toc-stata-data-.dta" class="nav-link" data-scroll-target="#stata-data-.dta"><span class="toc-section-number">4.8.1</span>  Stata Data (.dta)</a></li>
+  <li><a href="#sas-data-.sas7bdat" id="toc-sas-data-.sas7bdat" class="nav-link" data-scroll-target="#sas-data-.sas7bdat"><span class="toc-section-number">4.8.2</span>  SAS Data (.sas7bdat)</a></li>
   </ul></li>
-  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues"><span class="toc-section-number">10.3</span>  Common Issues</a>
-  <ul class="collapse">
-  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2"><span class="toc-section-number">10.3.1</span>  Example</a></li>
-  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="toc-section-number">10.3.2</span>  Exercise</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#the-readxl-package" id="toc-the-readxl-package" class="nav-link" data-scroll-target="#the-readxl-package"><span class="toc-section-number">11</span>  The <code>readxl</code> Package</a>
-  <ul class="collapse">
-  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3"><span class="toc-section-number">11.1</span>  Example</a></li>
-  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="toc-section-number">11.2</span>  Exercise</a></li>
-  </ul></li>
-  <li><a href="#the-haven-package" id="toc-the-haven-package" class="nav-link" data-scroll-target="#the-haven-package"><span class="toc-section-number">12</span>  The <code>haven</code> Package</a>
-  <ul class="collapse">
-  <li><a href="#stata-data-.dta" id="toc-stata-data-.dta" class="nav-link" data-scroll-target="#stata-data-.dta"><span class="toc-section-number">12.1</span>  Stata Data (.dta)</a>
-  <ul class="collapse">
-  <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4"><span class="toc-section-number">12.1.1</span>  Example</a></li>
-  </ul></li>
-  <li><a href="#sas-data-.sas7bdat" id="toc-sas-data-.sas7bdat" class="nav-link" data-scroll-target="#sas-data-.sas7bdat"><span class="toc-section-number">12.2</span>  SAS Data (.sas7bdat)</a>
-  <ul class="collapse">
-  <li><a href="#example-5" id="toc-example-5" class="nav-link" data-scroll-target="#example-5"><span class="toc-section-number">12.2.1</span>  Example</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#the-arrow-package" id="toc-the-arrow-package" class="nav-link" data-scroll-target="#the-arrow-package"><span class="toc-section-number">13</span>  The <code>arrow</code> Package</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">14</span>  Resources</a></li>
+  <li><a href="#the-arrow-package" id="toc-the-arrow-package" class="nav-link" data-scroll-target="#the-arrow-package"><span class="toc-section-number">4.9</span>  The <code>arrow</code> Package</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">4.10</span>  Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -272,7 +255,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 11, 2023</p>
+      <p class="date">August 15, 2023</p>
     </div>
   </div>
   
@@ -286,8 +269,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 </style>
 <p><link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet"></p>
-<section id="review" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Review</h1>
+<section id="review" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="review"><span class="header-section-number">4.1</span> Review</h2>
 <ul>
 <li><p>What is tidy data?</p>
 <p><img src="www/images/what_is_tidydata.jpeg" class="img-fluid" width="396"></p>
@@ -304,15 +287,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Writing functions that use capabilities of the <code>tidyverse</code> can be tricky due to something called Nonstandard Evaluation - feel free to ask any of us for help!</p></li>
 </ul>
 </section>
-<section id="motivation" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Motivation</h1>
+<section id="motivation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">4.2</span> Motivation</h2>
 <ul>
 <li><p><code>diamonds</code>, <code>storms</code>, or <code>starwars</code> are nice examples, but how do I load data for an actual research project?</p></li>
 <li><p>Data import is a crucial yet often overlooked step of truly replicable and reproducible research.</p></li>
 </ul>
 </section>
-<section id="packages" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Packages</h1>
+<section id="packages" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="packages"><span class="header-section-number">4.3</span> Packages</h2>
 <p>We’ll be using three packages from the <code>tidyverse</code> for data import and export. These three should cover just about all of your use cases at Urban.</p>
 <ul>
 <li><code>readr</code> - for plain text files</li>
@@ -321,8 +304,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>One note - while all three packages are installed with the <code>tidyverse</code>, only <code>readr</code> is loaded when you run <code>library(tidyverse)</code> in your R session. The other packages must be loaded separately.</p>
 </section>
-<section id="primary-functions" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Primary Functions</h1>
+<section id="primary-functions" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="primary-functions"><span class="header-section-number">4.4</span> Primary Functions</h2>
 <p>In general, <code>readr</code>, <code>readxl</code>, and <code>haven</code> will come with some variant of a <code>read</code> function for data import, and a variant of <code>write</code> (except for Excel and SAS!) for data export.</p>
 <ul>
 <li><code>readr::read_csv()</code>, <code>readr::write_csv()</code></li>
@@ -340,10 +323,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df, <span class="st">"path/to/your/modified/data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="setup" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Setup</h1>
-<section id="exercise" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="exercise"><span class="header-section-number">9.1</span> Exercise</h2>
+<section id="setup" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="setup"><span class="header-section-number">4.5</span> Setup</h2>
+<section id="exercise" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="exercise"><span class="header-section-number">4.5.1</span> Exercise</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Open up your RStudio project, open a R script, save it with a meaningful name, and load the <code>tidyverse</code>, <code>readxl</code>, <code>haven</code>, and <code>arrow</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Use the <code>dir.create()</code> function to create subfolders called <code>data</code> and <code>modified</code> in your R Project.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> We’ll be downloading a couple different datasets for today’s examples. Staying DRY, let’s rework the example code from Wednesday into a function we can reuse. Copy and paste the following into your file. Make sure to run the code so the function becomes a part of your environment.</p>
@@ -357,13 +340,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="www/images/readr_sticker.png" style="float: right;width: 106px"></p>
 </section>
 </section>
-<section id="the-readr-package" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> The <code>readr</code> Package</h1>
+<section id="the-readr-package" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="the-readr-package"><span class="header-section-number">4.6</span> The <code>readr</code> Package</h2>
 <p><code>readr</code> provides functions to read plain text rectangular data - think csv, txt or tsv files.</p>
-<section id="csv-files" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="csv-files"><span class="header-section-number">10.1</span> CSV Files</h2>
-<section id="example" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="example"><span class="header-section-number">10.1.1</span> Example</h3>
+<section id="csv-files" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="csv-files"><span class="header-section-number">4.6.1</span> CSV Files</h3>
+<section id="example" class="level4" data-number="4.6.1.1">
+<h4 data-number="4.6.1.1" class="anchored" data-anchor-id="example"><span class="header-section-number">4.6.1.1</span> Example</h4>
 <p>First we’ll download an example <code>csv</code> file from the Urban Institute’s Education data portal:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download ipeds data into data/ folder</span></span>
@@ -382,18 +365,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(ipeds_2011, <span class="st">"modified/colleges_ipeds_completers_2011.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exercise-1" class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">10.1.2</span> Exercise</h3>
+<section id="exercise-1" class="level4" data-number="4.6.1.2">
+<h4 data-number="4.6.1.2" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">4.6.1.2</span> Exercise</h4>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Filter the <code>ipeds</code> data frame to years 2014-2015 for the state of California (HINT: fips code of 6). Be sure to use <code>&lt;-</code> to save it to a new object!</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Write the filtered data frame to a file called “ipeds_completers_ca.csv” in your <code>modified</code> folder.</p>
 </section>
 </section>
-<section id="other-delimiters" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="other-delimiters"><span class="header-section-number">10.2</span> Other Delimiters</h2>
+<section id="other-delimiters" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="other-delimiters"><span class="header-section-number">4.6.2</span> Other Delimiters</h3>
 <p>Most plain text files will use a comma to separate values. Sometimes you’ll see other delimiters used - the most common are tabs <code>\t</code> and vertical bar <code>|</code> (which is often called a pipe, not to be confused with the <code>tidyverse</code> pipe <code>%&gt;%</code>).</p>
 <p>To read in a plain text file that uses another delimiter, use the <code>read_delim</code> function. This function will take two arguments: the path to the file you want to load and the character to use as a delimiter.</p>
-<section id="example-1" class="level3" data-number="10.2.1">
-<h3 data-number="10.2.1" class="anchored" data-anchor-id="example-1"><span class="header-section-number">10.2.1</span> Example</h3>
+<section id="example-1" class="level4" data-number="4.6.2.1">
+<h4 data-number="4.6.2.1" class="anchored" data-anchor-id="example-1"><span class="header-section-number">4.6.2.1</span> Example</h4>
 <p>First we’ll download a tab delimited file from the North Carolina Board of Elections:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"https://s3.amazonaws.com/dl.ncsbe.gov/data/ncvhis30.zip"</span>,</span>
@@ -406,16 +389,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that <code>readr</code> was able to read the data directly from the zipfile!</p>
 <p>Similarly, the <code>write_delim()</code> function can be used to write out a plain text file with a specified <code>delim</code> argument.</p>
 </section>
-<section id="exercise-2" class="level3" data-number="10.2.2">
-<h3 data-number="10.2.2" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">10.2.2</span> Exercise</h3>
+<section id="exercise-2" class="level4" data-number="4.6.2.2">
+<h4 data-number="4.6.2.2" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">4.6.2.2</span> Exercise</h4>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>write_delim()</code> to write out <code>ncvhis</code> to a pipe <code>|</code> separated file.</p>
 </section>
 </section>
-<section id="common-issues" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="common-issues"><span class="header-section-number">10.3</span> Common Issues</h2>
+<section id="common-issues" class="level3" data-number="4.6.3">
+<h3 data-number="4.6.3" class="anchored" data-anchor-id="common-issues"><span class="header-section-number">4.6.3</span> Common Issues</h3>
 <p>Not all data import will be quick and easy. Often times you will run into issues - these can be daunting at first but are often not as bad as they seem.</p>
-<section id="example-2" class="level3" data-number="10.3.1">
-<h3 data-number="10.3.1" class="anchored" data-anchor-id="example-2"><span class="header-section-number">10.3.1</span> Example</h3>
+<section id="example-2" class="level4" data-number="4.6.3.1">
+<h4 data-number="4.6.3.1" class="anchored" data-anchor-id="example-2"><span class="header-section-number">4.6.3.1</span> Example</h4>
 <p>The <code>readr</code> package provides a <code>challenge.csv</code> file that will throw numerous parsing issues.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>challenge <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">"challenge.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -438,18 +421,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Luckily <code>read_csv()</code> and its friends have a lot of built in arguments to help deal with those issues. Look at the arguments in the docs using <code>?read_csv</code> or go to the R4DS data import <a href="https://r4ds.had.co.nz/data-import.html#getting-started">page</a> for examples of how to deal with all the above problems.</p>
 </section>
-<section id="exercise-3" class="level3" data-number="10.3.2">
-<h3 data-number="10.3.2" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">10.3.2</span> Exercise</h3>
+</section>
+<section id="exercise-3" class="level3" data-number="4.6.4">
+<h3 data-number="4.6.4" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">4.6.4</span> Exercise</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Pull up the documentation for <code>read_csv</code> and take a look of some of the function arguments. There are a lot! You don’t need to know how everything works, but it’s good to have an idea of some of the options available to you.</p>
 <p><img src="www/images/readxl.png" style="float: right;width: 106px"></p>
 </section>
 </section>
-</section>
-<section id="the-readxl-package" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> The <code>readxl</code> Package</h1>
+<section id="the-readxl-package" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="the-readxl-package"><span class="header-section-number">4.7</span> The <code>readxl</code> Package</h2>
 <p>For data that is saved as <code>.xls</code> or <code>.xlsx</code>, use the <code>readxl</code> package.</p>
-<section id="example-3" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="example-3"><span class="header-section-number">11.1</span> Example</h2>
+<section id="example-3" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="example-3"><span class="header-section-number">4.7.1</span> Example</h3>
 <p>For this example we’ll download data from the HUD FHA Single Family Portfolio Snap Shot.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"https://www.hud.gov/sites/dfiles/Housing/documents/FHA_SFSnapshot_Apr2019.xlsx"</span>,</span>
@@ -465,19 +448,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Note that the <code>readxl</code> package only provides functionality to, as the name implies, read Excel files. If you need to write your data out to <code>.xls</code> or <code>.xlsx</code> formats - <a href="https://www.moderncsv.com/why-excel-sucks-and-modern-csv-is-awesome-at-least-for-csvs/">don’t</a>! We highly recommend saving data files as <code>.csv</code> files wherever possible. But if you you really need to, look into the <code>writexl</code> or <code>openxlsx</code> packages.</p>
 </section>
-<section id="exercise-4" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">11.2</span> Exercise</h2>
+<section id="exercise-4" class="level3" data-number="4.7.2">
+<h3 data-number="4.7.2" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">4.7.2</span> Exercise</h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>read_excel()</code> to load in the table on the “Refinance Data April 2019” sheet into a data frame called <code>refinances</code>.</p>
 <p><img src="www/images/haven.png" style="float: right;width: 106px"></p>
 </section>
 </section>
-<section id="the-haven-package" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> The <code>haven</code> Package</h1>
+<section id="the-haven-package" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="the-haven-package"><span class="header-section-number">4.8</span> The <code>haven</code> Package</h2>
 <p>Finally, your SAS, SPSS, or Stata data can find safe <code>haven</code> in R.</p>
-<section id="stata-data-.dta" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="stata-data-.dta"><span class="header-section-number">12.1</span> Stata Data (.dta)</h2>
-<section id="example-4" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="example-4"><span class="header-section-number">12.1.1</span> Example</h3>
+<section id="stata-data-.dta" class="level3" data-number="4.8.1">
+<h3 data-number="4.8.1" class="anchored" data-anchor-id="stata-data-.dta"><span class="header-section-number">4.8.1</span> Stata Data (.dta)</h3>
+<section id="example-4" class="level4" data-number="4.8.1.1">
+<h4 data-number="4.8.1.1" class="anchored" data-anchor-id="example-4"><span class="header-section-number">4.8.1.1</span> Example</h4>
 <p>First we’ll download and unzip the 2018 General Social Survey, which comes as a zipped <code>.dta</code> file.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"http://gss.norc.org/Documents/stata/2018_stata.zip"</span>,</span>
@@ -494,11 +477,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="sas-data-.sas7bdat" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="sas-data-.sas7bdat"><span class="header-section-number">12.2</span> SAS Data (.sas7bdat)</h2>
+<section id="sas-data-.sas7bdat" class="level3" data-number="4.8.2">
+<h3 data-number="4.8.2" class="anchored" data-anchor-id="sas-data-.sas7bdat"><span class="header-section-number">4.8.2</span> SAS Data (.sas7bdat)</h3>
 <p>We use <code>read_sas</code> to read in SAS files. This works mostly identical to <code>read_stata</code>, and you can read in <code>.sas7bdat</code> + <code>.sas7bcat</code>, or zipped folders with sas files. Note that while the <code>write_sas()</code> function exists, it doesn’t appear to actually work at the current version of <code>haven</code>.</p>
-<section id="example-5" class="level3" data-number="12.2.1">
-<h3 data-number="12.2.1" class="anchored" data-anchor-id="example-5"><span class="header-section-number">12.2.1</span> Example</h3>
+<section id="example-5" class="level4" data-number="4.8.2.1">
+<h4 data-number="4.8.2.1" class="anchored" data-anchor-id="example-5"><span class="header-section-number">4.8.2.1</span> Example</h4>
 <p>Download and read in the 2017 1-year Public Use Microsample for Wyoming from the Census:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"https://www2.census.gov/programs-surveys/acs/data/pums/2017/1-Year/unix_pwy.zip"</span>,</span>
@@ -516,8 +499,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 </section>
 </section>
-<section id="the-arrow-package" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> The <code>arrow</code> Package</h1>
+<section id="the-arrow-package" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="the-arrow-package"><span class="header-section-number">4.9</span> The <code>arrow</code> Package</h2>
 <p>Sometimes when you save text files, the column types (ie numeric, date, time, text, etc.) get lost and won’t be read back in upon reimporting In this case you may want to save your files as a binary file. One binary file format we suggest is <code>.feather</code> files, which you can <a href="https://arrow.apache.org/docs/python/feather.html">read more about</a>. The main benefits of storing data in a binary format is:</p>
 <ul>
 <li>Column types will be recorded and preserved</li>
@@ -539,8 +522,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ipeds_2011 <span class="ot">=</span> <span class="fu">read_feather</span>(<span class="st">"modified/colleges_ipeds_completers_2011.feather"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="resources" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Resources</h1>
+<section id="resources" class="level2" data-number="4.10">
+<h2 data-number="4.10" class="anchored" data-anchor-id="resources"><span class="header-section-number">4.10</span> Resources</h2>
 <ul>
 <li><a href="https://r4ds.had.co.nz/data-import.html">R4DS: Data import</a></li>
 <li>Data Import <a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">Cheatsheet</a></li>

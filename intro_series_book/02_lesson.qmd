@@ -4,12 +4,12 @@ author: "Fay Walker"
 date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
 output:
   html-document:
-    number-sections: TRUE
-    self-contained: TRUE
+    number-sections: false
+    embed-resources: true
     code-folding: hide
-    toc: TRUE
-    toc-float: TRUE
-    css: style.css
+    toc: true
+    toc-float: true
+    css: style.scss
     editor-options:
       chunk-output-type: console
 ---
@@ -21,20 +21,20 @@ output:
 ```
 <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
-# Review
+## Review
 
 -   Assignment Operator
 -   Console/Environment/Script
 -   Comment your code and read your error messages
 
-# The tidyverse package
+## The tidyverse package
 
 -   Collection of packages using same syntax and grammar
 -   Works with "tidy" data
--   Uses tibbles (https://r4ds.had.co.nz/tibbles.html)
+-   [Uses tibbles](https://r4ds.had.co.nz/tibbles.html)
 -   %\>%
 
-# Primary functions
+## Primary functions
 
 -   `select()`
 -   `rename()`
@@ -51,13 +51,11 @@ All of these functions have the same structure.
 3.  Separate functions by %\>%
 4.  The result is a new data frame.
 
-![](C:/Users/fwalker/Downloads/image.png)
-
--   If you have hit an error, trying running it line by line (function by function)
+If you have hit an error, trying running it line by line (function by function)
 
 Source: [R for data science](https://r4ds.had.co.nz/transform.html)
 
-# Exercise 0: Creating a Project and Loading Packages
+## Exercise 0: Creating a Project and Loading Packages
 
 If you are using a different computer or didn't attend sessions 0 or 1, follow steps 1 and 2. If not- skip to step 3.
 
@@ -69,7 +67,7 @@ If you are using a different computer or didn't attend sessions 0 or 1, follow s
 
 <font color="#55b748">**Step 4:**</font> Write `library(tidyverse)` at the top of `02_data-munging1.R`. With the cursor on the line of text, click Control-Enter.
 
-# Exercise 1: Tidyverse Function Overview
+## Exercise 1: Tidyverse Function Overview
 
 <font color="#55b748">**Step 1:**</font> Assign the `storms` dataset to be called storms. Submit `View(storms)` in the console.
 
@@ -131,7 +129,7 @@ is equivalent to
     dataset %>%
     filter(var1 %in% c("a", "b", "c"))
 
-# Exercise 2: If/Then and Summarizing
+## Exercise 2: If/Then and Summarizing
 
 <font color="#55b748">**Step 1:**</font> Use the `txhousing` dataset. Assign the dataset to an object in your global environment named `tx_housing`.
 
@@ -178,7 +176,7 @@ or
 
 <font color="#55b748">**BONUS:**</font> Plot the number of annual home sales over time!
 
-# Exercise 3: Put it all together
+## Exercise 3: Put it all together
 
 <font color="#55b748">**Step 1:**</font> Use the `starwars` dataframe. Type `count(starwars, homeworld)` into your script.
 
@@ -190,7 +188,7 @@ or
 
 <font color="#55b748">**Step 5:**</font> What is the most common skin color for droids?
 
-# Resources
+## Resources
 
 -   [R for Data Science: data transformation](https://r4ds.had.co.nz/transform.html)
 -   [Data wrangling cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)

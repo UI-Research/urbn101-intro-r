@@ -14,10 +14,11 @@ output:
       chunk_output_type: console
 ---
 
+```{=html}
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 </style>
-
+```
 <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 
 ```{r setup, include=FALSE}
@@ -30,14 +31,12 @@ knitr::opts_chunk$set(
 
 # Review
 
-* The `tidyverse` contains three packages that should handle almost all of 
-your data import needs:
-  - `readr` - for plain text files (`read_csv()`, `write_csv()`)
-  - `readxl` - for Excel files (`read_excel()`)
-  - `haven` - for SAS, SPSS, and Stata data formats (`read_dta()`, `read_sas()`, `write_dta()`)
-  
-* Don't use `haven::write_sas()` to try to create a `sas7bdat` file!
-* Tidy data
+-   The `tidyverse` contains three packages that should handle almost all of your data import needs:
+    -   `readr` - for plain text files (`read_csv()`, `write_csv()`)
+    -   `readxl` - for Excel files (`read_excel()`)
+    -   `haven` - for SAS, SPSS, and Stata data formats (`read_dta()`, `read_sas()`, `write_dta()`)
+-   Don't use `haven::write_sas()` to try to create a `sas7bdat` file!
+-   Tidy data
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 library(tidyverse)
@@ -46,13 +45,13 @@ library(tidyverse)
 
 # Motivation
 
-* You want to apply a transformation to all variables in a data frame (or a subset of them).
-* You want to summarize many variables, create many statistics for one variable, or some combination of the two.
-* You want to read in many different .csv files. 
+-   You want to apply a transformation to all variables in a data frame (or a subset of them).
+-   You want to summarize many variables, create many statistics for one variable, or some combination of the two.
+-   You want to read in many different .csv files.
 
 # Vectorization
 
-There is less need to write code for control flow in `R`. First, everything is vectorized so there is rarely a need to iterate to manipulate a vector. 
+There is less need to write code for control flow in `R`. First, everything is vectorized so there is rarely a need to iterate to manipulate a vector.
 
 ```{r}
 1:10 * 2
@@ -68,11 +67,11 @@ diamonds %>%
 
 On Day 2 we introduced a number of `dplyr` functions:
 
-  - `mutate()`: to transform a variable
-  - `select()`: to subset the columns of a data frame
-  - `filter()`: to subset the rows of a data frame
-  - `summarise()`: to calculate summary statistics
-  - `group_by()`: to perform an operation by group
+-   `mutate()`: to transform a variable
+-   `select()`: to subset the columns of a data frame
+-   `filter()`: to subset the rows of a data frame
+-   `summarise()`: to calculate summary statistics
+-   `group_by()`: to perform an operation by group
 
 Sometimes we will want to apply these functions many times. For example, what if we want to manipulate many variables. For this, we will use the new `across()` function. To demonstrate `across()`, we'll use the built-in `mtcars` data frame:
 
@@ -133,7 +132,7 @@ mtcars %>%
 
 ## `summarize()`
 
-Say we wanted to find the mean of every variable in the `mtcars` data. In this case we can still use `across()`! 
+Say we wanted to find the mean of every variable in the `mtcars` data. In this case we can still use `across()`!
 
 ```{r}
 mtcars %>%
@@ -178,8 +177,7 @@ diamonds %>%
   mutate(across(.cols = everything(), .fns = log))
 ```
 
-It doesn't work because `diamonds` has some non-numeric columns. We could find 
-all the columns that are numeric:
+It doesn't work because `diamonds` has some non-numeric columns. We could find all the columns that are numeric:
 
 ```{r}
 glimpse(diamonds)
@@ -203,7 +201,7 @@ diamonds %>%
 
 ## Exercise 2
 
-**Note:** Each step is a separate task. They need not be piped together. 
+**Note:** Each step is a separate task. They need not be piped together.
 
 <font color="#55b748">**Step 1:**</font> Use `select()` and `where()` to subset all the columns from `diamonds` that are factor variables.
 
@@ -232,12 +230,12 @@ data %>%
 
 There are several selector helpers:
 
-* `contains()`
-* `ends_with()`
-* `matches()`
-* `num_range()`
-* `one_of()`
-* `starts_with()`
+-   `contains()`
+-   `ends_with()`
+-   `matches()`
+-   `num_range()`
+-   `one_of()`
+-   `starts_with()`
 
 # `pivot_*`
 
@@ -251,7 +249,7 @@ data <- tribble(
 )
 ```
 
-We use `pivot_longer()` to transform data from wide to long and `pivot_wider()` to transform data from long to wide. 
+We use `pivot_longer()` to transform data from wide to long and `pivot_wider()` to transform data from long to wide.
 
 We can fix the above data with `pivot_longer()`
 
@@ -279,21 +277,21 @@ data_long %>%
 
 ## Tidy data
 
-> Happy families are all alike; every unhappy family is unhappy in its own way. ~ Leo Tolstoy
+> Happy families are all alike; every unhappy family is unhappy in its own way. \~ Leo Tolstoy
 
-> tidy datasets are all alike but every messy dataset is messy in its own way ~ Hadley Wickham
+> tidy datasets are all alike but every messy dataset is messy in its own way \~ Hadley Wickham
 
-Tools optimized for one data format are going to be more powerful than tools optimized for any data format. If we can standardize our data, then we will have really powerful tools. 
+Tools optimized for one data format are going to be more powerful than tools optimized for any data format. If we can standardize our data, then we will have really powerful tools.
 
-Unfortunately, most people do not pay enough attention to the structure, storage, and dissemination of data. 
+Unfortunately, most people do not pay enough attention to the structure, storage, and dissemination of data.
 
 # `library(purrr)`
 
-Sometimes, we're going to want to iterate on a data structure other than a `tibble` or iterate a function that isn't vectorized. 
+Sometimes, we're going to want to iterate on a data structure other than a `tibble` or iterate a function that isn't vectorized.
 
 ## Many files
 
-One approach is to use for loops. For loops are useful and should be understood. This code writes nine .csv files with 1000 random draws from a standard normal distribution. 
+One approach is to use for loops. For loops are useful and should be understood. This code writes nine .csv files with 1000 random draws from a standard normal distribution.
 
 ```{r eval = FALSE}
 dir.create("data")
@@ -315,7 +313,7 @@ files <- list.files(path = "data", full.names = TRUE)
 map(.x = files, .f = read_csv)
 ```
 
-`map()` always returns a list! `map_*()` functions can be used to return different data structures. For instance, `map_chr()` will always return a character vector. `map_df()` is like the code above but returns one data frame instead of a list of smaller data frames. 
+`map()` always returns a list! `map_*()` functions can be used to return different data structures. For instance, `map_chr()` will always return a character vector. `map_df()` is like the code above but returns one data frame instead of a list of smaller data frames.
 
 ```{r eval = FALSE}
 map_df(.x = files, .f = read_csv)
@@ -349,9 +347,9 @@ many_models_results %>%
   theme_minimal()
 ```
 
-These examples are beyond the scope of an introductory class but I wanted to demonstrate the power of iteration in `R`. These tools can be used iterate data visualizations, R Markdown reports, statistical models, computer operations like file creation and transfer, and more. 
+These examples are beyond the scope of an introductory class but I wanted to demonstrate the power of iteration in `R`. These tools can be used iterate data visualizations, R Markdown reports, statistical models, computer operations like file creation and transfer, and more.
 
 # Resources
 
-* [dplyr 1.0.0: working across columns](https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/)
-* [Pivoting in R4DS](https://r4ds.had.co.nz/tidy-data.html#pivoting)
+-   [dplyr 1.0.0: working across columns](https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/)
+-   [Pivoting in R4DS](https://r4ds.had.co.nz/tidy-data.html#pivoting)

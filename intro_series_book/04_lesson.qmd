@@ -1,0 +1,331 @@
+---
+title: 'Data Import'
+author: "R Users Group"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html-document:
+    number-sections: false
+    embed-resources: true
+    code-folding: show
+    toc: true
+    toc-float: true
+    css: style.css
+editor-options:
+  chunk-output-type: console
+  markdown: 
+    wrap: 72
+---
+
+```{=html}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+```
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+library(readr)
+library(haven)
+library(readxl)
+library(arrow)
+
+```
+
+## Review
+
+-   What is tidy data?
+
+    ![](www/images/what_is_tidydata.jpeg){width="396"}
+
+    Artwork by \@allison_horst
+
+-   What is a file path?
+
+-   What is an R Studio Project?
+
+    ![Artwork by \@allison_horst](www/images/cracked_setwd.png){width="291"}
+
+-   Stay DRY: if you find yourself copying and pasting chunks of code, write a function instead.
+
+-   Writing functions that use capabilities of the `tidyverse` can be tricky due to something called Nonstandard Evaluation - feel free to ask any of us for help!
+
+## Motivation
+
+-   `diamonds`, `storms`, or `starwars` are nice examples, but how do I load data for an actual research project?
+
+-   Data import is a crucial yet often overlooked step of truly replicable and reproducible research.
+
+## Packages
+
+We'll be using three packages from the `tidyverse` for data import and export. These three should cover just about all of your use cases at Urban.
+
+-   `readr` - for plain text files
+-   `readxl` - for Excel files (`.xlsx`, `.xls`)
+-   `haven` - for SAS (`.sas7bdat` + `.sas7bcat` files), SPSS (`.sav` files), and Stata (`.dta` files up to Stata version 17) formats
+
+One note - while all three packages are installed with the `tidyverse`, only `readr` is loaded when you run `library(tidyverse)` in your R session. The other packages must be loaded separately.
+
+## Primary Functions
+
+In general, `readr`, `readxl`, and `haven` will come with some variant of a `read` function for data import, and a variant of `write` (except for Excel and SAS!) for data export.
+
+-   `readr::read_csv()`, `readr::write_csv()`
+-   `readr::read_delim()`, `readr::write_delim()`
+-   `readxl::read_excel()`
+-   `haven::read_sas()`
+-   `haven::read_dta()`, `haven::write_dta`
+
+For the simplest use cases, the various `read` functions will need just one argument: the path to the file you want to load.
+
+```{r, eval=FALSE}
+df <- read_csv("path/to/your/original/data.csv")
+```
+
+The various `write` functions will need two arguments: the data frame you want to export, and the file path to save it to.
+
+```{r, eval=FALSE}
+write_csv(df, "path/to/your/modified/data.csv")
+```
+
+## Setup
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Open up your RStudio project, open a R script, save it with a meaningful name, and load the `tidyverse`, `readxl`, `haven`, and `arrow`.
+
+<font color="#55b748">**Step 2:**</font> Use the `dir.create()` function to create subfolders called `data` and `modified` in your R Project.
+
+<font color="#55b748">**Step 3:**</font> We'll be downloading a couple different datasets for today's examples. Staying DRY, let's rework the example code from Wednesday into a function we can reuse. Copy and paste the following into your file. Make sure to run the code so the function becomes a part of your environment.
+
+```{r, eval=FALSE}
+download_data <- function(url, path) {
+  if (!file.exists(path)) {
+    download.file(url, path, mode = "wb")
+  }
+}
+```
+
+<img src="www/images/readr_sticker.png" style="float: right;width: 106px"/>
+
+## The `readr` Package
+
+`readr` provides functions to read plain text rectangular data - think csv, txt or tsv files.
+
+### CSV Files
+
+#### Example
+
+First we'll download an example `csv` file from the Urban Institute's Education data portal:
+
+```{r, eval=FALSE}
+
+# Download ipeds data into data/ folder
+download_data("https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers.csv",
+              "data/colleges_ipeds_completers.csv")
+```
+
+And then use `read_csv` from the `readr` package to load the data in.
+
+```{r, eval=FALSE}
+ipeds <- read_csv("data/colleges_ipeds_completers.csv")
+```
+
+We now have a `tibble` that can be used with all the `ggplot2` and `dplyr` functions you've learned so far. Let's filter the data to only 2011 and write it out as a separate file:
+
+```{r, eval=FALSE}
+ipeds_2011 <- ipeds %>%
+  filter(year == 2011)
+
+write_csv(ipeds_2011, "modified/colleges_ipeds_completers_2011.csv")
+```
+
+#### Exercise
+
+<font color="#55b748">**Step 1:**</font> Filter the `ipeds` data frame to years 2014-2015 for the state of California (HINT: fips code of 6). Be sure to use `<-` to save it to a new object!
+
+<font color="#55b748">**Step 2:**</font> Write the filtered data frame to a file called "ipeds_completers_ca.csv" in your `modified` folder.
+
+### Other Delimiters
+
+Most plain text files will use a comma to separate values. Sometimes you'll see other delimiters used - the most common are tabs `\t` and vertical bar `|` (which is often called a pipe, not to be confused with the `tidyverse` pipe `%>%`).
+
+To read in a plain text file that uses another delimiter, use the `read_delim` function. This function will take two arguments: the path to the file you want to load and the character to use as a delimiter.
+
+#### Example
+
+First we'll download a tab delimited file from the North Carolina Board of Elections:
+
+```{r, eval=FALSE}
+download_data("https://s3.amazonaws.com/dl.ncsbe.gov/data/ncvhis30.zip",
+              "data/ncvhis30.zip")
+```
+
+Then load in the file with the correct delimiter set. It may be helpful to open delimtied file with a program like Notepad so you can see the plain text in the file and decide what delimiter to use. In this case we know its a tab:
+
+```{r, eval=FALSE}
+ncvhis <- read_delim("data/ncvhis30.zip", delim = "\t")
+```
+
+Note that `readr` was able to read the data directly from the zipfile!
+
+Similarly, the `write_delim()` function can be used to write out a plain text file with a specified `delim` argument.
+
+#### Exercise
+
+<font color="#55b748">**Step 1:**</font> Use `write_delim()` to write out `ncvhis` to a pipe `|` separated file.
+
+### Common Issues
+
+Not all data import will be quick and easy. Often times you will run into issues - these can be daunting at first but are often not as bad as they seem.
+
+#### Example
+
+The `readr` package provides a `challenge.csv` file that will throw numerous parsing issues.
+
+```{r, eval=FALSE}
+challenge <- read_csv(readr_example("challenge.csv"))
+```
+
+You can use the `problems` function to get a `tibble` of these issues.
+
+```{r, eval=FALSE}
+issues <- problems(challenge)
+```
+
+A thousand parsing failures sounds like a lot! But it's really just one error a thousand times, and not a thousand unique errors to work through.
+
+The issue is that `readr` will read the first thousand lines of a file and use that as the column specification. This file changes data types at line 1001. This is a very common issue when reading text files into R. We can use the `guess_max` argument to increase the number of lines `readr` will use to set the column types.
+
+```{r, eval=FALSE}
+challenge <- read_csv(readr_example("challenge.csv"),
+                      guess_max = Inf)
+```
+
+You will run into other problems when importing data like:
+
+-   the columns not being in the first row
+-   weird NA values
+-   blank rows at the top of files
+
+Luckily `read_csv()` and its friends have a lot of built in arguments to help deal with those issues. Look at the arguments in the docs using `?read_csv` or go to the R4DS data import [page](https://r4ds.had.co.nz/data-import.html#getting-started) for examples of how to deal with all the above problems.
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Pull up the documentation for `read_csv` and take a look of some of the function arguments. There are a lot! You don't need to know how everything works, but it's good to have an idea of some of the options available to you.
+
+<img src="www/images/readxl.png" style="float: right;width: 106px"/>
+
+## The `readxl` Package
+
+For data that is saved as `.xls` or `.xlsx`, use the `readxl` package.
+
+### Example
+
+For this example we'll download data from the HUD FHA Single Family Portfolio Snap Shot.
+
+```{r, eval=FALSE}
+download_data("https://www.hud.gov/sites/dfiles/Housing/documents/FHA_SFSnapshot_Apr2019.xlsx",
+              "data/sfsnap.xlsx")
+```
+
+This Excel file contains a number of tables on different sheets of the workbook. We can see a listing of the sheets using the `excel_sheets` function. As usual, the first argument is the path to the data file.
+
+```{r, eval=FALSE}
+excel_sheets("data/sfsnap.xlsx")
+```
+
+We can then use the `read_excel` function to load our data into our R session. Again, the first argument is the path to the `.xlsx` file. We also use the `sheet` argument to specify which sheet of the workbook we want.
+
+```{r, eval=FALSE}
+purchases <- read_excel("data/sfsnap.xlsx", sheet = "Purchase Data April 2019")
+```
+
+Note that the `readxl` package only provides functionality to, as the name implies, read Excel files. If you need to write your data out to `.xls` or `.xlsx` formats - [don't](https://www.moderncsv.com/why-excel-sucks-and-modern-csv-is-awesome-at-least-for-csvs/)! We highly recommend saving data files as `.csv` files wherever possible. But if you you really need to, look into the `writexl` or `openxlsx` packages.
+
+### Exercise
+
+<font color="#55b748">**Step 1:**</font> Use `read_excel()` to load in the table on the "Refinance Data April 2019" sheet into a data frame called `refinances`.
+
+<img src="www/images/haven.png" style="float: right;width: 106px"/>
+
+## The `haven` Package
+
+Finally, your SAS, SPSS, or Stata data can find safe `haven` in R.
+
+### Stata Data (.dta)
+
+#### Example
+
+First we'll download and unzip the 2018 General Social Survey, which comes as a zipped `.dta` file.
+
+```{r, eval=FALSE}
+download_data("http://gss.norc.org/Documents/stata/2018_stata.zip",
+              "data/gss.zip")
+
+unzip("data/gss.zip", exdir = "data/")
+```
+
+To read a `.dta` file, we'll use the aptly named `read_dta` function. As usual, the first argument to the function is the path to the data we want to import.
+
+```{r, eval=FALSE}
+gss <- read_dta("data/GSS2018.dta")
+
+# We can also read in the zip file directly!
+gss <- read_dta("data/gss.zip")
+
+```
+
+### SAS Data (.sas7bdat)
+
+We use `read_sas` to read in SAS files. This works mostly identical to `read_stata`, and you can read in `.sas7bdat` + `.sas7bcat`, or zipped folders with sas files. Note that while the `write_sas()` function exists, it doesn't appear to actually work at the current version of `haven`.
+
+#### Example
+
+Download and read in the 2017 1-year Public Use Microsample for Wyoming from the Census:
+
+```{r, eval=FALSE}
+download_data("https://www2.census.gov/programs-surveys/acs/data/pums/2017/1-Year/unix_pwy.zip",
+              "data/pums_wy.zip")
+
+# Unzip the files
+unzip("data/pums_wy.zip", exdir = "data/")
+
+# Read in sas file
+pums_data = read_sas("data/pums_wy.zip")
+
+# Write out as dta file
+pums_data %>% write_dta("modified/pums_wy.dta")
+```
+
+## The `arrow` Package
+
+Sometimes when you save text files, the column types (ie numeric, date, time, text, etc.) get lost and won't be read back in upon reimporting In this case you may want to save your files as a binary file. One binary file format we suggest is `.feather` files, which you can [read more about](https://arrow.apache.org/docs/python/feather.html). The main benefits of storing data in a binary format is:
+
+-   Column types will be recorded and preserved
+-   Importing and exporting will be faster than other methods
+-   File sizes will be smaller as binary files often use compression methods
+
+The cons are that:
+
+-   `.feather` files can only easily be read into R and python currently
+-   There are no nice GUI viewers (like Excel/Notepad for CSV data) to actually "see" the data files
+
+So think before exercising this option! If you mainly will be working with your data in R and have large file sizes or complicated column types, `.feather` files may be a good option.
+
+You can read and write these files with `read_feather()` and `write_feather` respectively.
+
+```{r, eval = FALSE}
+# Write out a feather file to `modified/folder`
+write_feather(ipeds_2011, "modified/colleges_ipeds_completers_2011.feather")
+
+# Read in a feather file
+ipeds_2011 = read_feather("modified/colleges_ipeds_completers_2011.feather")
+```
+
+## Resources
+
+-   [R4DS: Data import](https://r4ds.had.co.nz/data-import.html)
+-   Data Import [Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)

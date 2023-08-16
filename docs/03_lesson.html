@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="R Users Group">
+<meta name="dcterms.date" content="2023-08-15">
+
+<title>Intro to R - 3&nbsp; Data Munging (II)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04_lesson.html" rel="next">
+<link href="./02_lesson.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Intro to R</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Intro to R: A Hands on Tutorial</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_lesson.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Iteration (or becoming an R Superhero)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">3.1</span>  Review</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="toc-section-number">3.2</span>  Motivation</a>
+  <ul class="collapse">
+  <li><a href="#exercise-0" id="toc-exercise-0" class="nav-link" data-scroll-target="#exercise-0"><span class="toc-section-number">3.2.1</span>  Exercise 0</a></li>
+  </ul></li>
+  <li><a href="#conditional-transformation" id="toc-conditional-transformation" class="nav-link" data-scroll-target="#conditional-transformation"><span class="toc-section-number">3.3</span>  Conditional transformation</a></li>
+  <li><a href="#strings" id="toc-strings" class="nav-link" data-scroll-target="#strings"><span class="toc-section-number">3.4</span>  Strings</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="toc-section-number">3.4.1</span>  Exercise 1</a></li>
+  </ul></li>
+  <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates"><span class="toc-section-number">3.5</span>  Dates</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="toc-section-number">3.5.1</span>  Exercise 2</a></li>
+  </ul></li>
+  <li><a href="#group_by-and-summarize" id="toc-group_by-and-summarize" class="nav-link" data-scroll-target="#group_by-and-summarize"><span class="toc-section-number">3.6</span>  <code>group_by</code> and <code>summarize()</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="toc-section-number">3.6.1</span>  Exercise 3</a></li>
+  </ul></li>
+  <li><a href="#left_join" id="toc-left_join" class="nav-link" data-scroll-target="#left_join"><span class="toc-section-number">3.7</span>  <code>left_join()</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="toc-section-number">3.7.1</span>  Exercise 4</a></li>
+  </ul></li>
+  <li><a href="#custom-functions" id="toc-custom-functions" class="nav-link" data-scroll-target="#custom-functions"><span class="toc-section-number">3.8</span>  Custom functions</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="toc-section-number">3.8.1</span>  Exercise 5</a></li>
+  </ul></li>
+  <li><a href="#system-functions" id="toc-system-functions" class="nav-link" data-scroll-target="#system-functions"><span class="toc-section-number">3.9</span>  System functions</a>
+  <ul class="collapse">
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="toc-section-number">3.9.1</span>  Exercise 6</a></li>
+  </ul></li>
+  <li><a href="#conditional-logic" id="toc-conditional-logic" class="nav-link" data-scroll-target="#conditional-logic"><span class="toc-section-number">3.10</span>  Conditional logic</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">3.10.1</span>  Example</a></li>
+  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">3.11</span>  Resources</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>R Users Group </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 15, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+<p><link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet"></p>
+<section id="review" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="review"><span class="header-section-number">3.1</span> Review</h2>
+<ul>
+<li><code>%&gt;%</code>: The pipe operator</li>
+<li><code>dplyr</code> verbs for data manipulation
+<ul>
+<li><code>select()</code></li>
+<li><code>filter()</code></li>
+<li><code>rename()</code></li>
+<li><code>arrange()</code></li>
+<li><code>mutate()</code></li>
+<li><code>summarize()</code></li>
+<li><code>group_by()</code></li>
+</ul></li>
+</ul>
+<div class="cell">
+
+</div>
+</section>
+<section id="motivation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">3.2</span> Motivation</h2>
+<ul>
+<li>Review and master <code>library(dplyr)</code></li>
+<li>Expand our skill set so we can do more types of analysis</li>
+</ul>
+<section id="exercise-0" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="exercise-0"><span class="header-section-number">3.2.1</span> Exercise 0</h3>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Open up your <code>.Rproj</code> for <code>urbn101</code>. You should now see <code>urbn101</code> in the top right of RStudio instead of “Project: (None)” .</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Install the R package <code>nycflights13</code>.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Load <code>tidyverse</code> and <code>nycflights13</code> at the top of your script.</p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Run <code>data(flights)</code> in the console to load the flights data set into your R environment. Also run <code>data(planes)</code> to load the planes data set.</p>
+<p><font color="#55b748"><strong>Step 5:</strong></font> Look at the <code>flights</code> data set (how many ways can you do this?)</p>
+</section>
+</section>
+<section id="conditional-transformation" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="conditional-transformation"><span class="header-section-number">3.3</span> Conditional transformation</h2>
+<p>Last week, we showed how <code>mutate()</code> can be used to create new variables or to transform new variables. For example, we converted knots into miles per hour. We also learned about <code>if_else</code> last week which works great for one condition. But what if you have multiple conditions? <code>case_when()</code> allows for a sequence of conditional logic that can be used to transform or create variables with <code>mutate()</code>. For example, here I create a variable called <code>lateness</code> that creates a character variable with the levels <code>"very late"</code>, <code>"late"</code>, and <code>"on time"</code>. The logic is evaluated from top to bottom and <code>TRUE</code> is used to refer to all other remaining cases.</p>
+<p>The syntax may look a little weird at first but it’s easy to pick up! The logical condition goes to the left of <code>~</code> and the output results goes to the right. <code>&amp;</code> and <code>|</code> can be used to combine logical statements.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">lateness =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&gt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"very late"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"late"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>          <span class="sc">~</span> <span class="st">"on time"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="strings" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="strings"><span class="header-section-number">3.4</span> Strings</h2>
+<p><code>library(stringr)</code> contains powerful and concise functions manipulating character variables. Reference the <a href="https://github.com/rstudio/cheatsheets/blob/master/strings.pdf">cheat sheet</a> for an overview of the different string maniuplation functions.</p>
+<section id="exercise-1" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">3.4.1</span> Exercise 1</h3>
+<p>The <code>month</code> and <code>day</code> columns are currently integer variables. We want to turn them into character variables with leading zeros. For example, <code>1</code> should be <code>"01"</code>.</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>mutate()</code> to overwrite <code>month</code> and <code>day</code> with <code>str_pad()</code>. The first argument should be <code>month</code> or <code>day</code>. The second argument, <code>width</code>, should be <code>2</code>.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> The padding character is currently a space, but we want it to be <code>"0"</code>. Use <code>?str_pad</code> to figure out how to switch the padding character.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Pipe the result into the following line <code>mutate(flight_date = paste(year, month, day, sep = "-"))</code></p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Drop all variables except <code>flight_date</code>, <code>distance</code>, and <code>air_time</code>.</p>
+<p><font color="#55b748"><strong>Step 5:</strong></font> Assign the result to <code>flights_subset</code>.</p>
+</section>
+</section>
+<section id="dates" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="dates"><span class="header-section-number">3.5</span> Dates</h2>
+<p><code>library(lubridate)</code> contains powerful and concise functions for creating and manipulating dates, times, and date-times. It is aware of leap days and leap seconds and is useful for calculating periods, durations, intervals, and more.</p>
+<section id="exercise-2" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">3.5.1</span> Exercise 2</h3>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Add <code>library(lubridate)</code> after <code>library(nycflight13)</code> in your script.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> <code>library(lubridate)</code> is powerful but it needs variables in the correct format. Use <code>ymd()</code> inside of <code>mutate()</code> to turn the <code>flight_date</code> variable into a date rather than a character vector.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Inside the previous <code>mutate</code> statement, add another column called <code>weekday</code> for the weekday of the flight. You can use <code>wday(flight_date)</code> to find the day of the week for each date.</p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Assign the result to <code>flights_subset</code>.</p>
+<p><font color="#55b748"><strong>Step 5:</strong></font> Use <code>count()</code> to count the number of flights by day of the week.</p>
+</section>
+</section>
+<section id="group_by-and-summarize" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="group_by-and-summarize"><span class="header-section-number">3.6</span> <code>group_by</code> and <code>summarize()</code></h2>
+<p>This is often the hardest concept to fully grasp, but it’s also the most powerful! <img src="www/images/group_by_summarize_visualized.png" class="img-fluid" style="width:70.0%" alt="group by summarize visualizations"></p>
+<section id="exercise-3" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">3.6.1</span> Exercise 3</h3>
+<p>We are going to summarize <code>flights_subset</code> from the previous example by <code>week_day</code></p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> <code>group_by()</code> <code>week_day</code> and use <code>n()</code> in <code>summarize()</code> to count the number of observations. This should match Step 5 from the previous exercise.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> In the same <code>summarize()</code>, calculate <code>mean()</code>, and <code>max()</code> <code>distance</code>.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> In the same <code>summarize()</code>, calculate median <code>air_time</code>.</p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Rename the resulting variables <em>inside</em> <code>summarize()</code> so they have more useful names.</p>
+</section>
+</section>
+<section id="left_join" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="left_join"><span class="header-section-number">3.7</span> <code>left_join()</code></h2>
+<p>Joins are the main method for combining two datasets with a commmon key column together. There are many types of joins, and we highly recommend you read this <a href="https://r4ds.had.co.nz/relational-data.html">chapter on joins in R4DS</a> if you want more info. Below is a quick visual summary of the types of joins you can perform in R. <img src="www/images/join_types.png" class="img-fluid" style="width:60.0%" alt="join_types"></p>
+<p>For now we will focus on the “left” join, which merges observations from the right data set to the left data set. This is the join type I use 90% of the time in R. Below is an example of how the <code>left_join()</code> function works.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>people <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>name, <span class="sc">~</span>team, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Aaron"</span>, <span class="st">"Pacers"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Kyle"</span>, <span class="st">"Wizards"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ajjit"</span>, <span class="st">"Warriors"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Fay"</span>, <span class="st">"Wizards"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>team_locations <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>team, <span class="sc">~</span>city,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Warriors"</span>, <span class="st">"Oakland"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Pacers"</span>, <span class="st">"Indianoplis"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Wizards"</span>, <span class="st">"Washington DC"</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(<span class="at">x =</span> people, <span class="at">y =</span> team_locations, <span class="at">by =</span> <span class="st">"team"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  name  team     city         
+  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;        
+1 Aaron Pacers   Indianoplis  
+2 Kyle  Wizards  Washington DC
+3 Ajjit Warriors Oakland      
+4 Fay   Wizards  Washington DC</code></pre>
+</div>
+</div>
+<section id="exercise-4" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">3.7.1</span> Exercise 4</h3>
+<p><code>flights</code> contains information about flights and the unit of observation is airplane flights. <code>planes</code> contains information about the airplanes and the unit of observation is the airplane. The common column between these tables is the <code>tailnum</code> column.</p>
+<p>We want to add information about planes to the flights data set. This is a left join because for every flight in the dataset, we want to append flight information. This is also called a many-to-one join because we are joining many rows from the <code>flights</code> data to one row from the <code>planes</code> data.</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>left_join()</code> to join <code>planes</code> to <code>flights</code>. The common key is <code>tailnum</code>.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Use <code>anti_join()</code> to see observations from <code>flights</code> that don’t have a match in <code>planes</code> and call the output object <code>unmatched_flights</code>. The common key is <code>tailnum</code>.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Use <code>slice()</code> to extract the <code>tailnum</code> value in the first row of <code>unmatched_flights</code>. Call this variable <code>first_unmatched_tailnum</code></p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>filter()</code> to see if <code>first_unmatched_tailnum</code> is in <code>planes</code>. Hint: it shouldn’t be!</p>
+</section>
+</section>
+<section id="custom-functions" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="custom-functions"><span class="header-section-number">3.8</span> Custom functions</h2>
+<p>Sometimes functions don’t exist for desired calculations or we want to combine many calculations into one function to reduce copying-and-pasting.</p>
+<p>“You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e.&nbsp;you now have three copies of the same code).” ~ <a href="https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function">R4DS</a></p>
+<p>R has a flexible function system that makes it very easy to define custom functions!</p>
+<pre><code>function_name &lt;- function(arg1, arg2 = default) {
+  # function body
+}</code></pre>
+<p>Three ingredients</p>
+<ul>
+<li>Function name - usually verbs</li>
+<li>Function arguments - inputs to the function (optional)</li>
+<li>Function body</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>square <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">2</span>) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">square</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">square</span>(<span class="at">x =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+</div>
+<p><strong>Note:</strong> Using tidyverse functions inside of custom functions often requires non-standard evaluation. Please reach out for help when this is your goal.</p>
+<section id="exercise-5" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">3.8.1</span> Exercise 5</h3>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Write a function called <code>multiply_xy()</code> that takes arguments <code>x</code> and <code>y</code> and multiplies them together.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Add your favorite number as the default for <code>x</code> and your least favorite number as the default for <code>y</code>.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> Call the function and overwrite the default for <code>y</code> with your favorite number.</p>
+</section>
+</section>
+<section id="system-functions" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="system-functions"><span class="header-section-number">3.9</span> System functions</h2>
+<p>R contains a full set of functions for managing files and folders on your computer</p>
+<ul>
+<li><code>file.create()</code></li>
+<li><code>file.exists()</code></li>
+<li><code>file.remove()</code></li>
+<li><code>file.rename()</code></li>
+<li><code>file.copy()</code></li>
+<li><code>dir.create()</code></li>
+</ul>
+<p>What do you think this below chunk of code is doing in plain English?</p>
+<pre><code>if (!file.exists("data/cps.csv")) {
+  download.file("https//:cps-download.gov", "data/cps.csv")
+}</code></pre>
+<section id="exercise-6" class="level3" data-number="3.9.1">
+<h3 data-number="3.9.1" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">3.9.1</span> Exercise 6</h3>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Check to see if you are in an R project. Use <code>dir.create()</code> to create a folder called <code>final-data/</code>.</p>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>file.copy()</code> to duplicate your script and then delete the copy with <code>file.remove()</code>. CAREFUL! There is no undo button!</p>
+</section>
+</section>
+<section id="conditional-logic" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="conditional-logic"><span class="header-section-number">3.10</span> Conditional logic</h2>
+<p>Conditional logic is an important concept in computer programming. We already used <code>ifelse()</code> and <code>case_when()</code> to create indicator variables and conditional variables. Sometimes it’s also useful to run entire chunks of code conditionally.</p>
+<pre><code>if () {
+
+} else if () {
+
+} else {
+
+}</code></pre>
+<p>Three ingredients</p>
+<ul>
+<li>Conditional predicate (<code>if</code>, <code>else if</code>, <code>else</code>)</li>
+<li>Conditional statement (<code>==</code>, <code>&gt;</code>, <code>&lt;</code>, <code>%in%</code>)</li>
+<li>Code body</li>
+</ul>
+<section id="example" class="level3" data-number="3.10.1">
+<h3 data-number="3.10.1" class="anchored" data-anchor-id="example"><span class="header-section-number">3.10.1</span> Example</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">999</span>) {</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is big"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is small"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x is big"</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="resources" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="resources"><span class="header-section-number">3.11</span> Resources</h2>
+<ul>
+<li><a href="https://r4ds.had.co.nz/functions.html">R4DS: functions</a></li>
+<li><code>stringr</code> <a href="https://github.com/rstudio/cheatsheets/raw/master/strings.pdf">cheat sheet</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02_lesson.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04_lesson.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

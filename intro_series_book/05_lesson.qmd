@@ -1,0 +1,355 @@
+---
+title: 'Iteration (or becoming an R Superhero)'
+author: "R Users Group"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    number_sections: false
+    embed-resources: true
+    code_folding: show
+    toc: true
+    toc_float: true
+    css: style.css
+    editor_options:
+      chunk_output_type: console
+---
+
+```{=html}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+```
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(messages = FALSE)
+knitr::opts_chunk$set(
+  warning
+  = FALSE
+)
+```
+
+## Review
+
+-   The `tidyverse` contains three packages that should handle almost all of your data import needs:
+    -   `readr` - for plain text files (`read_csv()`, `write_csv()`)
+    -   `readxl` - for Excel files (`read_excel()`)
+    -   `haven` - for SAS, SPSS, and Stata data formats (`read_dta()`, `read_sas()`, `write_dta()`)
+-   Don't use `haven::write_sas()` to try to create a `sas7bdat` file!
+-   Tidy data
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+
+```
+
+## Motivation
+
+-   You want to apply a transformation to all variables in a data frame (or a subset of them).
+-   You want to summarize many variables, create many statistics for one variable, or some combination of the two.
+-   You want to read in many different .csv files.
+
+## Vectorization
+
+There is less need to write code for control flow in `R`. First, everything is vectorized so there is rarely a need to iterate to manipulate a vector.
+
+```{r}
+1:10 * 2
+```
+
+```{r}
+diamonds %>%
+  select(carat, price) %>%
+  mutate(price_canadian = price * 1.31)
+```
+
+## `across()`
+
+On Day 2 we introduced a number of `dplyr` functions:
+
+-   `mutate()`: to transform a variable
+-   `select()`: to subset the columns of a data frame
+-   `filter()`: to subset the rows of a data frame
+-   `summarise()`: to calculate summary statistics
+-   `group_by()`: to perform an operation by group
+
+Sometimes we will want to apply these functions many times. For example, what if we want to manipulate many variables. For this, we will use the new `across()` function. To demonstrate `across()`, we'll use the built-in `mtcars` data frame:
+
+```{r, message = FALSE}
+library(tidyverse)
+
+mtcars <- as_tibble(mtcars)
+head(mtcars)
+```
+
+### `mutate()`
+
+Say we wanted to round all the variables of this data frame. We could write some very repetitive code:
+
+```{r}
+mtcars %>%
+  mutate(
+    mpg = round(mpg),
+    cyl = round(cyl),
+    disp = round(disp),
+    hp = round(hp),
+    drat = round(drat),
+    wt = round(wt),
+    qsec = round(qsec),
+    vs = round(vs),
+    am = round(am),
+    gear = round(gear),
+    carb = round(carb)
+  )
+```
+
+Or we can let `across()` do the work for us. All we have to do is pass the function we want applied to all columns of our data frame:
+
+```{r}
+mtcars %>%
+  mutate(across(.cols = everything(), .fns = round))
+```
+
+To supply your own expression, we can write our own function and pass it through to `across()`:
+
+```{r}
+divide_by_ten <- function(x) {
+  new_x <- x / 10
+
+  return(new_x)
+}
+
+mtcars %>%
+  mutate(across(.cols = everything(), .fns = divide_by_ten))
+```
+
+Or we can write it inline using the following syntax where `~` lets `dplyr` know to expect an inline function, and `.` is used as a placeholder for the variable.
+
+```{r}
+mtcars %>%
+  mutate(across(.cols = everything(), .fns = ~ . / 10))
+```
+
+### `summarize()`
+
+Say we wanted to find the mean of every variable in the `mtcars` data. In this case we can still use `across()`!
+
+```{r}
+mtcars %>%
+  summarize(across(.cols = everything(), .fns = mean))
+```
+
+We can calculate multiple summary statistics by passing in a `list()` of the statistics we want:
+
+```{r}
+mtcars %>%
+  summarize(
+    n = n(),
+    across(
+      .cols = everything(),
+      .fns = list(mean = mean, median = median)
+    )
+  )
+```
+
+### Exercise 1
+
+<font color="#55b748">**Step 1:**</font> Open up a script, save it with a meaningful name, and load the `tidyverse`.
+
+<font color="#55b748">**Step 2:**</font> Use the `mutate()` and `across()` to take the `log` of each variable in `mtcars`.
+
+<font color="#55b748">**Step 3:**</font> Use the `summarise()` and `across()` to find the standard deviation (`sd`) of each variable in `mtcars`.
+
+## `where()`
+
+### Example
+
+To demonstrate `where()` we'll use the `diamonds` data frame from `ggplot2`:
+
+```{r}
+head(diamonds)
+```
+
+What happens if we try to use `mutate(acoss(.cols = everything(), .fns = log))` to log transform each variable in this data frame?
+
+```{r, error=TRUE}
+diamonds %>%
+  mutate(across(.cols = everything(), .fns = log))
+```
+
+It doesn't work because `diamonds` has some non-numeric columns. We could find all the columns that are numeric:
+
+```{r}
+glimpse(diamonds)
+```
+
+And then write a lot of repetitive `mutate()` statements again. Instead let's use `where()` as follows:
+
+```{r}
+diamonds %>%
+  mutate(across(.cols = where(is.numeric), .fns = log))
+```
+
+When using the `where()` with `across()`, we first supply the condition that must be met, and then the function to apply to the columns that meet that condition. So in the above example, we first test if a column `is.numeric`, and then apply `log` to those that are.
+
+We can use `select()` and `where()` to subset only those columns that are numeric:
+
+```{r}
+diamonds %>%
+  select(where(is.numeric))
+```
+
+### Exercise 2
+
+**Note:** Each step is a separate task. They need not be piped together.
+
+<font color="#55b748">**Step 1:**</font> Use `select()` and `where()` to subset all the columns from `diamonds` that are factor variables.
+
+<font color="#55b748">**Step 2:**</font> Use the `mutate()`, `across()`, and `where()` to take the `sqrt` of each numeric variable in `diamonds`.
+
+<font color="#55b748">**Step 3:**</font> Use the `summarise`, `across()`, and `where()` to find the mean and standard deviation of each numeric variable in `diamonds`.
+
+<font color="#55b748">**Step 4:**</font> Use `summarise()` and `across()` to find the mean and standard deviation of each numeric variable in `diamonds`, first using `group_by()`, `across()`, and `where()` to group by all factor variables.
+
+## Selector Helpers
+
+Sometimes we want to use `across()` with many variables but not all variables or not all variables of a certain type. We can use a character vector to pick a subset of columns.
+
+```{r}
+diamonds %>%
+  mutate(across(.cols = c("x", "y", "z"), .fns = log))
+```
+
+Sometimes this is cumbersome. Fortunately, `library(dplyr)` has helpers that can create character vectors for use. For instance, if all of the variables we care about start with "e", then we can
+
+```{eval = FALSE}
+data %>%
+  mutate(across(.cols = starts_with("e"), .fns = log))
+
+```
+
+There are several selector helpers:
+
+-   `contains()`
+-   `ends_with()`
+-   `matches()`
+-   `num_range()`
+-   `one_of()`
+-   `starts_with()`
+
+## `pivot_*`
+
+**Warning:** `across()` is not an excuse to avoid tidy data! For example, the following is bad. Why does this violate tidy data? How much pain would we experience if we wanted to plot this data?
+
+```{r}
+data <- tribble(
+  ~state, ~`1999`, ~`2000`, ~`2001`,
+  "Maryland", 100, 110, 121,
+  "Virginia", 205, 204, 203
+)
+```
+
+We use `pivot_longer()` to transform data from wide to long and `pivot_wider()` to transform data from long to wide.
+
+We can fix the above data with `pivot_longer()`
+
+```{r}
+data_long <- data %>%
+  pivot_longer(
+    cols = -state,
+    names_to = "year",
+    values_to = "widget_factories"
+  )
+
+data_long
+```
+
+We can unfix the data with `pivot_wider()`
+
+```{r}
+data_long %>%
+  pivot_wider(
+    id_cols = state,
+    names_from = year,
+    values_from = widget_factories
+  )
+```
+
+### Tidy data
+
+> Happy families are all alike; every unhappy family is unhappy in its own way. \~ Leo Tolstoy
+
+> tidy datasets are all alike but every messy dataset is messy in its own way \~ Hadley Wickham
+
+Tools optimized for one data format are going to be more powerful than tools optimized for any data format. If we can standardize our data, then we will have really powerful tools.
+
+Unfortunately, most people do not pay enough attention to the structure, storage, and dissemination of data.
+
+## `library(purrr)`
+
+Sometimes, we're going to want to iterate on a data structure other than a `tibble` or iterate a function that isn't vectorized.
+
+### Many files
+
+One approach is to use for loops. For loops are useful and should be understood. This code writes nine .csv files with 1000 random draws from a standard normal distribution.
+
+```{r eval = FALSE}
+dir.create("data")
+
+for (i in 1:9) {
+  tibble(
+    id = 1:1000,
+    value = rnorm(1000)
+  ) %>%
+    write_csv(path = paste0("data/data", i, ".csv"))
+}
+```
+
+`library(purrr)` is a powerful alternative to for loops that is designed for functional programming. This code reads in the nine .csv files!
+
+```{r eval = FALSE}
+files <- list.files(path = "data", full.names = TRUE)
+
+map(.x = files, .f = read_csv)
+```
+
+`map()` always returns a list! `map_*()` functions can be used to return different data structures. For instance, `map_chr()` will always return a character vector. `map_df()` is like the code above but returns one data frame instead of a list of smaller data frames.
+
+```{r eval = FALSE}
+map_df(.x = files, .f = read_csv)
+```
+
+### Many models
+
+```{r}
+library(broom)
+
+# estimate a linear model for each of seven colors
+many_models <- diamonds %>%
+  split(diamonds$color) %>%
+  map(~ lm(formula = price ~ carat + cut, data = .))
+
+# extract model diagnostics from each model
+many_models_results <- bind_cols(
+  color = names(many_models),
+  map_df(many_models, glance)
+)
+
+# plot
+many_models_results %>%
+  ggplot(aes(color, r.squared)) +
+  geom_col() +
+  scale_y_continuous(
+    expand = c(0, 0),
+    limits = c(0, 1)
+  ) +
+  labs(title = "R-Squared for linear models estimated on subsets by color") +
+  theme_minimal()
+```
+
+These examples are beyond the scope of an introductory class but I wanted to demonstrate the power of iteration in `R`. These tools can be used iterate data visualizations, R Markdown reports, statistical models, computer operations like file creation and transfer, and more.
+
+## Resources
+
+-   [dplyr 1.0.0: working across columns](https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/)
+-   [Pivoting in R4DS](https://r4ds.had.co.nz/tidy-data.html#pivoting)

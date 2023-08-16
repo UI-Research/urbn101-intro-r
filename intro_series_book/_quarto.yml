@@ -1,0 +1,27 @@
+project:
+  type: book
+  output-dir: ../docs
+
+book:
+  title: "Intro to R"
+  author: "Amy Rogin and Aaron Williams"
+  date: "8/11/2023"
+  chapters:
+    - index.qmd
+    - 01_lesson.qmd
+    - 02_lesson.qmd
+    - 03_lesson.qmd
+    - 04_lesson.qmd
+    - 05_lesson.qmd
+    - 06_lesson.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    css: style.scss
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

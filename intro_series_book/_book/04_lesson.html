@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="R Users Group">
+<meta name="dcterms.date" content="2023-08-11">
+
+<title>Intro to R - 4&nbsp; Data Import</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05_lesson.html" rel="next">
+<link href="./03_lesson.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Intro to R</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Intro to R: A Hands on Tutorial</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_lesson.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Iteration (or becoming an R Superhero)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">5</span>  Review</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="toc-section-number">6</span>  Motivation</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="toc-section-number">7</span>  Packages</a></li>
+  <li><a href="#primary-functions" id="toc-primary-functions" class="nav-link" data-scroll-target="#primary-functions"><span class="toc-section-number">8</span>  Primary Functions</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">9</span>  Setup</a>
+  <ul class="collapse">
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="toc-section-number">9.1</span>  Exercise</a></li>
+  </ul></li>
+  <li><a href="#the-readr-package" id="toc-the-readr-package" class="nav-link" data-scroll-target="#the-readr-package"><span class="toc-section-number">10</span>  The <code>readr</code> Package</a>
+  <ul class="collapse">
+  <li><a href="#csv-files" id="toc-csv-files" class="nav-link" data-scroll-target="#csv-files"><span class="toc-section-number">10.1</span>  CSV Files</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">10.1.1</span>  Example</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="toc-section-number">10.1.2</span>  Exercise</a></li>
+  </ul></li>
+  <li><a href="#other-delimiters" id="toc-other-delimiters" class="nav-link" data-scroll-target="#other-delimiters"><span class="toc-section-number">10.2</span>  Other Delimiters</a>
+  <ul class="collapse">
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1"><span class="toc-section-number">10.2.1</span>  Example</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="toc-section-number">10.2.2</span>  Exercise</a></li>
+  </ul></li>
+  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues"><span class="toc-section-number">10.3</span>  Common Issues</a>
+  <ul class="collapse">
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2"><span class="toc-section-number">10.3.1</span>  Example</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="toc-section-number">10.3.2</span>  Exercise</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#the-readxl-package" id="toc-the-readxl-package" class="nav-link" data-scroll-target="#the-readxl-package"><span class="toc-section-number">11</span>  The <code>readxl</code> Package</a>
+  <ul class="collapse">
+  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3"><span class="toc-section-number">11.1</span>  Example</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="toc-section-number">11.2</span>  Exercise</a></li>
+  </ul></li>
+  <li><a href="#the-haven-package" id="toc-the-haven-package" class="nav-link" data-scroll-target="#the-haven-package"><span class="toc-section-number">12</span>  The <code>haven</code> Package</a>
+  <ul class="collapse">
+  <li><a href="#stata-data-.dta" id="toc-stata-data-.dta" class="nav-link" data-scroll-target="#stata-data-.dta"><span class="toc-section-number">12.1</span>  Stata Data (.dta)</a>
+  <ul class="collapse">
+  <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4"><span class="toc-section-number">12.1.1</span>  Example</a></li>
+  </ul></li>
+  <li><a href="#sas-data-.sas7bdat" id="toc-sas-data-.sas7bdat" class="nav-link" data-scroll-target="#sas-data-.sas7bdat"><span class="toc-section-number">12.2</span>  SAS Data (.sas7bdat)</a>
+  <ul class="collapse">
+  <li><a href="#example-5" id="toc-example-5" class="nav-link" data-scroll-target="#example-5"><span class="toc-section-number">12.2.1</span>  Example</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#the-arrow-package" id="toc-the-arrow-package" class="nav-link" data-scroll-target="#the-arrow-package"><span class="toc-section-number">13</span>  The <code>arrow</code> Package</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">14</span>  Resources</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>R Users Group </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 11, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+<p><link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet"></p>
+<section id="review" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Review</h1>
+<ul>
+<li><p>What is tidy data?</p>
+<p><img src="www/images/what_is_tidydata.jpeg" class="img-fluid" width="396"></p>
+<p>Artwork by @allison_horst</p></li>
+<li><p>What is a file path?</p></li>
+<li><p>What is an R Studio Project?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="www/images/cracked_setwd.png" class="img-fluid figure-img" width="291"></p>
+<p></p><figcaption class="figure-caption">Artwork by @allison_horst</figcaption><p></p>
+</figure>
+</div></li>
+<li><p>Stay DRY: if you find yourself copying and pasting chunks of code, write a function instead.</p></li>
+<li><p>Writing functions that use capabilities of the <code>tidyverse</code> can be tricky due to something called Nonstandard Evaluation - feel free to ask any of us for help!</p></li>
+</ul>
+</section>
+<section id="motivation" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Motivation</h1>
+<ul>
+<li><p><code>diamonds</code>, <code>storms</code>, or <code>starwars</code> are nice examples, but how do I load data for an actual research project?</p></li>
+<li><p>Data import is a crucial yet often overlooked step of truly replicable and reproducible research.</p></li>
+</ul>
+</section>
+<section id="packages" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Packages</h1>
+<p>We’ll be using three packages from the <code>tidyverse</code> for data import and export. These three should cover just about all of your use cases at Urban.</p>
+<ul>
+<li><code>readr</code> - for plain text files</li>
+<li><code>readxl</code> - for Excel files (<code>.xlsx</code>, <code>.xls</code>)</li>
+<li><code>haven</code> - for SAS (<code>.sas7bdat</code> + <code>.sas7bcat</code> files), SPSS (<code>.sav</code> files), and Stata (<code>.dta</code> files up to Stata version 17) formats</li>
+</ul>
+<p>One note - while all three packages are installed with the <code>tidyverse</code>, only <code>readr</code> is loaded when you run <code>library(tidyverse)</code> in your R session. The other packages must be loaded separately.</p>
+</section>
+<section id="primary-functions" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Primary Functions</h1>
+<p>In general, <code>readr</code>, <code>readxl</code>, and <code>haven</code> will come with some variant of a <code>read</code> function for data import, and a variant of <code>write</code> (except for Excel and SAS!) for data export.</p>
+<ul>
+<li><code>readr::read_csv()</code>, <code>readr::write_csv()</code></li>
+<li><code>readr::read_delim()</code>, <code>readr::write_delim()</code></li>
+<li><code>readxl::read_excel()</code></li>
+<li><code>haven::read_sas()</code></li>
+<li><code>haven::read_dta()</code>, <code>haven::write_dta</code></li>
+</ul>
+<p>For the simplest use cases, the various <code>read</code> functions will need just one argument: the path to the file you want to load.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"path/to/your/original/data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The various <code>write</code> functions will need two arguments: the data frame you want to export, and the file path to save it to.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(df, <span class="st">"path/to/your/modified/data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="setup" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Setup</h1>
+<section id="exercise" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="exercise"><span class="header-section-number">9.1</span> Exercise</h2>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Open up your RStudio project, open a R script, save it with a meaningful name, and load the <code>tidyverse</code>, <code>readxl</code>, <code>haven</code>, and <code>arrow</code>.</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Use the <code>dir.create()</code> function to create subfolders called <code>data</code> and <code>modified</code> in your R Project.</p>
+<p><font color="#55b748"><strong>Step 3:</strong></font> We’ll be downloading a couple different datasets for today’s examples. Staying DRY, let’s rework the example code from Wednesday into a function we can reuse. Copy and paste the following into your file. Make sure to run the code so the function becomes a part of your environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>download_data <span class="ot">&lt;-</span> <span class="cf">function</span>(url, path) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(path)) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">download.file</span>(url, path, <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="www/images/readr_sticker.png" style="float: right;width: 106px"></p>
+</section>
+</section>
+<section id="the-readr-package" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> The <code>readr</code> Package</h1>
+<p><code>readr</code> provides functions to read plain text rectangular data - think csv, txt or tsv files.</p>
+<section id="csv-files" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="csv-files"><span class="header-section-number">10.1</span> CSV Files</h2>
+<section id="example" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="example"><span class="header-section-number">10.1.1</span> Example</h3>
+<p>First we’ll download an example <code>csv</code> file from the Urban Institute’s Education data portal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download ipeds data into data/ folder</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"https://educationdata.urban.org/csv/ipeds/colleges_ipeds_completers.csv"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"data/colleges_ipeds_completers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And then use <code>read_csv</code> from the <code>readr</code> package to load the data in.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ipeds <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/colleges_ipeds_completers.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now have a <code>tibble</code> that can be used with all the <code>ggplot2</code> and <code>dplyr</code> functions you’ve learned so far. Let’s filter the data to only 2011 and write it out as a separate file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ipeds_2011 <span class="ot">&lt;-</span> ipeds <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2011</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(ipeds_2011, <span class="st">"modified/colleges_ipeds_completers_2011.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-1" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">10.1.2</span> Exercise</h3>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Filter the <code>ipeds</code> data frame to years 2014-2015 for the state of California (HINT: fips code of 6). Be sure to use <code>&lt;-</code> to save it to a new object!</p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Write the filtered data frame to a file called “ipeds_completers_ca.csv” in your <code>modified</code> folder.</p>
+</section>
+</section>
+<section id="other-delimiters" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="other-delimiters"><span class="header-section-number">10.2</span> Other Delimiters</h2>
+<p>Most plain text files will use a comma to separate values. Sometimes you’ll see other delimiters used - the most common are tabs <code>\t</code> and vertical bar <code>|</code> (which is often called a pipe, not to be confused with the <code>tidyverse</code> pipe <code>%&gt;%</code>).</p>
+<p>To read in a plain text file that uses another delimiter, use the <code>read_delim</code> function. This function will take two arguments: the path to the file you want to load and the character to use as a delimiter.</p>
+<section id="example-1" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="example-1"><span class="header-section-number">10.2.1</span> Example</h3>
+<p>First we’ll download a tab delimited file from the North Carolina Board of Elections:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"https://s3.amazonaws.com/dl.ncsbe.gov/data/ncvhis30.zip"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"data/ncvhis30.zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then load in the file with the correct delimiter set. It may be helpful to open delimtied file with a program like Notepad so you can see the plain text in the file and decide what delimiter to use. In this case we know its a tab:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ncvhis <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/ncvhis30.zip"</span>, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that <code>readr</code> was able to read the data directly from the zipfile!</p>
+<p>Similarly, the <code>write_delim()</code> function can be used to write out a plain text file with a specified <code>delim</code> argument.</p>
+</section>
+<section id="exercise-2" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">10.2.2</span> Exercise</h3>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>write_delim()</code> to write out <code>ncvhis</code> to a pipe <code>|</code> separated file.</p>
+</section>
+</section>
+<section id="common-issues" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="common-issues"><span class="header-section-number">10.3</span> Common Issues</h2>
+<p>Not all data import will be quick and easy. Often times you will run into issues - these can be daunting at first but are often not as bad as they seem.</p>
+<section id="example-2" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="example-2"><span class="header-section-number">10.3.1</span> Example</h3>
+<p>The <code>readr</code> package provides a <code>challenge.csv</code> file that will throw numerous parsing issues.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>challenge <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">"challenge.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can use the <code>problems</code> function to get a <code>tibble</code> of these issues.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>issues <span class="ot">&lt;-</span> <span class="fu">problems</span>(challenge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A thousand parsing failures sounds like a lot! But it’s really just one error a thousand times, and not a thousand unique errors to work through.</p>
+<p>The issue is that <code>readr</code> will read the first thousand lines of a file and use that as the column specification. This file changes data types at line 1001. This is a very common issue when reading text files into R. We can use the <code>guess_max</code> argument to increase the number of lines <code>readr</code> will use to set the column types.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>challenge <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">readr_example</span>(<span class="st">"challenge.csv"</span>),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">guess_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You will run into other problems when importing data like:</p>
+<ul>
+<li>the columns not being in the first row</li>
+<li>weird NA values</li>
+<li>blank rows at the top of files</li>
+</ul>
+<p>Luckily <code>read_csv()</code> and its friends have a lot of built in arguments to help deal with those issues. Look at the arguments in the docs using <code>?read_csv</code> or go to the R4DS data import <a href="https://r4ds.had.co.nz/data-import.html#getting-started">page</a> for examples of how to deal with all the above problems.</p>
+</section>
+<section id="exercise-3" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">10.3.2</span> Exercise</h3>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Pull up the documentation for <code>read_csv</code> and take a look of some of the function arguments. There are a lot! You don’t need to know how everything works, but it’s good to have an idea of some of the options available to you.</p>
+<p><img src="www/images/readxl.png" style="float: right;width: 106px"></p>
+</section>
+</section>
+</section>
+<section id="the-readxl-package" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> The <code>readxl</code> Package</h1>
+<p>For data that is saved as <code>.xls</code> or <code>.xlsx</code>, use the <code>readxl</code> package.</p>
+<section id="example-3" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="example-3"><span class="header-section-number">11.1</span> Example</h2>
+<p>For this example we’ll download data from the HUD FHA Single Family Portfolio Snap Shot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"https://www.hud.gov/sites/dfiles/Housing/documents/FHA_SFSnapshot_Apr2019.xlsx"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"data/sfsnap.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This Excel file contains a number of tables on different sheets of the workbook. We can see a listing of the sheets using the <code>excel_sheets</code> function. As usual, the first argument is the path to the data file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">excel_sheets</span>(<span class="st">"data/sfsnap.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can then use the <code>read_excel</code> function to load our data into our R session. Again, the first argument is the path to the <code>.xlsx</code> file. We also use the <code>sheet</code> argument to specify which sheet of the workbook we want.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>purchases <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/sfsnap.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"Purchase Data April 2019"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the <code>readxl</code> package only provides functionality to, as the name implies, read Excel files. If you need to write your data out to <code>.xls</code> or <code>.xlsx</code> formats - <a href="https://www.moderncsv.com/why-excel-sucks-and-modern-csv-is-awesome-at-least-for-csvs/">don’t</a>! We highly recommend saving data files as <code>.csv</code> files wherever possible. But if you you really need to, look into the <code>writexl</code> or <code>openxlsx</code> packages.</p>
+</section>
+<section id="exercise-4" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">11.2</span> Exercise</h2>
+<p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>read_excel()</code> to load in the table on the “Refinance Data April 2019” sheet into a data frame called <code>refinances</code>.</p>
+<p><img src="www/images/haven.png" style="float: right;width: 106px"></p>
+</section>
+</section>
+<section id="the-haven-package" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> The <code>haven</code> Package</h1>
+<p>Finally, your SAS, SPSS, or Stata data can find safe <code>haven</code> in R.</p>
+<section id="stata-data-.dta" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="stata-data-.dta"><span class="header-section-number">12.1</span> Stata Data (.dta)</h2>
+<section id="example-4" class="level3" data-number="12.1.1">
+<h3 data-number="12.1.1" class="anchored" data-anchor-id="example-4"><span class="header-section-number">12.1.1</span> Example</h3>
+<p>First we’ll download and unzip the 2018 General Social Survey, which comes as a zipped <code>.dta</code> file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"http://gss.norc.org/Documents/stata/2018_stata.zip"</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"data/gss.zip"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(<span class="st">"data/gss.zip"</span>, <span class="at">exdir =</span> <span class="st">"data/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To read a <code>.dta</code> file, we’ll use the aptly named <code>read_dta</code> function. As usual, the first argument to the function is the path to the data we want to import.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>gss <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"data/GSS2018.dta"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># We can also read in the zip file directly!</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>gss <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"data/gss.zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="sas-data-.sas7bdat" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="sas-data-.sas7bdat"><span class="header-section-number">12.2</span> SAS Data (.sas7bdat)</h2>
+<p>We use <code>read_sas</code> to read in SAS files. This works mostly identical to <code>read_stata</code>, and you can read in <code>.sas7bdat</code> + <code>.sas7bcat</code>, or zipped folders with sas files. Note that while the <code>write_sas()</code> function exists, it doesn’t appear to actually work at the current version of <code>haven</code>.</p>
+<section id="example-5" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="example-5"><span class="header-section-number">12.2.1</span> Example</h3>
+<p>Download and read in the 2017 1-year Public Use Microsample for Wyoming from the Census:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download_data</span>(<span class="st">"https://www2.census.gov/programs-surveys/acs/data/pums/2017/1-Year/unix_pwy.zip"</span>,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"data/pums_wy.zip"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Unzip the files</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(<span class="st">"data/pums_wy.zip"</span>, <span class="at">exdir =</span> <span class="st">"data/"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in sas file</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>pums_data <span class="ot">=</span> <span class="fu">read_sas</span>(<span class="st">"data/pums_wy.zip"</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Write out as dta file</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>pums_data <span class="sc">%&gt;%</span> <span class="fu">write_dta</span>(<span class="st">"modified/pums_wy.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="the-arrow-package" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> The <code>arrow</code> Package</h1>
+<p>Sometimes when you save text files, the column types (ie numeric, date, time, text, etc.) get lost and won’t be read back in upon reimporting In this case you may want to save your files as a binary file. One binary file format we suggest is <code>.feather</code> files, which you can <a href="https://arrow.apache.org/docs/python/feather.html">read more about</a>. The main benefits of storing data in a binary format is:</p>
+<ul>
+<li>Column types will be recorded and preserved</li>
+<li>Importing and exporting will be faster than other methods</li>
+<li>File sizes will be smaller as binary files often use compression methods</li>
+</ul>
+<p>The cons are that:</p>
+<ul>
+<li><code>.feather</code> files can only easily be read into R and python currently</li>
+<li>There are no nice GUI viewers (like Excel/Notepad for CSV data) to actually “see” the data files</li>
+</ul>
+<p>So think before exercising this option! If you mainly will be working with your data in R and have large file sizes or complicated column types, <code>.feather</code> files may be a good option.</p>
+<p>You can read and write these files with <code>read_feather()</code> and <code>write_feather</code> respectively.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write out a feather file to `modified/folder`</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_feather</span>(ipeds_2011, <span class="st">"modified/colleges_ipeds_completers_2011.feather"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in a feather file</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ipeds_2011 <span class="ot">=</span> <span class="fu">read_feather</span>(<span class="st">"modified/colleges_ipeds_completers_2011.feather"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="resources" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Resources</h1>
+<ul>
+<li><a href="https://r4ds.had.co.nz/data-import.html">R4DS: Data import</a></li>
+<li>Data Import <a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">Cheatsheet</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03_lesson.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05_lesson.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Iteration (or becoming an R Superhero)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

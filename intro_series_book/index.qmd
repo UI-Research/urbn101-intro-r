@@ -1,0 +1,35 @@
+# Intro to R: A Hands on Tutorial {.unnumbered}
+
+This book contains the materials for *Intro to R: A hands-on tutorial*, a multi-class R training hosted by the [Urban Institute R Users Group](https://urbaninstitute.github.io/r-at-urban/).
+
+Core lessons include:
+
+1.  Data visualization
+
+2.  Data munging (analysis)
+
+3.  Getting data into and out of R
+
+4.  Iteration
+
+5.  Putting everything together
+
+## Instructors (across all years)
+
+-   Aaron R. Williams (IBP/TECH)
+
+-   Amy Rogin (MET)
+
+-   Ajjit Narayanan (TECH)
+
+-   Fay Walker (MET)
+
+-   Sarah Strochak (HFPC)
+
+-   Kyle Ueyama (TECH)
+
+-   Olivia Fiol (MET)
+
+### Questions?
+
+Contact Amy Rogin (arogin\@urban.org) or Aaron Williams (awilliams\@urban.org)

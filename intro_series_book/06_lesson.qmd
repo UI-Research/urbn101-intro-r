@@ -1,0 +1,134 @@
+---
+title: "Putting it All Together (and into Markdown)"
+author: "Fay Walker (MET) and Aaron Williams (IBP/TECH)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html-document:
+    number-sections: false
+    embed-resources: true
+    code-folding: show
+    toc: true
+    toc-float: true
+    css: style.css
+    editor-options:
+      chunk-output-type: console
+---
+
+```{=html}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+</style>
+```
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+## Key Takeaways
+
+-   Take notes/annotate code as you go
+-   Use the assignment operator
+-   Read your error messages
+-   [Data import](https://ui-research.github.io/urbn101-intro-r/lessons/04_lesson) with `read_csv()`
+-   [Data management](https://ui-research.github.io/urbn101-intro-r/lessons/02_lesson) with `library(dplyr)`
+-   [Visualization](https://ui-research.github.io/urbn101-intro-r/lessons/01_lesson) with `library(ggplot2)`
+
+## Helpful Packages
+
+-   Import Data
+    -   readr - for plain text files
+    -   readxl - for Excel files
+    -   haven - for SAS, SPSS, and Stata data formats
+    -   here - set directory
+    -   remotes or devtools - install packages from Github
+    -   arrow - read/save binary data
+-   Manipulate data
+    -   tidyverse - format tidy data (includes the following packages)
+    -   dplyr - wrangle data using %\>%
+    -   lubridate - clean dates
+    -   stringr - clean strings
+    -   purrr - iterate
+-   Visualize data
+    -   ggplot2 - plots!
+    -   urbnthemes - format and style according to Urban Style
+    -   urbnmapr - create Urban themed maps
+
+## What is R Markdown?
+
+```{r echo = FALSE}
+knitr::include_graphics(here::here("www", "images", "rmarkdown.png"))
+```
+
+Source: [RStudio](https://rmarkdown.rstudio.com/)
+
+-   This webpage is a Markdown! It creates a pdf/word/html output file that can include:
+    -   Code chunks
+    -   Code output (graphs/charts/tables)
+    -   Formatted text and images
+
+## urbntemplates
+
+`library(urbntemplates)` contains three families of functions:
+
+-   `start_project()` generates a new project with a .Rproj, README, and .gitignore at the specified location on a machine.
+-   `construct_*()` functions add multiple, related templates and documents to a project directory or sub-directory. The templates and documents are related in important ways. For example, `construct_shiny()` adds app.R and an R Shiny specific CSS. It also adds instructions for using the selected template.
+-   `use_*()` functions add individual templates and documents to a project directory or sub directory.
+
+A sensible workflow is: 1. Start a new project and create a .Rproj by submitting urbntemplates::start_project(). This will create and open a new .Rproj. 2. Inside the .Rproj, add the necessary documents for a part of a project, like a Shiny application, with a construct\_*() function. 3. Add any desired remaining templates or documents with use\_*() functions.
+
+#### start function
+
+-   `start_project()`
+
+#### construct functions
+
+-   `construct_shiny()`
+-   `construct_fact_sheet_html()`
+-   `construct_fact_sheet_pdf()`
+-   `construct_slide_show()`
+-   `construct_web_report()`
+
+#### use functions
+
+-   `use_content()`
+-   `use_css()`
+-   `use_fact_sheet_html()`
+-   `use_fact_sheet_pdf()`
+-   `use_git_ignore_urbn()`
+-   `use_instructions()`
+-   `use_iterate()`
+-   `use_preamble()`
+-   `use_revealjs()`
+-   `use_shiny_app()`
+-   `use_readme_readme()`
+-   `use_web_report()`
+
+### YAML Header
+
+Controls the settings of the document.
+
+### Markdown
+
+Markdown is a lightweight markup language for creating formatted text using a plain-text editor. [R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+### Code Chunks
+
+Creates the code output for the document.
+
+### Create a Markdown HTML Fact Sheet - Piece by Piece
+
+### <font color="#55b748">**Step 1:**</font> Install `library(urbntemplates)`
+
+    install.packages("remotes")
+    remotes::install_github("UrbanInstitute/urbntemplates")
+
+<font color="#55b748">**Step 2:**</font> Create a new project using `start_project()`(Parenthesis should have directory and name of new project). Once you create the project, open a new script and create an html fact sheet using `urbntemplates::construct_fact_sheet_html()`
+
+<font color="#55b748">**Step 3:**</font> Resave the `.Rmd` with a better name.
+
+<font color="#55b748">**Step 4:**</font> Knit the R Markdown into a pdf document.
+
+<font color="#55b748">**Step 5:**</font> Add some text into the markdown, some code that appears as code, and some code that shows the result but not the code. Every code chunk should start with `{r name}` and then set the parameters (T/F, separated by comma. See full [factsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) for more parameters.
+
+## Resources
+
+-   [RStudio R Markdown guide](https://rmarkdown.rstudio.com/)
+-   [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+-   [R4DS](https://r4ds.had.co.nz/communicate-intro.html)

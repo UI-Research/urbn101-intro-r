@@ -4,8 +4,8 @@ project:
 
 book:
   title: "Intro to R"
-  author: "Amy Rogin and Aaron Williams"
-  date: "8/11/2023"
+  author: "Amy Rogin and Aaron R. Williams"
+  date: today
   chapters:
     - index.qmd
     - 01_lesson.qmd
@@ -20,8 +20,3 @@ bibliography: references.bib
 format:
   html:
     css: style.scss
-  pdf:
-    documentclass: scrreprt
-
-editor: visual
-

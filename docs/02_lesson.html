@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Fay Walker">
-<meta name="dcterms.date" content="2023-08-15">
+<meta name="author" content="Aaron R. Williams">
+<meta name="dcterms.date" content="2023-08-22">
 
 <title>Intro to R - 2&nbsp; Data Munging 1</title>
 <style>
@@ -19,8 +19,42 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -59,10 +93,13 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="style.scss">
 </head>
@@ -71,11 +108,16 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02_lesson.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -83,71 +125,103 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Intro to R</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Intro to R: A Hands on Tutorial</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro to R: A Hands on Tutorial</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Visualization</span></a>
+  <a href="./01_lesson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_lesson.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></a>
+  <a href="./02_lesson.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></a>
+  <a href="./03_lesson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import</span></a>
+  <a href="./04_lesson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Import</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Iteration (or becoming an R Superhero)</span></a>
+  <a href="./05_lesson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Iteration (or becoming an R Superhero)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_lesson.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></a>
+  <a href="./06_lesson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="toc-section-number">2.1</span>  Review</a></li>
-  <li><a href="#the-tidyverse-package" id="toc-the-tidyverse-package" class="nav-link" data-scroll-target="#the-tidyverse-package"><span class="toc-section-number">2.2</span>  The tidyverse package</a></li>
-  <li><a href="#primary-functions" id="toc-primary-functions" class="nav-link" data-scroll-target="#primary-functions"><span class="toc-section-number">2.3</span>  Primary functions</a></li>
-  <li><a href="#exercise-0-creating-a-project-and-loading-packages" id="toc-exercise-0-creating-a-project-and-loading-packages" class="nav-link" data-scroll-target="#exercise-0-creating-a-project-and-loading-packages"><span class="toc-section-number">2.4</span>  Exercise 0: Creating a Project and Loading Packages</a></li>
-  <li><a href="#exercise-1-tidyverse-function-overview" id="toc-exercise-1-tidyverse-function-overview" class="nav-link" data-scroll-target="#exercise-1-tidyverse-function-overview"><span class="toc-section-number">2.5</span>  Exercise 1: Tidyverse Function Overview</a></li>
-  <li><a href="#exercise-2-ifthen-and-summarizing" id="toc-exercise-2-ifthen-and-summarizing" class="nav-link" data-scroll-target="#exercise-2-ifthen-and-summarizing"><span class="toc-section-number">2.6</span>  Exercise 2: If/Then and Summarizing</a></li>
-  <li><a href="#exercise-3-put-it-all-together" id="toc-exercise-3-put-it-all-together" class="nav-link" data-scroll-target="#exercise-3-put-it-all-together"><span class="toc-section-number">2.7</span>  Exercise 3: Put it all together</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">2.8</span>  Resources</a></li>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="header-section-number">2.1</span> Review</a></li>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link" data-scroll-target="#assignment"><span class="header-section-number">2.2</span> Assignment</a></li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data"><span class="header-section-number">2.3</span> Tidy Data</a>
+  <ul class="collapse">
+  <li><a href="#tidy-data-1" id="toc-tidy-data-1" class="nav-link" data-scroll-target="#tidy-data-1"><span class="header-section-number">2.3.1</span> Tidy data</a></li>
+  </ul></li>
+  <li><a href="#exercise-0-creating-a-project-and-loading-packages" id="toc-exercise-0-creating-a-project-and-loading-packages" class="nav-link" data-scroll-target="#exercise-0-creating-a-project-and-loading-packages"><span class="header-section-number">2.4</span> Exercise 0: Creating a Project and Loading Packages</a></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><span class="header-section-number">2.5</span> 1. <code>select()</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">2.5.1</span> <span style="     color: #1696d2 !important;">Exercise 1</span></a></li>
+  </ul></li>
+  <li><a href="#rename" id="toc-rename" class="nav-link" data-scroll-target="#rename"><span class="header-section-number">2.6</span> 2. <code>rename()</code></a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">2.7</span> 3. <code>filter()</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">2.7.1</span> <span style="     color: #1696d2 !important;">Exercise 2</span></a></li>
+  </ul></li>
+  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange"><span class="header-section-number">2.8</span> 4. <code>arrange()</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">2.8.1</span> <span style="     color: #1696d2 !important;">Exercise 3</span></a></li>
+  </ul></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><span class="header-section-number">2.9</span> 5. <code>mutate()</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">2.9.1</span> <span style="     color: #1696d2 !important;">Exercise 4</span></a></li>
+  </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">2.10</span> <code>%&gt;%</code></a></li>
+  <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><span class="header-section-number">2.11</span> 6. <code>summarize()</code></a></li>
+  <li><a href="#group_by" id="toc-group_by" class="nav-link" data-scroll-target="#group_by"><span class="header-section-number">2.12</span> 7. <code>group_by()</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">2.12.1</span> <span style="     color: #1696d2 !important;">Exercise 5</span></a></li>
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">2.12.2</span> <span style="     color: #1696d2 !important;">Exercise 6</span></a></li>
+  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">2.13</span> Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -156,7 +230,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Munging 1</span></h1>
 </div>
 
 
@@ -166,14 +240,14 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Fay Walker </p>
+             <p>Aaron R. Williams </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 15, 2023</p>
+      <p class="date">August 22, 2023</p>
     </div>
   </div>
   
@@ -183,50 +257,59 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<style>
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-</style>
-<p><link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet"></p>
 <section id="review" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="review"><span class="header-section-number">2.1</span> Review</h2>
 <ul>
-<li>Assignment Operator</li>
 <li>Console/Environment/Script</li>
-<li>Comment your code and read your error messages</li>
+<li>Comment your code with <code>#</code> and read your error messages</li>
 </ul>
 </section>
-<section id="the-tidyverse-package" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="the-tidyverse-package"><span class="header-section-number">2.2</span> The tidyverse package</h2>
-<ul>
-<li>Collection of packages using same syntax and grammar</li>
-<li>Works with “tidy” data</li>
-<li><a href="https://r4ds.had.co.nz/tibbles.html">Uses tibbles</a></li>
-<li>%&gt;%</li>
-</ul>
+<section id="assignment" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="assignment"><span class="header-section-number">2.2</span> Assignment</h2>
+<p><code>&lt;-</code> is the assignment operator. An object created on the right side of an assignment operator is assigned to a name on the left side of an assignment operator. Assignment operators are important for saving the consequences of operations and functions. Without assignment, the result of a calculation is not saved for use in future calculations. Operations without assignment operators will typically be printed to the console but not saved for future use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
 </section>
-<section id="primary-functions" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="primary-functions"><span class="header-section-number">2.3</span> Primary functions</h2>
+<section id="tidy-data" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="tidy-data"><span class="header-section-number">2.3</span> Tidy Data</h2>
+<blockquote class="blockquote">
+<p>The <a href="https://www.tidyverse.org/">tidyverse</a> is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. ~ tidyverse.org</p>
+</blockquote>
+<p><code>library(tidyverse)</code> contains:</p>
 <ul>
-<li><code>select()</code></li>
-<li><code>rename()</code></li>
-<li><code>filter()</code></li>
-<li><code>arrange()</code></li>
-<li><code>mutate()</code></li>
-<li><code>group_by()</code></li>
-<li><code>summarize()</code></li>
+<li><a href="https://ggplot2.tidyverse.org">ggplot2</a>, for data visualization.</li>
+<li><a href="https://dplyr.tidyverse.org">dplyr</a>, for data manipulation.</li>
+<li><a href="https://tidyr.tidyverse.org">tidyr</a>, for data tidying.</li>
+<li><a href="https://readr.tidyverse.org">readr</a>, for data import.</li>
+<li><a href="https://purrr.tidyverse.org">purrr</a>, for functional programming.</li>
+<li><a href="https://tibble.tidyverse.org">tibble</a>, for tibbles, a modern re-imagining of data frames.</li>
+<li><a href="https://github.com/tidyverse/stringr">stringr</a>, for strings.</li>
+<li><a href="https://github.com/hadley/forcats">forcats</a>, for factors.</li>
 </ul>
-<p>All of these functions have the same structure.</p>
+<section id="tidy-data-1" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="tidy-data-1"><span class="header-section-number">2.3.1</span> Tidy data</h3>
+<p>The defining opinion of the tidyverse is its wholehearted adoption of tidy data. Tidy data has three features:</p>
 <ol type="1">
-<li>The first argument is the dataframe</li>
-<li>The subsequent arguments describe what to do with the data frame, using the variable names (without quotes because you’re already refering to that df)</li>
-<li>Separate functions by %&gt;%</li>
-<li>The result is a new data frame.</li>
+<li>Each variable forms a column.</li>
+<li>Each observation forms a row.</li>
+<li>Each type of observational unit forms a dataframe. (This is from the paper, not the book)</li>
 </ol>
-<p><img src="C:/Users/fwalker/Downloads/image.png" class="img-fluid"></p>
-<ul>
-<li>If you have hit an error, trying running it line by line (function by function)</li>
-</ul>
+<p><img src="www/images/tidy-data.png" class="img-fluid"></p>
 <p>Source: <a href="https://r4ds.had.co.nz/transform.html">R for data science</a></p>
+<blockquote class="blockquote">
+<p>Tidy datasets are all alike, but every messy dataset is messy in its own way. ~ <a href="https://r4ds.had.co.nz/tidy-data.html">Hadley Wickham</a></p>
+</blockquote>
+<p>The tidy approach to data science is powerful because it breaks data work into two distinct parts. First, get the data into a tidy format. Second, use tools optimized for tidy data. By standardizing the data structure for most community-created tools, the framework oriented diffuse development and reduced the friction of data work.</p>
+</section>
 </section>
 <section id="exercise-0-creating-a-project-and-loading-packages" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="exercise-0-creating-a-project-and-loading-packages"><span class="header-section-number">2.4</span> Exercise 0: Creating a Project and Loading Packages</h2>
@@ -234,86 +317,608 @@ ul.task-list li input[type="checkbox"] {
 <p><font color="#55b748"><strong>Step 1:</strong></font> Open RStudio. File &gt; New Project &gt; New Directory &gt; Select the location where you would like to create a new folder that houses your R Project. Call it <code>urbn101</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Open an <code>.R</code> script with the button in the top left (sheet with a plus sign icon). Save the script as <code>02_data-munging1.R</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> If you have not previously installed <code>library(tidyverse)</code>: submit <code>install.packages("tidyverse")</code> to the Console (type and hit enter)</p>
-<p><font color="#55b748"><strong>Step 4:</strong></font> Write <code>library(tidyverse)</code> at the top of <code>02_data-munging1.R</code>. With the cursor on the line of text, click Control-Enter.</p>
+<p>We’ll focus on the key dplyr syntax using the March 2020 Annual Social and Economic Supplement (ASEC) to the Current Population Survey (CPS). Run the following code to load the data.</p>
+<p><font color="#55b748"><strong>Step 4:</strong></font> Add and run the following code to load ASEC data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>asec <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/awunderground/awunderground-data/"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"main/cps/cps-asec.csv"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use <code>glimpse(asec)</code> to quickly view the data. We can also use <code>View(asec)</code> to open up <code>asec</code> in RStudio.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="at">x =</span> asec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 157,959
+Columns: 17
+$ year       &lt;dbl&gt; 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020,…
+$ serial     &lt;dbl&gt; 1, 1, 2, 2, 3, 4, 4, 5, 5, 5, 5, 7, 8, 9, 10, 10, 10, 12, 1…
+$ month      &lt;chr&gt; "March", "March", "March", "March", "March", "March", "Marc…
+$ cpsid      &lt;dbl&gt; 2.01903e+13, 2.01903e+13, 2.01812e+13, 2.01812e+13, 2.01902…
+$ asecflag   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ asecwth    &lt;dbl&gt; 1552.90, 1552.90, 990.49, 990.49, 1505.27, 1430.70, 1430.70…
+$ pernum     &lt;dbl&gt; 1, 2, 1, 2, 1, 1, 2, 1, 2, 3, 4, 1, 1, 1, 1, 2, 3, 1, 2, 3,…
+$ cpsidp     &lt;dbl&gt; 2.01903e+13, 2.01903e+13, 2.01812e+13, 2.01812e+13, 2.01902…
+$ asecwt     &lt;dbl&gt; 1552.90, 1552.90, 990.49, 990.49, 1505.27, 1430.70, 1196.57…
+$ ftype      &lt;chr&gt; "Primary family", "Primary family", "Primary family", "Prim…
+$ ftotval    &lt;dbl&gt; 127449, 127449, 64680, 64680, 40002, 8424, 8424, 59114, 591…
+$ inctot     &lt;dbl&gt; 52500, 74949, 44000, 20680, 40002, 0, 8424, 610, 58001, 503…
+$ incwage    &lt;dbl&gt; 52500, 56000, 34000, 0, 40000, 0, 8424, 0, 58000, 0, 0, 0, …
+$ offpov     &lt;chr&gt; "Above Poverty Line", "Above Poverty Line", "Above Poverty …
+$ offpovuniv &lt;chr&gt; "In Poverty Universe", "In Poverty Universe", "In Poverty U…
+$ offtotval  &lt;dbl&gt; 127449, 127449, 64680, 64680, 40002, 8424, 8424, 59114, 591…
+$ offcutoff  &lt;dbl&gt; 17120, 17120, 17120, 17120, 13300, 15453, 15453, 26370, 263…</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>We’re going to learn seven functions and one new piece of syntax from <code>library(dplyr)</code> that will be our main tools for manipulating tidy frames. These functions and a few extensions outlined in the <a href="https://rstudio.com/resources/cheatsheets/">Data Transformation Cheat Sheet</a> are the core of data analysis in the Tidyverse.</p>
 </section>
-<section id="exercise-1-tidyverse-function-overview" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="exercise-1-tidyverse-function-overview"><span class="header-section-number">2.5</span> Exercise 1: Tidyverse Function Overview</h2>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Assign the <code>storms</code> dataset to be called storms. Submit <code>View(storms)</code> in the console.</p>
-<p>You can also deselect specific columns in your data by using the <code>-</code> operator</p>
-<p><font color="#ec008b"><strong>Select</strong></font></p>
-<p><code>select()</code> is used when you want to limit the number of <strong>columns</strong> in your dataframe. The arguments after the dataframe should be names of columns, without quotes. For example:</p>
-<pre><code>dataset %&gt;%
-  select(col1, col2)</code></pre>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Create a new dataset with all the variables except for <code>ts_diameter</code> and <code>hu_diameter</code>, by using <code>select</code> and <code>-</code>.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Create a new dataset that only category 5 storms using <code>filter()</code>.</p>
-<p><font color="#ec008b"><strong>Filter</strong></font></p>
-<p><code>filter()</code> is used when you want to filter to specific rows in your dataframe, based on certain conditions. Filter works with the following comparison operators:</p>
+<section id="select" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="select"><span class="header-section-number">2.5</span> 1. <code>select()</code></h2>
+<p><code>select()</code> drops columns from a dataframe and/or reorders the columns in a dataframe. The arguments after the name of the dataframe should be the names of columns you wish to keep, without quotes. All other columns not listed are dropped.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="at">.data =</span> asec, year, month, serial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 157,959 × 3
+    year month serial
+   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+ 1  2020 March      1
+ 2  2020 March      1
+ 3  2020 March      2
+ 4  2020 March      2
+ 5  2020 March      3
+ 6  2020 March      4
+ 7  2020 March      4
+ 8  2020 March      5
+ 9  2020 March      5
+10  2020 March      5
+# ℹ 157,949 more rows</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>This works great until the goal is to select 99 of 100 variables. Fortunately, <code>-</code> can be used to remove variables. You can also select all but multiple variables by listing them with the <code>-</code> symbol separated by commas.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="at">.data =</span> asec, <span class="sc">-</span>asecflag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 157,959 × 16
+    year serial month   cpsid asecwth pernum  cpsidp asecwt ftype ftotval inctot
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+ 1  2020      1 March 2.02e13   1553.      1 2.02e13  1553. Prim…  127449  52500
+ 2  2020      1 March 2.02e13   1553.      2 2.02e13  1553. Prim…  127449  74949
+ 3  2020      2 March 2.02e13    990.      1 2.02e13   990. Prim…   64680  44000
+ 4  2020      2 March 2.02e13    990.      2 2.02e13   990. Prim…   64680  20680
+ 5  2020      3 March 2.02e13   1505.      1 2.02e13  1505. Nonf…   40002  40002
+ 6  2020      4 March 2.02e13   1431.      1 2.02e13  1431. Prim…    8424      0
+ 7  2020      4 March 2.02e13   1431.      2 2.02e13  1197. Prim…    8424   8424
+ 8  2020      5 March 2.02e13   1133.      1 2.02e13  1133. Prim…   59114    610
+ 9  2020      5 March 2.02e13   1133.      2 2.02e13  1133. Prim…   59114  58001
+10  2020      5 March 2.02e13   1133.      3 2.02e13  1322. Prim…   59114    503
+# ℹ 157,949 more rows
+# ℹ 5 more variables: incwage &lt;dbl&gt;, offpov &lt;chr&gt;, offpovuniv &lt;chr&gt;,
+#   offtotval &lt;dbl&gt;, offcutoff &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="exercise-1" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">2.5.1</span> <span style="     color: #1696d2 !important;">Exercise 1</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ol type="1">
+<li>Select <code>pernum</code> and <code>inctot</code> from <code>asec</code>.</li>
+</ol>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ol type="1">
+<li>Select <code>pernum</code> and <code>inctot</code> from <code>asec</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="at">.data =</span> asec, inctot, asec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><span class="math display">\[\cdots\]</span></p>
+</section>
+</section>
+<section id="rename" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="rename"><span class="header-section-number">2.6</span> 2. <code>rename()</code></h2>
+<p><code>rename()</code> renames columns in a data frame. The pattern is <code>new_name = old_name</code>.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">.data =</span> asec, <span class="at">serial_number =</span> serial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 157,959 × 17
+    year serial_number month   cpsid asecflag asecwth pernum  cpsidp asecwt
+   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+ 1  2020             1 March 2.02e13        1   1553.      1 2.02e13  1553.
+ 2  2020             1 March 2.02e13        1   1553.      2 2.02e13  1553.
+ 3  2020             2 March 2.02e13        1    990.      1 2.02e13   990.
+ 4  2020             2 March 2.02e13        1    990.      2 2.02e13   990.
+ 5  2020             3 March 2.02e13        1   1505.      1 2.02e13  1505.
+ 6  2020             4 March 2.02e13        1   1431.      1 2.02e13  1431.
+ 7  2020             4 March 2.02e13        1   1431.      2 2.02e13  1197.
+ 8  2020             5 March 2.02e13        1   1133.      1 2.02e13  1133.
+ 9  2020             5 March 2.02e13        1   1133.      2 2.02e13  1133.
+10  2020             5 March 2.02e13        1   1133.      3 2.02e13  1322.
+# ℹ 157,949 more rows
+# ℹ 8 more variables: ftype &lt;chr&gt;, ftotval &lt;dbl&gt;, inctot &lt;dbl&gt;, incwage &lt;dbl&gt;,
+#   offpov &lt;chr&gt;, offpovuniv &lt;chr&gt;, offtotval &lt;dbl&gt;, offcutoff &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>You can also rename a selection of variables using <code>rename_with()</code>. The <code>.cols</code> argument is used to select the columns to rename and takes a <code>tidyselect</code> statement like those we introduced above. Here, we’re using the <code>where()</code> selection helper which selects all columns where a given condition is TRUE. The default value for the <code>.cols</code> argument is <code>everything()</code> which selects all columns in the dataset.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename_with</span>(<span class="at">.data =</span> asec, <span class="at">.fn =</span> toupper, <span class="at">.cols =</span> <span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 157,959 × 17
+    YEAR SERIAL month   CPSID ASECFLAG ASECWTH PERNUM  CPSIDP ASECWT ftype      
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      
+ 1  2020      1 March 2.02e13        1   1553.      1 2.02e13  1553. Primary fa…
+ 2  2020      1 March 2.02e13        1   1553.      2 2.02e13  1553. Primary fa…
+ 3  2020      2 March 2.02e13        1    990.      1 2.02e13   990. Primary fa…
+ 4  2020      2 March 2.02e13        1    990.      2 2.02e13   990. Primary fa…
+ 5  2020      3 March 2.02e13        1   1505.      1 2.02e13  1505. Nonfamily …
+ 6  2020      4 March 2.02e13        1   1431.      1 2.02e13  1431. Primary fa…
+ 7  2020      4 March 2.02e13        1   1431.      2 2.02e13  1197. Primary fa…
+ 8  2020      5 March 2.02e13        1   1133.      1 2.02e13  1133. Primary fa…
+ 9  2020      5 March 2.02e13        1   1133.      2 2.02e13  1133. Primary fa…
+10  2020      5 March 2.02e13        1   1133.      3 2.02e13  1322. Primary fa…
+# ℹ 157,949 more rows
+# ℹ 7 more variables: FTOTVAL &lt;dbl&gt;, INCTOT &lt;dbl&gt;, INCWAGE &lt;dbl&gt;, offpov &lt;chr&gt;,
+#   offpovuniv &lt;chr&gt;, OFFTOTVAL &lt;dbl&gt;, OFFCUTOFF &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Most <code>dplyr</code> functions can rename columns simply by prefacing the operation with <code>new_name =</code>. For example, this can be done with <code>select()</code>:</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="at">.data =</span> asec, year, month, <span class="at">serial_number =</span> serial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 157,959 × 3
+    year month serial_number
+   &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
+ 1  2020 March             1
+ 2  2020 March             1
+ 3  2020 March             2
+ 4  2020 March             2
+ 5  2020 March             3
+ 6  2020 March             4
+ 7  2020 March             4
+ 8  2020 March             5
+ 9  2020 March             5
+10  2020 March             5
+# ℹ 157,949 more rows</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="filter" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="filter"><span class="header-section-number">2.7</span> 3. <code>filter()</code></h2>
+<p><code>filter()</code> reduces the number of observations in a dataframe. Every column in a dataframe has a name. Rows do not necessarily have names in a dataframe, so rows need to be filtered based on logical conditions.</p>
+<p><code>==</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code>, <code>%in%</code>, and <code>is.na()</code> are all operators that can be used for logical conditions. <code>!</code> can be used to negate a condition and <code>&amp;</code> and <code>|</code> can be used to combine conditions. <code>|</code> means or.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return rows with pernum of 1 and incwage &gt; $100,000</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> asec, pernum <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> incwage <span class="sc">&gt;</span> <span class="dv">100000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,551 × 17
+    year serial month   cpsid asecflag asecwth pernum  cpsidp asecwt ftype      
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      
+ 1  2020     28 March 2.02e13        1    678.      1 2.02e13   678. Primary fa…
+ 2  2020    134 March 0              1    923.      1 0         923. Primary fa…
+ 3  2020    136 March 2.02e13        1    906.      1 2.02e13   906. Primary fa…
+ 4  2020    137 March 2.02e13        1   1493.      1 2.02e13  1493. Nonfamily …
+ 5  2020    359 March 2.02e13        1    863.      1 2.02e13   863. Primary fa…
+ 6  2020    372 March 2.02e13        1   1338.      1 2.02e13  1338. Primary fa…
+ 7  2020    404 March 0              1    677.      1 0         677. Primary fa…
+ 8  2020    420 March 2.02e13        1    747.      1 2.02e13   747. Primary fa…
+ 9  2020    450 March 2.02e13        1   1309.      1 2.02e13  1309. Primary fa…
+10  2020    491 March 0              1   1130.      1 0        1130. Primary fa…
+# ℹ 5,541 more rows
+# ℹ 7 more variables: ftotval &lt;dbl&gt;, inctot &lt;dbl&gt;, incwage &lt;dbl&gt;, offpov &lt;chr&gt;,
+#   offpovuniv &lt;chr&gt;, offtotval &lt;dbl&gt;, offcutoff &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><a href="https://cps.ipums.org/cps-action/variables/group">IPUMS CPS</a> contains full documentation with information about <code>pernum</code> and <code>incwage</code>.</p>
+<p><br></p>
+<section id="exercise-2" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">2.7.1</span> <span style="     color: #1696d2 !important;">Exercise 2</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<ol type="1">
+<li>Filter <code>asec</code> to rows with <code>month</code> equal to <code>"March"</code>.</li>
+<li>Filter <code>asec</code> to rows with <code>inctot</code> less than <code>999999999</code>.</li>
+<li>Filter <code>asec</code> to rows with <code>pernum</code> equal to <code>3</code> and <code>inctot</code> less than <code>999999999</code>.</li>
+</ol>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<ol type="1">
+<li>Filter <code>asec</code> to rows with <code>month</code> equal to <code>"March"</code>.</li>
+<li>Filter <code>asec</code> to rows with <code>inctot</code> less than <code>999999999</code>.</li>
+<li>Filter <code>asec</code> to rows with <code>pernum</code> equal to <code>3</code> and <code>inctot</code> less than <code>999999999</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(asec, month <span class="sc">==</span> <span class="st">"March"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(asec, inctot <span class="sc">&lt;</span> <span class="dv">999999999</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(asec, pernum <span class="sc">==</span> <span class="dv">3</span>, inctot <span class="sc">&lt;</span> <span class="dv">999999999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="arrange" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="arrange"><span class="header-section-number">2.8</span> 4. <code>arrange()</code></h2>
+<p><code>arrange()</code> sorts the rows of a data frame in alpha-numeric order based on the values of a variable or variables. The dataframe is sorted by the first variable first and each subsequent variable is used to break ties. <code>desc()</code> is used to reverse the sort order for a given variable.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort pernum is descending order because high pernums are interesting</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="at">.data =</span> asec, <span class="fu">desc</span>(pernum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 157,959 × 17
+    year serial month   cpsid asecflag asecwth pernum  cpsidp asecwt ftype      
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      
+ 1  2020  91430 March 0              1    505.     16 0         604. Secondary …
+ 2  2020  91430 March 0              1    505.     15 0         465. Secondary …
+ 3  2020  91430 March 0              1    505.     14 0         416. Secondary …
+ 4  2020  15037 March 2.02e13        1   2272.     13 2.02e13  2633. Primary fa…
+ 5  2020  78495 March 0              1   1279.     13 0        1424. Related su…
+ 6  2020  91430 March 0              1    505.     13 0         465. Secondary …
+ 7  2020  15037 March 2.02e13        1   2272.     12 2.02e13  1689. Primary fa…
+ 8  2020  18102 March 0              1   2468.     12 0        2871. Primary fa…
+ 9  2020  22282 March 0              1   2801.     12 0        3879. Related su…
+10  2020  30274 March 2.02e13        1    653.     12 2.02e13   858. Primary fa…
+# ℹ 157,949 more rows
+# ℹ 7 more variables: ftotval &lt;dbl&gt;, inctot &lt;dbl&gt;, incwage &lt;dbl&gt;, offpov &lt;chr&gt;,
+#   offpovuniv &lt;chr&gt;, offtotval &lt;dbl&gt;, offcutoff &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="exercise-3" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">2.8.1</span> <span style="     color: #1696d2 !important;">Exercise 3</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<ol type="1">
+<li>Sort <code>asec</code> in descending order by <code>pernum</code> and ascending order by <code>inctot</code>.</li>
+</ol>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<ol type="1">
+<li>Sort <code>asec</code> in descending order by <code>pernum</code> and ascending order by <code>inctot</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(asec, <span class="fu">desc</span>(pernum), inctot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mutate" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="mutate"><span class="header-section-number">2.9</span> 5. <code>mutate()</code></h2>
+<p><code>mutate()</code> creates new variables or edits existing variables. We can use arithmetic arguments, such as <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, and <code>^</code>. We can also custom functions and functions from packages. For example, we can use <code>library(stringr)</code> for string manipulation and <code>library(lubridate)</code> for date manipulation.</p>
+<p><br></p>
+<p>Variables are created by adding a new column name, like <code>inctot_adjusted</code>, to the left of <code>=</code> in <code>mutate()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adjust inctot for underreporting</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">.data =</span> asec, <span class="at">inctot_adjusted =</span> inctot <span class="sc">*</span> <span class="fl">1.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 157,959 × 18
+    year serial month   cpsid asecflag asecwth pernum  cpsidp asecwt ftype      
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      
+ 1  2020      1 March 2.02e13        1   1553.      1 2.02e13  1553. Primary fa…
+ 2  2020      1 March 2.02e13        1   1553.      2 2.02e13  1553. Primary fa…
+ 3  2020      2 March 2.02e13        1    990.      1 2.02e13   990. Primary fa…
+ 4  2020      2 March 2.02e13        1    990.      2 2.02e13   990. Primary fa…
+ 5  2020      3 March 2.02e13        1   1505.      1 2.02e13  1505. Nonfamily …
+ 6  2020      4 March 2.02e13        1   1431.      1 2.02e13  1431. Primary fa…
+ 7  2020      4 March 2.02e13        1   1431.      2 2.02e13  1197. Primary fa…
+ 8  2020      5 March 2.02e13        1   1133.      1 2.02e13  1133. Primary fa…
+ 9  2020      5 March 2.02e13        1   1133.      2 2.02e13  1133. Primary fa…
+10  2020      5 March 2.02e13        1   1133.      3 2.02e13  1322. Primary fa…
+# ℹ 157,949 more rows
+# ℹ 8 more variables: ftotval &lt;dbl&gt;, inctot &lt;dbl&gt;, incwage &lt;dbl&gt;, offpov &lt;chr&gt;,
+#   offpovuniv &lt;chr&gt;, offtotval &lt;dbl&gt;, offcutoff &lt;dbl&gt;, inctot_adjusted &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Variables are edited by including an existing column name, like <code>inctot</code>, to the left of <code>=</code> in <code>mutate()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adjust income because of underreporting</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">.data =</span> asec, <span class="at">inctot =</span> inctot <span class="sc">*</span> <span class="fl">1.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 157,959 × 17
+    year serial month   cpsid asecflag asecwth pernum  cpsidp asecwt ftype      
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;      
+ 1  2020      1 March 2.02e13        1   1553.      1 2.02e13  1553. Primary fa…
+ 2  2020      1 March 2.02e13        1   1553.      2 2.02e13  1553. Primary fa…
+ 3  2020      2 March 2.02e13        1    990.      1 2.02e13   990. Primary fa…
+ 4  2020      2 March 2.02e13        1    990.      2 2.02e13   990. Primary fa…
+ 5  2020      3 March 2.02e13        1   1505.      1 2.02e13  1505. Nonfamily …
+ 6  2020      4 March 2.02e13        1   1431.      1 2.02e13  1431. Primary fa…
+ 7  2020      4 March 2.02e13        1   1431.      2 2.02e13  1197. Primary fa…
+ 8  2020      5 March 2.02e13        1   1133.      1 2.02e13  1133. Primary fa…
+ 9  2020      5 March 2.02e13        1   1133.      2 2.02e13  1133. Primary fa…
+10  2020      5 March 2.02e13        1   1133.      3 2.02e13  1322. Primary fa…
+# ℹ 157,949 more rows
+# ℹ 7 more variables: ftotval &lt;dbl&gt;, inctot &lt;dbl&gt;, incwage &lt;dbl&gt;, offpov &lt;chr&gt;,
+#   offpovuniv &lt;chr&gt;, offtotval &lt;dbl&gt;, offcutoff &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Conditional logic inside of <code>mutate()</code> with functions like <code>if_else()</code> and <code>case_when()</code> is key to mastering data munging in R.</p>
+<section id="exercise-4" class="level3" data-number="2.9.1">
+<h3 data-number="2.9.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">2.9.1</span> <span style="     color: #1696d2 !important;">Exercise 4</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<ol type="1">
+<li>Create a new variable called <code>in_poverty</code>. If <code>offtotval</code> is less than <code>offcutoff</code> then use <code>"Below Poverty Line"</code>. Otherwise, use <code>"Above Poverty Line"</code>. <em>Hint:</em> <code>if_else()</code> is useful and works like the IF command in Microsoft Excel.</li>
+</ol>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<ol type="1">
+<li>Create a new variable called <code>in_poverty</code>. If <code>offtotval</code> is less than <code>offcutoff</code> then use <code>"Below Poverty Line"</code>. Otherwise, use <code>"Above Poverty Line"</code>. <em>Hint:</em> <code>if_else()</code> is useful and works like the IF command in Microsoft Excel.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  asec,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">in_poverty =</span> <span class="fu">if_else</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">condition =</span> offtotval <span class="sc">&lt;</span> offcutoff, </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">true =</span> <span class="st">"Below Poverty Line"</span>, </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">false =</span> <span class="st">"Above Poverty Line"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="section" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="section"><span class="header-section-number">2.10</span> <code>%&gt;%</code></h2>
+<p>Data munging is tiring when each operation needs to be assigned to a name with <code>&lt;-</code>. The pipe, <code>%&gt;%</code>, allows lines of code to be chained together so the assignment operator only needs to be used once.</p>
+<p>Consider this fake code <a href="https://twitter.com/hadleywickham/status/1359852563726819332?lang=en">example from Hadley Wickham</a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>I <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tumble</span>(<span class="at">out_of =</span> <span class="st">"bed"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stumble</span>(<span class="at">to =</span> <span class="st">"the kitchen"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pour</span>(<span class="at">who =</span> <span class="st">"myself"</span>, <span class="at">unit =</span> <span class="st">"cup"</span>, <span class="at">what =</span> <span class="st">"ambition"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">yawn</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stretch</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">try</span>(<span class="fu">come_to_life</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p><code>%&gt;%</code> passes the output from function as the first argument in a subsequent function. For example, this line can be rewritten:</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># old way</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">.data =</span> asec, <span class="at">inctot_adjusted =</span> inctot <span class="sc">*</span> <span class="fl">1.1</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># new way</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>asec <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inctot_adjusted =</span> inctot <span class="sc">*</span> <span class="fl">1.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>See the power:</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>new_asec <span class="ot">&lt;-</span> asec <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pernum <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, month, pernum, inctot) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inctot_adjusted =</span> inctot <span class="sc">*</span> <span class="fl">1.1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>inctot)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>new_asec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 60,460 × 4
+    year month pernum inctot_adjusted
+   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;           &lt;dbl&gt;
+ 1  2020 March      1          57750 
+ 2  2020 March      1          48400 
+ 3  2020 March      1          44002.
+ 4  2020 March      1              0 
+ 5  2020 March      1            671 
+ 6  2020 March      1          19279.
+ 7  2020 March      1          12349.
+ 8  2020 March      1          21589.
+ 9  2020 March      1          47306.
+10  2020 March      1          10949.
+# ℹ 60,450 more rows</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="summarize" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="summarize"><span class="header-section-number">2.11</span> 6. <code>summarize()</code></h2>
+<p><code>summarize()</code> collapses many rows in a dataframe into fewer rows with summary statistics of the many rows. <code>n()</code>, <code>mean()</code>, and <code>sum()</code> are common summary statistics. Renaming is useful with <code>summarize()</code>!</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize without renaming the statistics</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>asec <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(ftotval), <span class="fu">mean</span>(inctot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  `mean(ftotval)` `mean(inctot)`
+            &lt;dbl&gt;          &lt;dbl&gt;
+1         105254.     209921275.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize and rename the statistics</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>asec <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_ftotval =</span> <span class="fu">mean</span>(ftotval), </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_inctot =</span> <span class="fu">mean</span>(inctot)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_ftotval mean_inctot
+         &lt;dbl&gt;       &lt;dbl&gt;
+1      105254.  209921275.</code></pre>
+</div>
+</div>
+<p><br></p>
+<p><code>summarize()</code> returns a data frame. This means all dplyr functions can be used on the output of <code>summarize()</code>. This is powerful! Manipulating summary statistics in Stata and SAS can be a chore. Here, it’s just another dataframe that can be manipulated with a tool set optimized for dataframes: dplyr.</p>
+</section>
+<section id="group_by" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="group_by"><span class="header-section-number">2.12</span> 7. <code>group_by()</code></h2>
+<p><code>group_by()</code> groups a dataframe based on specified variables. <code>summarize()</code> with grouped dataframes creates subgroup summary statistics. <code>mutate()</code> with <code>group_by()</code> calculates grouped summaries for each row.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>asec <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pernum) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_ftotval =</span> <span class="fu">mean</span>(ftotval), </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_inctot =</span> <span class="fu">mean</span>(inctot)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 4
+   pernum     n mean_ftotval mean_inctot
+    &lt;dbl&gt; &lt;int&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+ 1      1 60460       94094.      57508.
+ 2      2 45151      108700.   77497357.
+ 3      3 25650      117966.  473030618.
+ 4      4 15797      121815.  634999933.
+ 5      5  6752      108609.  691504650.
+ 6      6  2582       89448.  682810446.
+ 7      7   922       78889.  682218196.
+ 8      8   353       72284.  682725646.
+ 9      9   158       54599.  632917559.
+10     10    73       58145.  657543632.
+11     11    37       61847.  702708584 
+12     12    18       50249.  777780725.
+13     13     3       25152   666666666 
+14     14     1       18000       18000 
+15     15     1       25000       25000 
+16     16     1       15000       15000 </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Dataframes can be grouped by multiple variables.</p>
+<p>Grouped tibbles include metadata about groups. For example, <code>Groups:   pernum, offpov [40]</code>. One grouping is dropped each time <code>summarize()</code> is used. It is easy to forget if a dataframe is grouped, so it is safe to include <code>ungroup()</code> at the end of a section of functions.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>asec <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pernum, offpov) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_ftotval =</span> <span class="fu">mean</span>(ftotval), </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_inctot =</span> <span class="fu">mean</span>(inctot)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(offpov) <span class="sc">%&gt;%</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'pernum'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40 × 5
+   pernum offpov                 n mean_ftotval mean_inctot
+    &lt;dbl&gt; &lt;chr&gt;              &lt;int&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+ 1      1 Above Poverty Line 53872      104451.      63642.
+ 2      2 Above Poverty Line 40978      118691.   59082162.
+ 3      3 Above Poverty Line 23052      129891.  463440562.
+ 4      4 Above Poverty Line 14076      135039.  631720097.
+ 5      5 Above Poverty Line  5805      123937.  688206447.
+ 6      6 Above Poverty Line  2118      105867.  683199297.
+ 7      7 Above Poverty Line   724       96817.  697520661.
+ 8      8 Above Poverty Line   269       90328.  672870019.
+ 9      9 Above Poverty Line   114       70438.  622815186.
+10     10 Above Poverty Line    57       71483.  666678408.
+# ℹ 30 more rows</code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="exercise-5" class="level3" data-number="2.12.1">
+<h3 data-number="2.12.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">2.12.1</span> <span style="     color: #1696d2 !important;">Exercise 5</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<ol type="1">
+<li><code>filter()</code> to only include observations with <code>"In Poverty Universe"</code> in <code>offpovuniv</code>.</li>
+<li><code>group_by()</code> <code>offpov</code>.</li>
+<li>Use <code>summarize()</code> and <code>n()</code> to count the number of observations in poverty.</li>
+</ol>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<ol type="1">
+<li><code>filter()</code> to only include observations with <code>"In Poverty Universe"</code> in <code>offpovuniv</code>.</li>
+<li><code>group_by()</code> <code>offpov</code>.</li>
+<li>Use <code>summarize()</code> and <code>n()</code> to count the number of observations in poverty.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>asec <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(offpovuniv <span class="sc">==</span> <span class="st">"In Poverty Universe"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(offpov) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-6" class="level3" data-number="2.12.2">
+<h3 data-number="2.12.2" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">2.12.2</span> <span style="     color: #1696d2 !important;">Exercise 6</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<ol type="1">
+<li><code>filter()</code> to only include observations with <code>"In Poverty Universe"</code>.</li>
+<li><code>group_by()</code> <code>cpsid</code>.</li>
+<li>Use <code>mutate(family_size = n())</code> to calculate the family size for each observation in <code>asec</code>.</li>
+<li><code>ungroup()</code></li>
+<li><code>group_by()</code> <code>family_size</code>, and <code>offpov</code>.</li>
+<li>Use <code>summarize()</code> and <code>n()</code> to see how many families of each size are experiencing poverty.</li>
+</ol>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<ol type="1">
+<li><code>filter()</code> to only include observations with <code>"In Poverty Universe"</code>.</li>
+<li><code>group_by()</code> <code>cpsid</code>.</li>
+<li>Use <code>mutate(family_size = n())</code> to calculate the family size for each observation in <code>asec</code>.</li>
+<li><code>ungroup()</code></li>
+<li><code>group_by()</code> <code>family_size</code>, and <code>offpov</code>.</li>
+<li>Use <code>summarize()</code> and <code>n()</code> to see how many families of each size are experiencing poverty.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>asec <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(offpovuniv <span class="sc">==</span> <span class="st">"In Poverty Universe"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cpsid) <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">family_size =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(family_size, offpov) <span class="sc">%&gt;%</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Are the estimates from the previous two exercises correct?</strong></p>
+<p>Let’s look at a <a href="https://www.census.gov/library/publications/2020/demo/p60-270.html">Census Report</a> to see how many people were in poverty in 2019. We estimated about 16,500 people. The Census Bureau says 34.0 million people.</p>
+<p>No! We did not account for sampling weights, so our estimates are incorrect. <a href="https://cran.r-project.org/web/packages/srvyr/index.html"><code>library(srvyr)</code></a> has tools for weighted estimation with complex surveys.</p>
+</section>
+</section>
+<section id="resources" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="resources"><span class="header-section-number">2.13</span> Resources</h2>
 <ul>
-<li><code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></li>
-<li><code>==</code>, <code>!=</code></li>
-</ul>
-<p>You can also chain together multiple condtions with <code>&amp;</code> (and) or <code>|</code> (or). The arguments after the dataframe should be conditions you want to filter your dataset on. For example</p>
-<pre><code>dataset %&gt;%
-filter(col1&gt;0)</code></pre>
-<p><font color="#55b748"><strong>Step 4:</strong></font> Chain all of these commands together with the <code>%&gt;%</code> operator. Then rename the column <code>pressure</code> to <code>air_pressure</code>.</p>
-<p><font color="#ec008b"><strong>Rename</strong></font></p>
-<p>The syntax for rename is:</p>
-<pre><code>dataset %&gt;% 
-  rename(new_name = current_name)</code></pre>
-<p>This same syntax can be used inside <code>select()</code>, and you can rename and select variables simultanously.</p>
-<p><font color="#55b748"><strong>Step 5:</strong></font> <code>wind</code> is measured in knots. Convert <code>wind</code> into miles per hour. Each knot is equal to 1.15078 miles per hour.</p>
-<p><font color="#ec008b"><strong>Mutate</strong></font></p>
-<p><code>mutate()</code> can make new variables and edit existing variables. New variables are always added to the end of the dataframe. You can use arithmetic arguments, such as <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, and <code>^</code>. The syntax for mutate is:</p>
-<pre><code>dataset %&gt;% 
-  mutate(new_column = 100 * other_column)</code></pre>
-<p><font color="#55b748"><strong>Step 6:</strong></font> Make a dataset with storms that occured in the summer (June, July, August).</p>
-<p><font color="#ec008b"><strong>The <code>%in%</code> operator</strong></font></p>
-<p>The <code>%in%</code> operator is useful for filtering based on more than one option within one variable.</p>
-<pre><code>filter(dataset, var1 == "a" | var1 == "b" | var1 == "c")</code></pre>
-<p>is equivalent to</p>
-<pre><code>dataset %&gt;%
-filter(var1 %in% c("a", "b", "c"))</code></pre>
-</section>
-<section id="exercise-2-ifthen-and-summarizing" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="exercise-2-ifthen-and-summarizing"><span class="header-section-number">2.6</span> Exercise 2: If/Then and Summarizing</h2>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>txhousing</code> dataset. Assign the dataset to an object in your global environment named <code>tx_housing</code>.</p>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Compute a new variable, <code>average_price</code> by dividing <code>volume</code> by <code>sales</code>.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>if_else()</code> to create a variable called <code>flag</code> that is 1 if the average sales price is larger than the median sales price.</p>
-<p><font color="#ec008b"><strong>If/then logic</strong></font></p>
-<p><code>if_else()</code> is an important tool in combination with <code>mutate()</code>. It employs if-then logic: the first argument is a binary statement. The second statement says what to do if the first argument is evaluated to <code>TRUE</code>- the third is what to do if it is <code>FALSE</code> This is particularly useful for creating dummy or indicator variables. When you have more than two possible outcomes, it is more efficient to use <code>case_when()</code>.</p>
-<p><font color="#55b748"><strong>Step 3a:</strong></font> Type <code>?case_when</code> into the console.</p>
-<p><font color="#55b748"><strong>Step 4:</strong></font> Type the following code into your script.</p>
-<pre><code>tx_housing %&gt;% 
-  group_by(year) %&gt;% 
-  summarize(yearly_sales = sum(sales))</code></pre>
-<p><font color="#ec008b"><strong>Group By</strong></font></p>
-<p><code>group_by</code> groups your dataframe into discrete categories. It can be very powerful when used with <code>summarize</code>.</p>
-<p><font color="#ec008b"><strong>Summarize</strong></font></p>
-<p><code>summarize</code> computes summary statistics for as set of observations in your data. The syntax is:</p>
-<pre><code>dataset %&gt;% 
-  mutate(max = max(other_column))</code></pre>
-<p>or</p>
-<pre><code>dataset %&gt;%
-  group_by(col1) %&gt;%
-  summarize(count=n())</code></pre>
-<p><font color="#55b748"><strong>Step 5:</strong></font> Add the argument <code>na.rm = TRUE</code> to the <code>sum()</code> function and rerun the code. Add a comment to explain the code.</p>
-<p><font color="#55b748"><strong>Step 6:</strong></font> Sort the results of the previous code in order from most to least sales by adding <code>%&gt;% arrange(desc(yearly_sales))</code> to the end of the code.</p>
-<p><font color="#55b748"><strong>Step 7a:</strong></font> Which city had the most home sales in January 2008? (Hint: use <code>filter()</code> and <code>arrange()</code>).</p>
-<p><font color="#55b748"><strong>Step 7b:</strong></font> Which city had the least home sales in 2006? (Hint: group by the city and the year- then use <code>summarize()</code>).</p>
-<p><font color="#55b748"><strong>BONUS:</strong></font> Plot the number of annual home sales over time!</p>
-</section>
-<section id="exercise-3-put-it-all-together" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="exercise-3-put-it-all-together"><span class="header-section-number">2.7</span> Exercise 3: Put it all together</h2>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Use the <code>starwars</code> dataframe. Type <code>count(starwars, homeworld)</code> into your script.</p>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Filter out any characters that have a missing <code>homeworld</code>.</p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Find the average and median height and mass for humans vs.&nbsp;droids. (Hint: use <code>group_by()</code> and <code>summarize()</code>). Make sure that you are correcting for observations with missing values!</p>
-<p><font color="#55b748"><strong>Step 4:</strong></font> Make a dummy variable called <code>droid</code> that is <code>1</code> for droids and <code>0</code> for humans. Make a variable called <code>tall</code> that is <code>1</code> if the characters are more than 200 cm tall. How many tall humans are there?</p>
-<p><font color="#55b748"><strong>Step 5:</strong></font> What is the most common skin color for droids?</p>
-</section>
-<section id="resources" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="resources"><span class="header-section-number">2.8</span> Resources</h2>
-<ul>
-<li><a href="https://r4ds.had.co.nz/transform.html">R for Data Science: data transformation</a></li>
+<li><a href="https://r4ds.hadley.nz/data-transform">R for Data Science: data transformation</a></li>
 <li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Data wrangling cheat sheet</a></li>
 </ul>
 
@@ -348,9 +953,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -415,6 +1034,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

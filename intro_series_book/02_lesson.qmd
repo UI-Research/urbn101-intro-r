@@ -1,6 +1,6 @@
 ---
 title: "Data Munging 1"
-author: "Aaron R. Williams"
+author: "R Users Group"
 date: today
 output:
   html:

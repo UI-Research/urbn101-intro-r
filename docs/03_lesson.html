@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="R Users Group">
-<meta name="dcterms.date" content="2023-08-22">
+<meta name="dcterms.date" content="2023-08-29">
 
-<title>Intro to R - 3&nbsp; Data Munging (II)</title>
+<title>Intro to R - 3&nbsp; Data Munging 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_lesson.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_lesson.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging 2</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -157,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_lesson.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging 2</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -191,38 +191,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="header-section-number">3.1</span> Review</a></li>
   <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="header-section-number">3.2</span> Motivation</a>
   <ul class="collapse">
-  <li><a href="#exercise-0" id="toc-exercise-0" class="nav-link" data-scroll-target="#exercise-0"><span class="header-section-number">3.2.1</span> Exercise 0</a></li>
+  <li><a href="#exercise-0" id="toc-exercise-0" class="nav-link" data-scroll-target="#exercise-0"><span class="header-section-number">3.2.1</span> <span style="     color: #1696d2 !important;">Exercise 0</span></a></li>
   </ul></li>
-  <li><a href="#conditional-transformation" id="toc-conditional-transformation" class="nav-link" data-scroll-target="#conditional-transformation"><span class="header-section-number">3.3</span> Conditional transformation</a></li>
+  <li><a href="#conditional-transformation" id="toc-conditional-transformation" class="nav-link" data-scroll-target="#conditional-transformation"><span class="header-section-number">3.3</span> Conditional transformation</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">3.3.1</span> <span style="     color: #1696d2 !important;">Exercise 1</span></a></li>
+  </ul></li>
   <li><a href="#strings" id="toc-strings" class="nav-link" data-scroll-target="#strings"><span class="header-section-number">3.4</span> Strings</a>
   <ul class="collapse">
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">3.4.1</span> Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">3.4.1</span> <span style="     color: #1696d2 !important;">Exercise 2</span></a></li>
   </ul></li>
   <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates"><span class="header-section-number">3.5</span> Dates</a>
   <ul class="collapse">
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">3.5.1</span> Exercise 2</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">3.5.1</span> <span style="     color: #1696d2 !important;">Exercise 3</span></a></li>
   </ul></li>
   <li><a href="#group_by-and-summarize" id="toc-group_by-and-summarize" class="nav-link" data-scroll-target="#group_by-and-summarize"><span class="header-section-number">3.6</span> <code>group_by</code> and <code>summarize()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">3.6.1</span> Exercise 3</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">3.6.1</span> <span style="     color: #1696d2 !important;">Exercise 4</span></a></li>
   </ul></li>
   <li><a href="#left_join" id="toc-left_join" class="nav-link" data-scroll-target="#left_join"><span class="header-section-number">3.7</span> <code>left_join()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">3.7.1</span> Exercise 4</a></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">3.7.1</span> <span style="     color: #1696d2 !important;">Exercise 5</span></a></li>
   </ul></li>
   <li><a href="#custom-functions" id="toc-custom-functions" class="nav-link" data-scroll-target="#custom-functions"><span class="header-section-number">3.8</span> Custom functions</a>
   <ul class="collapse">
-  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">3.8.1</span> Exercise 5</a></li>
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">3.8.1</span> <span style="     color: #1696d2 !important;">Exercise 6</span></a></li>
   </ul></li>
-  <li><a href="#system-functions" id="toc-system-functions" class="nav-link" data-scroll-target="#system-functions"><span class="header-section-number">3.9</span> System functions</a>
-  <ul class="collapse">
-  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">3.9.1</span> Exercise 6</a></li>
-  </ul></li>
-  <li><a href="#conditional-logic" id="toc-conditional-logic" class="nav-link" data-scroll-target="#conditional-logic"><span class="header-section-number">3.10</span> Conditional logic</a>
-  <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">3.10.1</span> Example</a></li>
-  </ul></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">3.11</span> Resources</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">3.9</span> Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -231,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging (II)</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Munging 2</span></h1>
 </div>
 
 
@@ -248,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 22, 2023</p>
+      <p class="date">August 29, 2023</p>
     </div>
   </div>
   
@@ -258,10 +253,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<style>
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-</style>
-<p><link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet"></p>
 <section id="review" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="review"><span class="header-section-number">3.1</span> Review</h2>
 <ul>
@@ -285,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Expand our skill set so we can do more types of analysis</li>
 </ul>
 <section id="exercise-0" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="exercise-0"><span class="header-section-number">3.2.1</span> Exercise 0</h3>
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="exercise-0"><span class="header-section-number">3.2.1</span> <span style="     color: #1696d2 !important;">Exercise 0</span></h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Open up your <code>.Rproj</code> for <code>urbn101</code>. You should now see <code>urbn101</code> in the top right of RStudio instead of “Project: (None)” .</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Install the R package <code>nycflights13</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Load <code>tidyverse</code> and <code>nycflights13</code> at the top of your script.</p>
@@ -295,7 +286,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="conditional-transformation" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="conditional-transformation"><span class="header-section-number">3.3</span> Conditional transformation</h2>
-<p>Last week, we showed how <code>mutate()</code> can be used to create new variables or to transform new variables. For example, we converted knots into miles per hour. We also learned about <code>if_else</code> last week which works great for one condition. But what if you have multiple conditions? <code>case_when()</code> allows for a sequence of conditional logic that can be used to transform or create variables with <code>mutate()</code>. For example, here I create a variable called <code>lateness</code> that creates a character variable with the levels <code>"very late"</code>, <code>"late"</code>, and <code>"on time"</code>. The logic is evaluated from top to bottom and <code>TRUE</code> is used to refer to all other remaining cases.</p>
+<p>Last week, we showed how <code>mutate()</code> can be used to create new variables or to transform new variables. We also learned about <code>if_else()</code>m which works great for one condition.</p>
+<p>But what if you have multiple conditions? <code>case_when()</code> allows for a sequence of conditional logic that can be used to transform or create variables with <code>mutate()</code>. For example, here I create a variable called <code>lateness</code> that creates a character variable with the levels <code>"very late"</code>, <code>"late"</code>, and <code>"on time"</code>. The logic is evaluated from top to bottom and <code>TRUE</code> is used to refer to all other remaining cases.</p>
 <p>The syntax may look a little weird at first but it’s easy to pick up! The logical condition goes to the left of <code>~</code> and the output results goes to the right. <code>&amp;</code> and <code>|</code> can be used to combine logical statements.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
@@ -307,42 +299,167 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="exercise-1" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">3.3.1</span> <span style="     color: #1696d2 !important;">Exercise 1</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ol type="1">
+<li>Look at the <code>planes</code> data. We want to create a categorical variables called <code>plane_type</code> using the following rules for the variable <code>seats</code>:</li>
+</ol>
+<ul>
+<li>“personal” if the plane has 4 or fewer seats</li>
+<li>“commercial” if the plane has 5 to 199 seats</li>
+<li>“jumbo if the plane has more than 200 seats</li>
+</ul>
+<ol start="2" type="1">
+<li>Use <code>mutate()</code> and <code>case_when()</code> to create <code>seats</code>.</li>
+<li>Pipe into <code>count(plane_tyepe)</code>.</li>
+</ol>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>planes <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">plane_type =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      seats <span class="sc">&lt;=</span> <span class="dv">4</span>   <span class="sc">~</span> <span class="st">"personal"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      seats <span class="sc">&lt;=</span> <span class="dv">199</span> <span class="sc">~</span> <span class="st">"commercial"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>         <span class="sc">~</span> <span class="st">"jumbo"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(plane_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  plane_type     n
+  &lt;chr&gt;      &lt;int&gt;
+1 commercial  2750
+2 jumbo        551
+3 personal      21</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="strings" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="strings"><span class="header-section-number">3.4</span> Strings</h2>
 <p><code>library(stringr)</code> contains powerful and concise functions manipulating character variables. Reference the <a href="https://github.com/rstudio/cheatsheets/blob/master/strings.pdf">cheat sheet</a> for an overview of the different string maniuplation functions.</p>
-<section id="exercise-1" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">3.4.1</span> Exercise 1</h3>
-<p>The <code>month</code> and <code>day</code> columns are currently integer variables. We want to turn them into character variables with leading zeros. For example, <code>1</code> should be <code>"01"</code>.</p>
+<section id="exercise-2" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">3.4.1</span> <span style="     color: #1696d2 !important;">Exercise 2</span></h3>
+<p>The <code>month</code> and <code>day</code> columns in <code>flights</code> are currently integer variables. We want to turn them into character variables with leading zeros. For example, <code>1</code> should be <code>"01"</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>mutate()</code> to overwrite <code>month</code> and <code>day</code> with <code>str_pad()</code>. The first argument should be <code>month</code> or <code>day</code>. The second argument, <code>width</code>, should be <code>2</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> The padding character is currently a space, but we want it to be <code>"0"</code>. Use <code>?str_pad</code> to figure out how to switch the padding character.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Pipe the result into the following line <code>mutate(flight_date = paste(year, month, day, sep = "-"))</code></p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Drop all variables except <code>flight_date</code>, <code>distance</code>, and <code>air_time</code>.</p>
 <p><font color="#55b748"><strong>Step 5:</strong></font> Assign the result to <code>flights_subset</code>.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>flights_subset <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">month =</span> <span class="fu">str_pad</span>(month, <span class="at">width =</span> <span class="dv">2</span>, <span class="at">side =</span> <span class="st">"left"</span>, <span class="at">pad =</span> <span class="st">"0"</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">day =</span> <span class="fu">str_pad</span>(day, <span class="at">width =</span> <span class="dv">2</span>, <span class="at">side =</span> <span class="st">"left"</span>, <span class="at">pad =</span> <span class="st">"0"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flight_date =</span> <span class="fu">paste</span>(year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(flight_date, distance, air_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="dates" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="dates"><span class="header-section-number">3.5</span> Dates</h2>
 <p><code>library(lubridate)</code> contains powerful and concise functions for creating and manipulating dates, times, and date-times. It is aware of leap days and leap seconds and is useful for calculating periods, durations, intervals, and more.</p>
-<section id="exercise-2" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">3.5.1</span> Exercise 2</h3>
+<section id="exercise-3" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">3.5.1</span> <span style="     color: #1696d2 !important;">Exercise 3</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p><font color="#55b748"><strong>Step 1:</strong></font> Add <code>library(lubridate)</code> after <code>library(nycflight13)</code> in your script.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> <code>library(lubridate)</code> is powerful but it needs variables in the correct format. Use <code>ymd()</code> inside of <code>mutate()</code> to turn the <code>flight_date</code> variable into a date rather than a character vector.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Inside the previous <code>mutate</code> statement, add another column called <code>weekday</code> for the weekday of the flight. You can use <code>wday(flight_date)</code> to find the day of the week for each date.</p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Assign the result to <code>flights_subset</code>.</p>
 <p><font color="#55b748"><strong>Step 5:</strong></font> Use <code>count()</code> to count the number of flights by day of the week.</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>flights_subset <span class="ot">&lt;-</span> flights_subset <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flight_date =</span> <span class="fu">ymd</span>(flight_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weekday =</span> <span class="fu">wday</span>(flight_date, <span class="at">label =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>flights_subset <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(weekday)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  weekday     n
+  &lt;ord&gt;   &lt;int&gt;
+1 Sun     46357
+2 Mon     50690
+3 Tue     50422
+4 Wed     50060
+5 Thu     50219
+6 Fri     50308
+7 Sat     38720</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="group_by-and-summarize" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="group_by-and-summarize"><span class="header-section-number">3.6</span> <code>group_by</code> and <code>summarize()</code></h2>
-<p>This is often the hardest concept to fully grasp, but it’s also the most powerful! <img src="www/images/group_by_summarize_visualized.png" class="img-fluid" style="width:70.0%" alt="group by summarize visualizations"></p>
-<section id="exercise-3" class="level3" data-number="3.6.1">
-<h3 data-number="3.6.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">3.6.1</span> Exercise 3</h3>
-<p>We are going to summarize <code>flights_subset</code> from the previous example by <code>week_day</code></p>
-<p><font color="#55b748"><strong>Step 1:</strong></font> <code>group_by()</code> <code>week_day</code> and use <code>n()</code> in <code>summarize()</code> to count the number of observations. This should match Step 5 from the previous exercise.</p>
+<section id="exercise-4" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">3.6.1</span> <span style="     color: #1696d2 !important;">Exercise 4</span></h3>
+<p>We are going to summarize <code>flights_subset</code> from the previous example by <code>weekday</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p><font color="#55b748"><strong>Step 1:</strong></font> <code>group_by()</code> <code>weekday</code> and use <code>n()</code> in <code>summarize()</code> to count the number of observations. This should match Step 5 from the previous exercise.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> In the same <code>summarize()</code>, calculate <code>mean()</code>, and <code>max()</code> <code>distance</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> In the same <code>summarize()</code>, calculate median <code>air_time</code>.</p>
 <p><font color="#55b748"><strong>Step 4:</strong></font> Rename the resulting variables <em>inside</em> <code>summarize()</code> so they have more useful names.</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>flights_subset <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(weekday) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">n</span>(),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_distance =</span> <span class="fu">mean</span>(distance),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_distance =</span> <span class="fu">max</span>(distance),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_air_time =</span> <span class="fu">median</span>(air_time, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 5
+  weekday `n()` mean_distance max_distance median_air_time
+  &lt;ord&gt;   &lt;int&gt;         &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;
+1 Sun     46357         1055.         4983             130
+2 Mon     50690         1032.         4983             129
+3 Tue     50422         1027.         4983             128
+4 Wed     50060         1028.         4983             128
+5 Thu     50219         1033.         4983             128
+6 Fri     50308         1033.         4983             127
+7 Sat     38720         1081.         4983             134</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="left_join" class="level2" data-number="3.7">
@@ -350,22 +467,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Joins are the main method for combining two datasets with a commmon key column together. There are many types of joins, and we highly recommend you read this <a href="https://r4ds.had.co.nz/relational-data.html">chapter on joins in R4DS</a> if you want more info. Below is a quick visual summary of the types of joins you can perform in R. <img src="www/images/join_types.png" class="img-fluid" style="width:60.0%" alt="join_types"></p>
 <p>For now we will focus on the “left” join, which merges observations from the right data set to the left data set. This is the join type I use 90% of the time in R. Below is an example of how the <code>left_join()</code> function works.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>people <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>name, <span class="sc">~</span>team, </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Aaron"</span>, <span class="st">"Pacers"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Kyle"</span>, <span class="st">"Wizards"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ajjit"</span>, <span class="st">"Warriors"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Fay"</span>, <span class="st">"Wizards"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>team_locations <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>team, <span class="sc">~</span>city,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Warriors"</span>, <span class="st">"Oakland"</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Pacers"</span>, <span class="st">"Indianoplis"</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Wizards"</span>, <span class="st">"Washington DC"</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(<span class="at">x =</span> people, <span class="at">y =</span> team_locations, <span class="at">by =</span> <span class="st">"team"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>people <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>name, <span class="sc">~</span>team, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Aaron"</span>, <span class="st">"Pacers"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Kyle"</span>, <span class="st">"Wizards"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ajjit"</span>, <span class="st">"Warriors"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Fay"</span>, <span class="st">"Wizards"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>team_locations <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>team, <span class="sc">~</span>city,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Warriors"</span>, <span class="st">"Oakland"</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Pacers"</span>, <span class="st">"Indianoplis"</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Wizards"</span>, <span class="st">"Washington DC"</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> people,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> team_locations, </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"team"</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   name  team     city         
@@ -376,14 +497,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 Fay   Wizards  Washington DC</code></pre>
 </div>
 </div>
-<section id="exercise-4" class="level3" data-number="3.7.1">
-<h3 data-number="3.7.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">3.7.1</span> Exercise 4</h3>
+<section id="exercise-5" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">3.7.1</span> <span style="     color: #1696d2 !important;">Exercise 5</span></h3>
 <p><code>flights</code> contains information about flights and the unit of observation is airplane flights. <code>planes</code> contains information about the airplanes and the unit of observation is the airplane. The common column between these tables is the <code>tailnum</code> column.</p>
 <p>We want to add information about planes to the flights data set. This is a left join because for every flight in the dataset, we want to append flight information. This is also called a many-to-one join because we are joining many rows from the <code>flights</code> data to one row from the <code>planes</code> data.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>left_join()</code> to join <code>planes</code> to <code>flights</code>. The common key is <code>tailnum</code>.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Use <code>anti_join()</code> to see observations from <code>flights</code> that don’t have a match in <code>planes</code> and call the output object <code>unmatched_flights</code>. The common key is <code>tailnum</code>.</p>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Use <code>slice()</code> to extract the <code>tailnum</code> value in the first row of <code>unmatched_flights</code>. Call this variable <code>first_unmatched_tailnum</code></p>
+<p><font color="#55b748"><strong>Step 2:</strong></font> Use <code>slice()</code> and <code>pull()</code> to extract the <code>tailnum</code> value in the first row of <code>unmatched_flights</code>. Call this variable <code>first_unmatched_tailnum</code></p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Use <code>filter()</code> to see if <code>first_unmatched_tailnum</code> is in <code>planes</code>. Hint: it shouldn’t be!</p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> flights,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> planes,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"tailnum"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 27
+   year.x month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+ 1   2013     1     1      517            515         2      830            819
+ 2   2013     1     1      533            529         4      850            830
+ 3   2013     1     1      542            540         2      923            850
+ 4   2013     1     1      544            545        -1     1004           1022
+ 5   2013     1     1      554            600        -6      812            837
+ 6   2013     1     1      554            558        -4      740            728
+ 7   2013     1     1      555            600        -5      913            854
+ 8   2013     1     1      557            600        -3      709            723
+ 9   2013     1     1      557            600        -3      838            846
+10   2013     1     1      558            600        -2      753            745
+# ℹ 336,766 more rows
+# ℹ 19 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
+#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
+#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, year.y &lt;int&gt;, type &lt;chr&gt;,
+#   manufacturer &lt;chr&gt;, model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;,
+#   engine &lt;chr&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>first_unmatched_tailnum <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> flights,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> planes,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"tailnum"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(tailnum)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>planes <span class="sc">%&gt;%</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tailnum <span class="sc">==</span> first_unmatched_tailnum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 9
+# ℹ 9 variables: tailnum &lt;chr&gt;, year &lt;int&gt;, type &lt;chr&gt;, manufacturer &lt;chr&gt;,
+#   model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="custom-functions" class="level2" data-number="3.8">
@@ -391,9 +564,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Sometimes functions don’t exist for desired calculations or we want to combine many calculations into one function to reduce copying-and-pasting.</p>
 <p>“You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e.&nbsp;you now have three copies of the same code).” ~ <a href="https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function">R4DS</a></p>
 <p>R has a flexible function system that makes it very easy to define custom functions!</p>
-<pre><code>function_name &lt;- function(arg1, arg2 = default) {
-  # function body
-}</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg1, <span class="at">arg2 =</span> default) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># function body</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Three ingredients</p>
 <ul>
 <li>Function name - usually verbs</li>
@@ -401,82 +578,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Function body</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>square <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">2</span>) {</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">^</span> <span class="dv">2</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">square</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>square <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">2</span>) {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">square</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">square</span>(<span class="at">x =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">square</span>(<span class="at">x =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 16</code></pre>
 </div>
 </div>
 <p><strong>Note:</strong> Using tidyverse functions inside of custom functions often requires non-standard evaluation. Please reach out for help when this is your goal.</p>
-<section id="exercise-5" class="level3" data-number="3.8.1">
-<h3 data-number="3.8.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">3.8.1</span> Exercise 5</h3>
+<section id="exercise-6" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">3.8.1</span> <span style="     color: #1696d2 !important;">Exercise 6</span></h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p><font color="#55b748"><strong>Step 1:</strong></font> Write a function called <code>multiply_xy()</code> that takes arguments <code>x</code> and <code>y</code> and multiplies them together.</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Add your favorite number as the default for <code>x</code> and your least favorite number as the default for <code>y</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Call the function and overwrite the default for <code>y</code> with your favorite number.</p>
-</section>
-</section>
-<section id="system-functions" class="level2" data-number="3.9">
-<h2 data-number="3.9" class="anchored" data-anchor-id="system-functions"><span class="header-section-number">3.9</span> System functions</h2>
-<p>R contains a full set of functions for managing files and folders on your computer</p>
-<ul>
-<li><code>file.create()</code></li>
-<li><code>file.exists()</code></li>
-<li><code>file.remove()</code></li>
-<li><code>file.rename()</code></li>
-<li><code>file.copy()</code></li>
-<li><code>dir.create()</code></li>
-</ul>
-<p>What do you think this below chunk of code is doing in plain English?</p>
-<pre><code>if (!file.exists("data/cps.csv")) {
-  download.file("https//:cps-download.gov", "data/cps.csv")
-}</code></pre>
-<section id="exercise-6" class="level3" data-number="3.9.1">
-<h3 data-number="3.9.1" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">3.9.1</span> Exercise 6</h3>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Check to see if you are in an R project. Use <code>dir.create()</code> to create a folder called <code>final-data/</code>.</p>
-<p><font color="#55b748"><strong>Step 1:</strong></font> Use <code>file.copy()</code> to duplicate your script and then delete the copy with <code>file.remove()</code>. CAREFUL! There is no undo button!</p>
-</section>
-</section>
-<section id="conditional-logic" class="level2" data-number="3.10">
-<h2 data-number="3.10" class="anchored" data-anchor-id="conditional-logic"><span class="header-section-number">3.10</span> Conditional logic</h2>
-<p>Conditional logic is an important concept in computer programming. We already used <code>ifelse()</code> and <code>case_when()</code> to create indicator variables and conditional variables. Sometimes it’s also useful to run entire chunks of code conditionally.</p>
-<pre><code>if () {
-
-} else if () {
-
-} else {
-
-}</code></pre>
-<p>Three ingredients</p>
-<ul>
-<li>Conditional predicate (<code>if</code>, <code>else if</code>, <code>else</code>)</li>
-<li>Conditional statement (<code>==</code>, <code>&gt;</code>, <code>&lt;</code>, <code>%in%</code>)</li>
-<li>Code body</li>
-</ul>
-<section id="example" class="level3" data-number="3.10.1">
-<h3 data-number="3.10.1" class="anchored" data-anchor-id="example"><span class="header-section-number">3.10.1</span> Example</h3>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">999</span>) {</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is big"</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"x is small"</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>multiply_xy <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="fl">3.14</span>, <span class="at">y =</span> <span class="dv">7</span>) {</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">*</span> y</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_xy</span>(<span class="at">y =</span> <span class="fl">3.14</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "x is big"</code></pre>
+<pre><code>[1] 9.8596</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
 </section>
-<section id="resources" class="level2" data-number="3.11">
-<h2 data-number="3.11" class="anchored" data-anchor-id="resources"><span class="header-section-number">3.11</span> Resources</h2>
+<section id="resources" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="resources"><span class="header-section-number">3.9</span> Resources</h2>
 <ul>
 <li><a href="https://r4ds.had.co.nz/functions.html">R4DS: functions</a></li>
 <li><code>stringr</code> <a href="https://github.com/rstudio/cheatsheets/raw/master/strings.pdf">cheat sheet</a></li>

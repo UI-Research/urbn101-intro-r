@@ -256,7 +256,7 @@
     "href": "04_lesson.html#review",
     "title": "4  Data Import",
     "section": "4.1 Review",
-    "text": "4.1 Review\n\nWhat is tidy data?\n\nArtwork by @allison_horst\nWhat is a file path?\nWhat is an R Studio Project?\n\n\n\nArtwork by @allison_horst\n\n\nStay DRY: if you find yourself copying and pasting chunks of code, write a function instead.\nWriting functions that use capabilities of the tidyverse can be tricky due to something called Nonstandard Evaluation - feel free to ask any of us for help!"
+    "text": "4.1 Review\n\nWhat is tidy data?\n\nArtwork by @allison_horst\nWhat is a file path?\nWhat is an R Studio Project?\nStay DRY: if you find yourself copying and pasting chunks of code, write a function instead.\nWriting functions that use capabilities of the tidyverse can be tricky due to something called Nonstandard Evaluation - feel free to ask any of us for help!"
   },
   {
     "objectID": "04_lesson.html#motivation",

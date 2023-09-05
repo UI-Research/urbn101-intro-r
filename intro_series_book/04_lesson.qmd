@@ -38,15 +38,13 @@ library(arrow)
 
 -   What is tidy data?
 
-    ![](www/images/what_is_tidydata.jpeg){width="396"}
+    ![](www/images/what_is_tidydata.jpeg){width="80%"}
 
     Artwork by \@allison_horst
 
 -   What is a file path?
 
 -   What is an R Studio Project?
-
-    ![Artwork by \@allison_horst](www/images/cracked_setwd.png){width="291"}
 
 -   Stay DRY: if you find yourself copying and pasting chunks of code, write a function instead.
 
@@ -108,7 +106,6 @@ download_data <- function(url, path) {
 }
 ```
 
-<img src="www/images/readr_sticker.png" style="float: right;width: 106px"/>
 
 ## The `readr` Package
 
@@ -216,7 +213,6 @@ Luckily `read_csv()` and its friends have a lot of built in arguments to help de
 
 <font color="#55b748">**Step 1:**</font> Pull up the documentation for `read_csv` and take a look of some of the function arguments. There are a lot! You don't need to know how everything works, but it's good to have an idea of some of the options available to you.
 
-<img src="www/images/readxl.png" style="float: right;width: 106px"/>
 
 ## The `readxl` Package
 
@@ -249,7 +245,6 @@ Note that the `readxl` package only provides functionality to, as the name impli
 
 <font color="#55b748">**Step 1:**</font> Use `read_excel()` to load in the table on the "Refinance Data April 2019" sheet into a data frame called `refinances`.
 
-<img src="www/images/haven.png" style="float: right;width: 106px"/>
 
 ## The `haven` Package
 

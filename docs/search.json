@@ -270,7 +270,7 @@
     "href": "04_lesson.html#packages",
     "title": "4  Data Import",
     "section": "4.3 Packages",
-    "text": "4.3 Packages\nWe’ll be using three packages from the tidyverse for data import and export. These three should cover just about all of your use cases at Urban.\n\nreadr - for plain text files\nreadxl - for Excel files (.xlsx, .xls)\nhaven - for SAS (.sas7bdat + .sas7bcat files), SPSS (.sav files), and Stata (.dta files up to Stata version 17) formats\n\nOne note - while all three packages are installed with the tidyverse, only readr is loaded when you run library(tidyverse) in your R session. The other packages must be loaded separately."
+    "text": "4.3 Packages\nWe’ll be using three packages from the tidyverse for data import and export. These three should cover just about all of your use cases at Urban.\n\nreadr - for plain text files (.csv, .tsv)\nreadxl - for Excel files (.xlsx, .xls)\nhaven - for SAS (.sas7bdat + .sas7bcat files), SPSS (.sav files), and Stata (.dta files up to Stata version 17) formats\n\nOne note - while all three packages are installed with the tidyverse, only readr is loaded when you run library(tidyverse) in your R session. The other packages must be loaded separately."
   },
   {
     "objectID": "04_lesson.html#primary-functions",

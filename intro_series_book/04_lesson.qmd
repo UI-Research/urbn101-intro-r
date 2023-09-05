@@ -62,7 +62,7 @@ library(arrow)
 
 We'll be using three packages from the `tidyverse` for data import and export. These three should cover just about all of your use cases at Urban.
 
--   `readr` - for plain text files
+-   `readr` - for plain text files (`.csv`, `.tsv`)
 -   `readxl` - for Excel files (`.xlsx`, `.xls`)
 -   `haven` - for SAS (`.sas7bdat` + `.sas7bcat` files), SPSS (`.sav` files), and Stata (`.dta` files up to Stata version 17) formats
 

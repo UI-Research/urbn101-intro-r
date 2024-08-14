@@ -8,9 +8,9 @@
 <link href="00_intro-to-statistical-programming_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="00_intro-to-statistical-programming_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="00_intro-to-statistical-programming_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.4.553">
 
-  <meta name="author" content="Aaron R. Williams and Amy Rogin">
+  <meta name="author" content="Aaron R. Williams, Amy Rogin, and Manu Alcalá Kovalski">
   <title>Intro to R: A hands-on tutorial</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -31,7 +31,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -221,7 +221,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -400,7 +401,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Aaron R. Williams and Amy Rogin 
+Aaron R. Williams, Amy Rogin, and Manu Alcalá Kovalski 
 </div>
 </div>
 </div>
@@ -408,9 +409,9 @@ Aaron R. Williams and Amy Rogin
 </section>
 <section id="day-0-intro-to-statistical-programming" class="slide level2">
 <h2>Day 0: Intro to statistical programming</h2>
-<p>Aaron R. Williams</p>
+<p>Manu Alcalá Kovalski</p>
 
-<img data-src="../www/images/Rlogo.png" style="width:50.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/Rlogo.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section>
 <section id="advertisement" class="slide level2">
 <h2>Advertisement</h2>
 <ul>
@@ -439,7 +440,7 @@ Aaron R. Williams and Amy Rogin
 <h2>Example 1</h2>
 <p>What is 2 + 2?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -453,11 +454,11 @@ Aaron R. Williams and Amy Rogin
 <h2>Example 2</h2>
 <p>What is the median diamond price with carat &gt; 1 and a “Good” cut?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>diamonds <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">filter</span>(carat <span class="sc">&gt;</span> <span class="dv">1</span>, cut <span class="sc">==</span> <span class="st">"Good"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">summarize</span>(<span class="fu">median</span>(price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a>diamonds <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href=""></a>  <span class="fu">filter</span>(carat <span class="sc">&gt;</span> <span class="dv">1</span>, cut <span class="sc">==</span> <span class="st">"Good"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href=""></a>  <span class="fu">summarize</span>(<span class="fu">median</span>(price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   `median(price)`
@@ -474,7 +475,7 @@ Aaron R. Williams and Amy Rogin
 <h2>Example 3</h2>
 <p>How could increasing the retirement age affect the poverty rates of Hispanic women ages 62 and older?</p>
 
-<img data-src="www/images/out-of-sync.gif" style="width:50.0%" class="r-stretch quarto-figure-center"><p><small>Via <a href="http://die-seite-des-dr-caligari.tumblr.com/post/102115497897">die-seite-des-dr-caligari</a></small></p>
+<img data-src="www/images/out-of-sync.gif" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><p><small>Via <a href="http://die-seite-des-dr-caligari.tumblr.com/post/102115497897">die-seite-des-dr-caligari</a></small></p>
 </section></section>
 <section>
 <section id="do-cool-stuff" class="title-slide slide level1 center" data-background="#1696d2">
@@ -484,23 +485,23 @@ Aaron R. Williams and Amy Rogin
 <section id="r-shiny" class="slide level2">
 <h2>R Shiny</h2>
 
-<img data-src="www/images/cosic-shiny.png" style="width:50.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/cosic-shiny.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section>
 <section id="fact-sheets" class="slide level2">
 <h2>Fact sheets</h2>
 
-<img data-src="www/images/factsheets.png" style="width:50.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/factsheets.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section>
 <section id="fact-sheets-1" class="slide level2">
 <h2>Fact sheets</h2>
 
-<img data-src="www/images/factsheet_template.png" style="width:50.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/factsheet_template.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section>
 <section id="urbnmapr" class="slide level2">
 <h2>urbnmapr</h2>
 
-<img data-src="www/images/urbnmapr.png" style="width:50.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/urbnmapr.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section>
 <section id="urbnmapr-1" class="slide level2">
 <h2>urbnmapr</h2>
 
-<img data-src="www/images/map.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/map.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="urbnthemes" class="slide level2">
 <h2>urbnthemes</h2>
 <iframe width="2000" height="600" src="https://urbaninstitute.github.io/r-at-urban/graphics-guide.html">
@@ -509,7 +510,7 @@ Aaron R. Williams and Amy Rogin
 <section id="r-packages" class="slide level2">
 <h2>R packages</h2>
 
-<img data-src="www/images/educationdata.png" style="width:50.0%" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="www/images/educationdata.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section></section>
 <section>
 <section id="six-principles" class="title-slide slide level1 center" data-background="#1696d2">
 <h1><font color="#ffffff">Six principles</font></h1>
@@ -566,7 +567,7 @@ Aaron R. Williams and Amy Rogin
 <section id="text-editoride" class="slide level2">
 <h2>Text editor/IDE</h2>
 
-<img data-src="www/images/rstudio.png" style="width:60.0%" class="r-stretch quarto-figure-center"><ul>
+<img data-src="www/images/rstudio.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><ul>
 <li class="fragment">R &lt;- free, open source programming language</li>
 <li class="fragment">RStudio &lt;- for-profit company and Itegrated Development Environment (IDE)</li>
 </ul>
@@ -574,15 +575,15 @@ Aaron R. Williams and Amy Rogin
 <section id="rstudio" class="slide level2">
 <h2>RStudio</h2>
 
-<img data-src="www/images/rstudio.svg" style="width:30.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/rstudio.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"></section>
 <section id="the-r-console" class="slide level2">
 <h2>The R console</h2>
 
-<img data-src="www/images/rstudio-console.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/rstudio-console.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"></section>
 <section id="script" class="slide level2">
 <h2>Script</h2>
 
-<img data-src="www/images/rstudio-script.png" style="width:60.0%" class="r-stretch quarto-figure-center"><ul>
+<img data-src="www/images/rstudio-script.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><ul>
 <li class="fragment">A plain text document that contains code and comments</li>
 <li class="fragment"><strong>Map to the answer</strong></li>
 <li class="fragment"><code>.R</code> and <code>.qmd</code> (<code>.Rmd</code> is older)</li>
@@ -591,11 +592,11 @@ Aaron R. Williams and Amy Rogin
 <section id="comments" class="slide level2">
 <h2>Comments</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># fivethirtyeight contains bad_drivers</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(fivethirtyeight)</span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># increase perc_speeding because of systematic underreporting</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="fu">mutate</span>(bad_drivers, <span class="at">perc_speeding =</span> perc_speeding <span class="sc">*</span> <span class="fl">1.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># fivethirtyeight contains bad_drivers</span></span>
+<span id="cb5-2"><a href=""></a><span class="fu">library</span>(fivethirtyeight)</span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a><span class="co"># increase perc_speeding because of systematic underreporting</span></span>
+<span id="cb5-5"><a href=""></a><span class="fu">mutate</span>(bad_drivers, <span class="at">perc_speeding =</span> perc_speeding <span class="sc">*</span> <span class="fl">1.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment">Clear code avoids the need for describing <strong><font color="#1696d2">“what”</font></strong></li>
@@ -616,7 +617,7 @@ Aaron R. Williams and Amy Rogin
 <h2>R Packages</h2>
 <p>Collections of R, C, C++, and FORTRAN code that expand the functionality of R.</p>
 
-<img data-src="www/images/urbnmapr.png" style="width:40.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/urbnmapr.png" class="quarto-figure quarto-figure-center r-stretch" style="width:40.0%"></section>
 <section id="comprehensive-r-archive-network" class="slide level2">
 <h2>Comprehensive R Archive Network</h2>
 <ul>
@@ -627,23 +628,23 @@ Aaron R. Williams and Amy Rogin
 <section id="tidyverse" class="slide level2" data-background="#fdeba4">
 <h2>tidyverse</h2>
 
-<img data-src="www/images/tidyverse.png" style="width:30.0%" class="r-stretch quarto-figure-center"><p>Comprehensive set of tools for data science</p>
+<img data-src="www/images/tidyverse.png" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"><p>Comprehensive set of tools for data science</p>
 <p>Core: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats</p>
 </section>
 <section id="tidyverse-1" class="slide level2" data-background="#fdeba4">
 <h2>tidyverse</h2>
 
-<img data-src="www/images/r4ds.png" style="width:30.0%" class="r-stretch quarto-figure-center"><p><a href="https://r4ds.had.co.nz/">Free text</a> by Hadley Wickham and Garrett Grolemund</p>
+<img data-src="www/images/r4ds.png" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"><p><a href="https://r4ds.had.co.nz/">Free text</a> by Hadley Wickham and Garrett Grolemund</p>
 </section>
 <section id="installing-and-loading-packages" class="slide level2">
 <h2>Installing and loading packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># run only once ever(ish) and don't include in scripts</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># run only once ever(ish) and don't include in scripts</span></span>
+<span id="cb6-2"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># include at the top of scripts and run once per session</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># include at the top of scripts and run once per session</span></span>
+<span id="cb7-2"><a href=""></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-structures" class="slide level2">
@@ -711,7 +712,7 @@ Levels: good ok bad</code></pre>
 <li class="fragment">Missing values are contagious</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
@@ -721,15 +722,15 @@ Levels: good ok bad</code></pre>
 <h2>Assignment</h2>
 <p>R can hold many different objects at the same time. Storing the consequence of code requires assignment (<code>&lt;-</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a></span>
-<span id="cb17-4"><a href="#cb17-4"></a>a <span class="sc">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb17-2"><a href=""></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb17-3"><a href=""></a></span>
+<span id="cb17-4"><a href=""></a>a <span class="sc">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>c <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
-<span id="cb19-2"><a href="#cb19-2"></a>c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>c <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
+<span id="cb19-2"><a href=""></a>c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -739,14 +740,14 @@ Levels: good ok bad</code></pre>
 <h2>Functions</h2>
 <p>Arguments by position</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>), <span class="fl">0.2</span>, <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>), <span class="fl">0.2</span>, <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.5</code></pre>
 </div>
 </div>
 <p>Arguments by name</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>), <span class="at">trim =</span> <span class="fl">0.2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>), <span class="at">trim =</span> <span class="fl">0.2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.5</code></pre>
 </div>
@@ -758,11 +759,11 @@ Levels: good ok bad</code></pre>
 <h2>Custom functions</h2>
 <p>Rule of three: never program something three or more times</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>test_oddness <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">ifelse</span>(<span class="at">test =</span> x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>, <span class="at">yes =</span> <span class="st">"even!"</span>, <span class="at">no =</span> <span class="st">"odd!"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3"></a>}</span>
-<span id="cb25-4"><a href="#cb25-4"></a></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="fu">test_oddness</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>test_oddness <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb25-2"><a href=""></a>  <span class="fu">ifelse</span>(<span class="at">test =</span> x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>, <span class="at">yes =</span> <span class="st">"even!"</span>, <span class="at">no =</span> <span class="st">"odd!"</span>)</span>
+<span id="cb25-3"><a href=""></a>}</span>
+<span id="cb25-4"><a href=""></a></span>
+<span id="cb25-5"><a href=""></a><span class="fu">test_oddness</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "odd!"  "even!" "odd!"  "even!" "odd!"  "even!" "odd!"  "even!" "odd!" 
 [10] "even!"</code></pre>
@@ -810,13 +811,13 @@ Levels: good ok bad</code></pre>
 <li class="fragment">Sort document data, scripts, and outputs into sub directories with names like <code>data/</code>, <code>scripts/</code>, and <code>outputs/</code></li>
 </ul>
 
-<img data-src="www/images/directory.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="www/images/directory.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="file-paths" class="slide level2">
 <h2>2) File paths</h2>
 <ul>
 <li class="fragment">File paths are programmatic references to the locations of files on a computer.</li>
 <li class="fragment">RStudio accepts <code>/</code> regardless of operating system.</li>
-<li class="fragment">Example: /Users/aaronwilliams/presentations/urbn101-intro-r/lessons</li>
+<li class="fragment">Example: /Users/manualcala/Documents/repos/urban-projects/urbn101-intro-r/lessons</li>
 </ul>
 </section>
 <section id="working-directories" class="slide level2">
@@ -886,7 +887,7 @@ Levels: good ok bad</code></pre>
 <section id="stata" class="slide level2">
 <h2>Stata</h2>
 
-<img data-src="www/images/Stata.png" style="width:30.0%" class="r-stretch quarto-figure-center"><ul>
+<img data-src="www/images/Stata.png" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"><ul>
 <li class="fragment">Common users: economists, Nate Silver</li>
 <li class="fragment">Strengths: out-of-the-box econometric tools, simple syntax</li>
 <li class="fragment">Limitations: proprietary, one data set at a time, inflexible</li>
@@ -896,7 +897,7 @@ Levels: good ok bad</code></pre>
 <section id="sas" class="slide level2">
 <h2>SAS</h2>
 
-<img data-src="www/images/SAS.png" style="width:30.0%" class="r-stretch quarto-figure-center"><ul>
+<img data-src="www/images/SAS.png" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"><ul>
 <li class="fragment">Common users: veteran researchers, government</li>
 <li class="fragment">Strengths: doesn’t use memory</li>
 <li class="fragment">Limitations: proprietary, expensive, clunky, inflexible, lacks environments, documentation</li>
@@ -905,7 +906,7 @@ Levels: good ok bad</code></pre>
 <section id="python" class="slide level2">
 <h2>Python</h2>
 
-<img data-src="www/images/python.png" style="width:30.0%" class="r-stretch quarto-figure-center"><ul>
+<img data-src="www/images/python.png" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"><ul>
 <li class="fragment">Users: data scientists, computer scientists</li>
 <li class="fragment">Strengths: general purpose programming, extensibility, flexibility</li>
 <li class="fragment">Weaknesses: steep learning curve</li>
@@ -914,7 +915,7 @@ Levels: good ok bad</code></pre>
 <section id="r" class="slide level2">
 <h2>R</h2>
 
-<img data-src="www/images/Rlogo.png" style="width:30.0%" class="r-stretch quarto-figure-center"><ul>
+<img data-src="www/images/Rlogo.png" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"><ul>
 <li class="fragment">Users: statisticians, data scientists, biostatisticians</li>
 <li class="fragment">Strengths: extensible, documentation, community, many objects at once</li>
 <li class="fragment">Limitations: multiple languages in one</li>
@@ -940,9 +941,11 @@ Levels: good ok bad</code></pre>
 <section id="comparison" class="slide level2">
 <h2>Comparison</h2>
 
-<img data-src="www/images/languages.jpg" style="width:60.0%" class="r-stretch quarto-figure-center"><p><em>Source is unknown</em></p>
+<img data-src="www/images/languages.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><p><em>Source is unknown</em></p>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section></section>
     </div>
@@ -971,7 +974,6 @@ Levels: good ok bad</code></pre>
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1270,10 +1272,27 @@ Levels: good ok bad</code></pre>
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1283,8 +1302,17 @@ Levels: good ok bad</code></pre>
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1298,7 +1326,11 @@ Levels: good ok bad</code></pre>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

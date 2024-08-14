@@ -4,6 +4,7 @@ These are the materials for *Intro to R: A hands-on tutorial*, a multi-class R t
 
 ## Core Lessons
 
+
 | Lesson | Recording |
 |:-------|:------|
 | [Day 0: Intro to statistical programming](https://ui-research.github.io/urbn101-intro-r/lessons/00_intro-to-statistical-programming_files/intro-to-statistical-programming.html) | [video](https://us02web.zoom.us/rec/share/8YbXmIjZ5QQsHzCjCBGY8ySxvkdbdMSVqrEe24c2DvjnTNFlQudxNWY8aH9kSUsT.cWkx4dDdfv7gwPBW) |

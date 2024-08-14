@@ -6,7 +6,7 @@ These are the materials for *Intro to R: A hands-on tutorial*, a multi-class R t
 
 | Lesson | Recording |
 |:-------|:------|
-| [Day 0: Intro to statistical programming](https://ui-research.github.io/urbn101-intro-r/lessons/00_intro-to-statistical-programming#/intro-to-r-a-hands-on-tutorial) | [video](https://us02web.zoom.us/rec/share/8YbXmIjZ5QQsHzCjCBGY8ySxvkdbdMSVqrEe24c2DvjnTNFlQudxNWY8aH9kSUsT.cWkx4dDdfv7gwPBW) |
+| [Day 0: Intro to statistical programming](https://ui-research.github.io/urbn101-intro-r/lessons/00_intro-to-statistical-programming_files/intro-to-statistical-programming.html) | [video](https://us02web.zoom.us/rec/share/8YbXmIjZ5QQsHzCjCBGY8ySxvkdbdMSVqrEe24c2DvjnTNFlQudxNWY8aH9kSUsT.cWkx4dDdfv7gwPBW) |
 | [Day 1: Data Visualization](https://ui-research.github.io/urbn101-intro-r/01_lesson.html) | [video](https://us02web.zoom.us/rec/share/2CPW6Bq1kiQ9vAB2fXRgj32jAoX-x1rI_r-ETblusjEUMZtM1gCBtHVj7Ghv1C2X.Abn5RTrHm1gS3Sa9) |
 | [Day 2: Data Munging 1](https://ui-research.github.io/urbn101-intro-r/02_lesson.html) | [video](https://us02web.zoom.us/rec/share/0iSRE6q7oY0eJ0BFci_R8mOUyBhSP0DNaPiZmLNDu2-1gg_HxVdI7UvxNlZVOMtD.XrG_bAvInXpRzT-2)|
 | [Day 3: Data Munging 2](https://ui-research.github.io/urbn101-intro-r/03_lesson.html) | [video](https://us02web.zoom.us/rec/share/TEJOPCeu09LcTJOY-8-0F7cXd7uRO2fF8ABF7XLLfPNl2ueII2t9iUQOrw6rEN4W.ji01U4oePAY-glCv) |

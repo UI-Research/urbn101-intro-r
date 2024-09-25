@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Fay Walker (MET) and Aaron Williams (IBP/TECH)">
-<meta name="dcterms.date" content="2023-09-05">
+<meta name="dcterms.date" content="2024-09-25">
 
-<title>Intro to R - 6&nbsp; Putting it All Together (and into Markdown)</title>
+<title>Intro to R - 6&nbsp; Putting it All Together (and into Quarto)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_lesson.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_lesson.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Quarto)</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -140,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_lesson.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Quarto)</span></span></a>
   </div>
 </li>
     </ul>
@@ -155,16 +189,20 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link active" data-scroll-target="#key-takeaways"><span class="header-section-number">6.1</span> Key Takeaways</a></li>
   <li><a href="#helpful-packages" id="toc-helpful-packages" class="nav-link" data-scroll-target="#helpful-packages"><span class="header-section-number">6.2</span> Helpful Packages</a></li>
-  <li><a href="#what-is-r-markdown" id="toc-what-is-r-markdown" class="nav-link" data-scroll-target="#what-is-r-markdown"><span class="header-section-number">6.3</span> What is R Markdown?</a></li>
-  <li><a href="#urbntemplates" id="toc-urbntemplates" class="nav-link" data-scroll-target="#urbntemplates"><span class="header-section-number">6.4</span> urbntemplates</a>
+  <li><a href="#baking-an-analysiscooler" id="toc-baking-an-analysiscooler" class="nav-link" data-scroll-target="#baking-an-analysiscooler"><span class="header-section-number">6.3</span> Baking an Analysis</a></li>
+  <li><a href="#literate-statistical-programming-with-quarto" id="toc-literate-statistical-programming-with-quarto" class="nav-link" data-scroll-target="#literate-statistical-programming-with-quarto"><span class="header-section-number">6.4</span> Literate (Statistical) Programming with Quarto</a>
   <ul class="collapse">
-  <li><a href="#yaml-header" id="toc-yaml-header" class="nav-link" data-scroll-target="#yaml-header"><span class="header-section-number">6.4.1</span> YAML Header</a></li>
-  <li><a href="#markdown" id="toc-markdown" class="nav-link" data-scroll-target="#markdown"><span class="header-section-number">6.4.2</span> Markdown</a></li>
-  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks"><span class="header-section-number">6.4.3</span> Code Chunks</a></li>
-  <li><a href="#create-a-markdown-html-fact-sheet---piece-by-piece" id="toc-create-a-markdown-html-fact-sheet---piece-by-piece" class="nav-link" data-scroll-target="#create-a-markdown-html-fact-sheet---piece-by-piece"><span class="header-section-number">6.4.4</span> Create a Markdown HTML Fact Sheet - Piece by Piece</a></li>
-  <li><a href="#step-1-install-libraryurbntemplates" id="toc-step-1-install-libraryurbntemplates" class="nav-link" data-scroll-target="#step-1-install-libraryurbntemplates"><span class="header-section-number">6.4.5</span> <font color="#55b748"><strong>Step 1:</strong></font> Install <code>library(urbntemplates)</code></a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">6.4.1</span> Example</a></li>
+  <li><a href="#quarto-process" id="toc-quarto-process" class="nav-link" data-scroll-target="#quarto-process"><span class="header-section-number">6.4.2</span> Quarto Process</a></li>
   </ul></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">6.5</span> Resources</a></li>
+  <li><a href="#three-ingredients-in-a-.qmd" id="toc-three-ingredients-in-a-.qmd" class="nav-link" data-scroll-target="#three-ingredients-in-a-.qmd"><span class="header-section-number">6.5</span> Three Ingredients in a <code>.qmd</code></a>
+  <ul class="collapse">
+  <li><a href="#yaml-header" id="toc-yaml-header" class="nav-link" data-scroll-target="#yaml-header"><span class="header-section-number">6.5.1</span> 1. YAML header</a></li>
+  <li><a href="#markdown-text" id="toc-markdown-text" class="nav-link" data-scroll-target="#markdown-text"><span class="header-section-number">6.5.2</span> 2. Markdown text</a></li>
+  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks"><span class="header-section-number">6.5.3</span> 3. Code chunks</a></li>
+  </ul></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">6.6</span> Exercise</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">6.7</span> Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -173,7 +211,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Quarto)</span></h1>
 </div>
 
 
@@ -190,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 5, 2023</p>
+      <p class="date">September 25, 2024</p>
     </div>
   </div>
   
@@ -225,12 +263,11 @@ ul.task-list li input[type="checkbox"] {
 <li>haven - for SAS, SPSS, and Stata data formats</li>
 <li>here - set directory</li>
 <li>remotes or devtools - install packages from Github</li>
-<li>arrow - read/save binary data</li>
 </ul></li>
 <li>Manipulate data
 <ul>
 <li>tidyverse - format tidy data (includes the following packages)</li>
-<li>dplyr - wrangle data using %&gt;%</li>
+<li>dplyr - wrangle data using <code>%\&gt;%</code> or <code>|&gt;</code></li>
 <li>lubridate - clean dates</li>
 <li>stringr - clean strings</li>
 <li>purrr - iterate</li>
@@ -243,99 +280,219 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="what-is-r-markdown" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="what-is-r-markdown"><span class="header-section-number">6.3</span> What is R Markdown?</h2>
+<section id="baking-an-analysiscooler" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="baking-an-analysiscooler"><span class="header-section-number">6.3</span> Baking an Analysis<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h2>
+<p>The Great British Bake Off (GBBO) is a popular show about a baking competition in Great Britain. Each week contestants compete in a three-round baking competition. The second round is always the technical challenge, where bakers try to finish a challenging bake with <em>intentionally vague</em> instructions. <em>Data analysis should never feel like a technical challenge from the GBBO.</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Our analyses should be captured from start to finish by code stored in a script or scripts. If we think of a script as a recipe, we want to capture every step from buying the ingredients for a bake all the way to how we put the bake on the table. Ideally, we want to clearly capture <em>every</em> step with code.</p>
+</div>
+</div>
+<p><img src="www/images/recipe.png" class="img-fluid"></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Recipe#/media/File:Pistachio_cake.png">Qr189</a></p>
+</section>
+<section id="literate-statistical-programming-with-quarto" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="literate-statistical-programming-with-quarto"><span class="header-section-number">6.4</span> Literate (Statistical) Programming with Quarto</h2>
+<p><img src="www/images/knuth.jpg" class="img-fluid" width="150"></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Donald_Knuth#/media/File:KnuthAtOpenContentAlliance.jpg">Jacob Applebaum</a></p>
+<p>Donald Knuth, the creator of TeX and LaTeX, is a founder of literate programming. Here is Donald Knuth’s motivation according to Donald Knuth:</p>
+<blockquote class="blockquote">
+<p>Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do. ~ <span class="citation" data-cites="knuth1984">(<a href="#ref-knuth1984" role="doc-biblioref"><strong>knuth1984?</strong></a>)</span></p>
+</blockquote>
+<section id="example" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="example"><span class="header-section-number">6.4.1</span> Example</h3>
+<p>We used a linear model because there is reason to believe that the population model is linear. The observations are independent and the errors are independently and identically distributed with an approximately normal distribution.</p>
 <div class="cell">
-<div class="cell-output-display">
-<p><img src="www/images/rmarkdown.png" class="img-fluid" width="630"></p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> dist <span class="sc">~</span> speed, <span class="at">data =</span> cars)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>model1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = dist ~ speed, data = cars)
+
+Coefficients:
+(Intercept)        speed  
+    -17.579        3.932  </code></pre>
 </div>
 </div>
-<p>Source: <a href="https://rmarkdown.rstudio.com/">RStudio</a></p>
-<ul>
-<li>This webpage is a Markdown! It creates a pdf/word/html output file that can include:
-<ul>
+<p>An increase in travel speed of one mile per hour is associated with a 3.93 foot increase in stopping distance on average.</p>
+</section>
+<section id="quarto-process" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="quarto-process"><span class="header-section-number">6.4.2</span> Quarto Process</h3>
+<p><code>.qmd</code> files can be used interactively and they can be used as executables by clicking Render. Clicking the “Render” button starts the rendering process.</p>
+<p><img src="www/images/render.png" class="img-fluid"></p>
+<ol type="1">
+<li>Quarto opens a fresh R session and runs all code from scratch. Quarto calls <code>library(knitr)</code> and “knits” <code>.qmd</code> (Quarto files) into <code>.md</code> (Markdown files).</li>
+<li>Pandoc converts the <code>.md</code> file into any specified output type.</li>
+</ol>
+<p>Quarto and <code>library(knitr)</code> don’t need to be explicitly loaded and most of the magic happens “under the hood.” Quarto, <code>library(knitr)</code>, and Pandoc are all installed with RStudio.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>The “Render” workflow has a few advantages:</p>
+<ol type="1">
+<li>All code is rerun in a clean environment when “Rendering”. This ensures that the code runs in order and is reproducible.</li>
+<li>It is easier to document code than with inline comments.</li>
+<li>The output types are really appealing. By creating publishable documents with code, there is no need to copy-and-paste or transpose results.</li>
+<li>The process is iterable and scalable.</li>
+</ol>
+</section>
+</section>
+<section id="three-ingredients-in-a-.qmd" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="three-ingredients-in-a-.qmd"><span class="header-section-number">6.5</span> Three Ingredients in a <code>.qmd</code></h2>
+<ol type="1">
+<li>YAML header</li>
+<li>Markdown text</li>
 <li>Code chunks</li>
-<li>Code output (graphs/charts/tables)</li>
-<li>Formatted text and images</li>
-</ul></li>
+</ol>
+<section id="yaml-header" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="yaml-header"><span class="header-section-number">6.5.1</span> 1. YAML header</h3>
+<p>YAML stands for “yet another markup language.” The YAML header contains meta information about the document including output type, document settings, and parameters that can be passed to the document. The YAML header starts with <code>---</code> and ends with <code>---</code>.</p>
+<p>Here is the simplest YAML header for a PDF document:</p>
+<pre><code>---
+format: html
+---</code></pre>
+<p>YAML headers can contain many output specific settings. This YAML header creates an HTML document with code folding and a floating table of contents:</p>
+<pre><code>---
+format: 
+  html:
+    code-fold: true
+    toc: true
+---  </code></pre>
+</section>
+<section id="markdown-text" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="markdown-text"><span class="header-section-number">6.5.2</span> 2. Markdown text</h3>
+<p>Markdown is a shortcut for Hyper Text Markup Language (HTML). Essentially, simple meta characters corresponding to formatting are added to plain text.</p>
+<pre><code>Titles and subtitltes
+------------------------------------------------------------
+
+# Title 1
+
+## Title 2
+
+### Title 3
+
+
+Text formatting 
+------------------------------------------------------------
+
+*italic*  
+
+**bold**   
+
+`code`
+
+Lists
+------------------------------------------------------------
+
+- Bulleted list item 1
+- Item 2
+  - Item 2a
+  - Item 2b
+
+1. Item 1
+2. Item 2
+
+Links and images
+------------------------------------------------------------
+
+[text](http://link.com)
+
+![Image caption](images/image.png)</code></pre>
+</section>
+<section id="code-chunks" class="level3" data-number="6.5.3">
+<h3 data-number="6.5.3" class="anchored" data-anchor-id="code-chunks"><span class="header-section-number">6.5.3</span> 3. Code chunks</h3>
+<p><img src="www/images/inline-r-code.png" class="img-fluid"></p>
+<p>More frequently, code is added in code chunks:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>The first argument inline or in a code chunk is the language engine. Most commonly, this will just be a lower case <code>r</code>.</p>
+<p>Quarto has a rich set of options that go inside of the chunks and control the behavior of Quarto.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this case, <code>eval</code> makes the code not run. Other chunk-specific settings can be added inside the brackets. Here<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> are the most important options:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>echo: false</code></td>
+<td>Hides code in output</td>
+</tr>
+<tr class="even">
+<td><code>eval: false</code></td>
+<td>Turns off evaluation</td>
+</tr>
+<tr class="odd">
+<td><code>output: false</code></td>
+<td>Hides code output</td>
+</tr>
+<tr class="even">
+<td><code>warning: false</code></td>
+<td>Turns off warnings</td>
+</tr>
+<tr class="odd">
+<td><code>message: false</code></td>
+<td>Turns off messages</td>
+</tr>
+<tr class="even">
+<td><code>fig-height: 8</code></td>
+<td>Changes figure width in inches<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
+</tr>
+<tr class="odd">
+<td><code>fig-width: 8</code></td>
+<td>Changes figure height in inches</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="exercise" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="exercise"><span class="header-section-number">6.6</span> Exercise</h2>
+<ul>
+<li><a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md">Spotify Data Dictionary</a></li>
+<li><a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/spotify_songs.csv">Spotify Data</a></li>
 </ul>
 </section>
-<section id="urbntemplates" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="urbntemplates"><span class="header-section-number">6.4</span> urbntemplates</h2>
-<p><code>library(urbntemplates)</code> contains three families of functions:</p>
+<section id="resources" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="resources"><span class="header-section-number">6.7</span> Resources</h2>
 <ul>
-<li><code>start_project()</code> generates a new project with a .Rproj, README, and .gitignore at the specified location on a machine.</li>
-<li><code>construct_*()</code> functions add multiple, related templates and documents to a project directory or sub-directory. The templates and documents are related in important ways. For example, <code>construct_shiny()</code> adds app.R and an R Shiny specific CSS. It also adds instructions for using the selected template.</li>
-<li><code>use_*()</code> functions add individual templates and documents to a project directory or sub directory.</li>
-</ul>
-<p>A sensible workflow is: 1. Start a new project and create a .Rproj by submitting urbntemplates::start_project(). This will create and open a new .Rproj. 2. Inside the .Rproj, add the necessary documents for a part of a project, like a Shiny application, with a construct_<em>() function. 3. Add any desired remaining templates or documents with use_</em>() functions.</p>
-<section id="start-function" class="level4" data-number="6.4.0.1">
-<h4 data-number="6.4.0.1" class="anchored" data-anchor-id="start-function"><span class="header-section-number">6.4.0.1</span> start function</h4>
-<ul>
-<li><code>start_project()</code></li>
-</ul>
-</section>
-<section id="construct-functions" class="level4" data-number="6.4.0.2">
-<h4 data-number="6.4.0.2" class="anchored" data-anchor-id="construct-functions"><span class="header-section-number">6.4.0.2</span> construct functions</h4>
-<ul>
-<li><code>construct_shiny()</code></li>
-<li><code>construct_fact_sheet_html()</code></li>
-<li><code>construct_fact_sheet_pdf()</code></li>
-<li><code>construct_slide_show()</code></li>
-<li><code>construct_web_report()</code></li>
-</ul>
-</section>
-<section id="use-functions" class="level4" data-number="6.4.0.3">
-<h4 data-number="6.4.0.3" class="anchored" data-anchor-id="use-functions"><span class="header-section-number">6.4.0.3</span> use functions</h4>
-<ul>
-<li><code>use_content()</code></li>
-<li><code>use_css()</code></li>
-<li><code>use_fact_sheet_html()</code></li>
-<li><code>use_fact_sheet_pdf()</code></li>
-<li><code>use_git_ignore_urbn()</code></li>
-<li><code>use_instructions()</code></li>
-<li><code>use_iterate()</code></li>
-<li><code>use_preamble()</code></li>
-<li><code>use_revealjs()</code></li>
-<li><code>use_shiny_app()</code></li>
-<li><code>use_readme_readme()</code></li>
-<li><code>use_web_report()</code></li>
-</ul>
-</section>
-<section id="yaml-header" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="yaml-header"><span class="header-section-number">6.4.1</span> YAML Header</h3>
-<p>Controls the settings of the document.</p>
-</section>
-<section id="markdown" class="level3" data-number="6.4.2">
-<h3 data-number="6.4.2" class="anchored" data-anchor-id="markdown"><span class="header-section-number">6.4.2</span> Markdown</h3>
-<p>Markdown is a lightweight markup language for creating formatted text using a plain-text editor. <a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown Reference Guide</a></p>
-</section>
-<section id="code-chunks" class="level3" data-number="6.4.3">
-<h3 data-number="6.4.3" class="anchored" data-anchor-id="code-chunks"><span class="header-section-number">6.4.3</span> Code Chunks</h3>
-<p>Creates the code output for the document.</p>
-</section>
-<section id="create-a-markdown-html-fact-sheet---piece-by-piece" class="level3" data-number="6.4.4">
-<h3 data-number="6.4.4" class="anchored" data-anchor-id="create-a-markdown-html-fact-sheet---piece-by-piece"><span class="header-section-number">6.4.4</span> Create a Markdown HTML Fact Sheet - Piece by Piece</h3>
-</section>
-<section id="step-1-install-libraryurbntemplates" class="level3" data-number="6.4.5">
-<h3 data-number="6.4.5" class="anchored" data-anchor-id="step-1-install-libraryurbntemplates"><span class="header-section-number">6.4.5</span> <font color="#55b748"><strong>Step 1:</strong></font> Install <code>library(urbntemplates)</code></h3>
-<pre><code>install.packages("remotes")
-remotes::install_github("UrbanInstitute/urbntemplates")</code></pre>
-<p><font color="#55b748"><strong>Step 2:</strong></font> Create a new project using <code>start_project()</code>(Parenthesis should have directory and name of new project). Once you create the project, open a new script and create an html fact sheet using <code>urbntemplates::construct_fact_sheet_html()</code></p>
-<p><font color="#55b748"><strong>Step 3:</strong></font> Resave the <code>.Rmd</code> with a better name.</p>
-<p><font color="#55b748"><strong>Step 4:</strong></font> Knit the R Markdown into a pdf document.</p>
-<p><font color="#55b748"><strong>Step 5:</strong></font> Add some text into the markdown, some code that appears as code, and some code that shows the result but not the code. Every code chunk should start with <code>{r name}</code> and then set the parameters (T/F, separated by comma. See full <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">factsheet</a> for more parameters.</p>
-</section>
-</section>
-<section id="resources" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="resources"><span class="header-section-number">6.5</span> Resources</h2>
-<ul>
-<li><a href="https://rmarkdown.rstudio.com/">RStudio R Markdown guide</a></li>
-<li><a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a></li>
+<li><a href="https://quarto.org/docs/get-started/">Quarto tutorial</a></li>
+<li><a href="https://quarto.org/docs/guide/">Quarto guide</a></li>
 <li><a href="https://r4ds.had.co.nz/communicate-intro.html">R4DS</a></li>
 </ul>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>My attempt at making reproducible research more fun.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Rendering to PDF requires a LaTeX distribution. Follow <a href="https://yihui.org/tinytex/">these instructions</a> to install <code>library(tinytex)</code> if you want to make PDF documents.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This table was typed as Markdown code. But sometimes it is easier to use a code chunk to create and print a table. Pipe any data frame into <code>knitr::kable()</code> to create a table that will be formatted in the output of a rendered Quarto document.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The default dimensions for figures change based on the output format. Visit <a href="https://quarto.org/docs/computations/execution-options.html#figure-options">here</a> to learn more.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

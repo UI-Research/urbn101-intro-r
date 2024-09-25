@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="R Users Group">
-<meta name="dcterms.date" content="2023-09-05">
+<meta name="dcterms.date" content="2024-09-25">
 
 <title>Intro to R - 3&nbsp; Data Munging 2</title>
 <style>
@@ -175,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_lesson.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Quarto)</span></span></a>
   </div>
 </li>
     </ul>
@@ -191,31 +191,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="header-section-number">3.1</span> Review</a></li>
   <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="header-section-number">3.2</span> Motivation</a>
   <ul class="collapse">
-  <li><a href="#exercise-0" id="toc-exercise-0" class="nav-link" data-scroll-target="#exercise-0"><span class="header-section-number">3.2.1</span> <span style="     color: #1696d2 !important;">Exercise 0</span></a></li>
+  <li><a href="#exercise-0" id="toc-exercise-0" class="nav-link" data-scroll-target="#exercise-0"><span class="header-section-number">3.2.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 0</span></a></li>
   </ul></li>
   <li><a href="#conditional-transformation" id="toc-conditional-transformation" class="nav-link" data-scroll-target="#conditional-transformation"><span class="header-section-number">3.3</span> Conditional transformation</a>
   <ul class="collapse">
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">3.3.1</span> <span style="     color: #1696d2 !important;">Exercise 1</span></a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">3.3.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 1</span></a></li>
   </ul></li>
   <li><a href="#strings" id="toc-strings" class="nav-link" data-scroll-target="#strings"><span class="header-section-number">3.4</span> Strings</a>
   <ul class="collapse">
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">3.4.1</span> <span style="     color: #1696d2 !important;">Exercise 2</span></a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">3.4.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 2</span></a></li>
   </ul></li>
   <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates"><span class="header-section-number">3.5</span> Dates</a>
   <ul class="collapse">
-  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">3.5.1</span> <span style="     color: #1696d2 !important;">Exercise 3</span></a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">3.5.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 3</span></a></li>
   </ul></li>
   <li><a href="#group_by-and-summarize" id="toc-group_by-and-summarize" class="nav-link" data-scroll-target="#group_by-and-summarize"><span class="header-section-number">3.6</span> <code>group_by</code> and <code>summarize()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">3.6.1</span> <span style="     color: #1696d2 !important;">Exercise 4</span></a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">3.6.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 4</span></a></li>
   </ul></li>
   <li><a href="#left_join" id="toc-left_join" class="nav-link" data-scroll-target="#left_join"><span class="header-section-number">3.7</span> <code>left_join()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">3.7.1</span> <span style="     color: #1696d2 !important;">Exercise 5</span></a></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">3.7.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 5</span></a></li>
   </ul></li>
   <li><a href="#custom-functions" id="toc-custom-functions" class="nav-link" data-scroll-target="#custom-functions"><span class="header-section-number">3.8</span> Custom functions</a>
   <ul class="collapse">
-  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">3.8.1</span> <span style="     color: #1696d2 !important;">Exercise 6</span></a></li>
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">3.8.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 6</span></a></li>
   </ul></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">3.9</span> Resources</a></li>
   </ul>
@@ -243,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 5, 2023</p>
+      <p class="date">September 25, 2024</p>
     </div>
   </div>
   
@@ -276,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Expand our skill set so we can do more types of analysis</li>
 </ul>
 <section id="exercise-0" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="exercise-0"><span class="header-section-number">3.2.1</span> <span style="     color: #1696d2 !important;">Exercise 0</span></h3>
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="exercise-0"><span class="header-section-number">3.2.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 0</span></h3>
 <p><font color="#55b748"><strong>Step 1:</strong></font> Open up your <code>.Rproj</code> for <code>urbn101</code>. You should now see <code>urbn101</code> in the top right of RStudio instead of “Project: (None)” .</p>
 <p><font color="#55b748"><strong>Step 2:</strong></font> Install the R package <code>nycflights13</code>.</p>
 <p><font color="#55b748"><strong>Step 3:</strong></font> Load <code>tidyverse</code> and <code>nycflights13</code> at the top of your script.</p>
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="exercise-1" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">3.3.1</span> <span style="     color: #1696d2 !important;">Exercise 1</span></h3>
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">3.3.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 1</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
@@ -350,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.4" class="anchored" data-anchor-id="strings"><span class="header-section-number">3.4</span> Strings</h2>
 <p><code>library(stringr)</code> contains powerful and concise functions manipulating character variables. Reference the <a href="https://github.com/rstudio/cheatsheets/blob/master/strings.pdf">cheat sheet</a> for an overview of the different string maniuplation functions.</p>
 <section id="exercise-2" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">3.4.1</span> <span style="     color: #1696d2 !important;">Exercise 2</span></h3>
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">3.4.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 2</span></h3>
 <p>The <code>month</code> and <code>day</code> columns in <code>flights</code> are currently integer variables. We want to turn them into character variables with leading zeros. For example, <code>1</code> should be <code>"01"</code>.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
@@ -381,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.5" class="anchored" data-anchor-id="dates"><span class="header-section-number">3.5</span> Dates</h2>
 <p><code>library(lubridate)</code> contains powerful and concise functions for creating and manipulating dates, times, and date-times. It is aware of leap days and leap seconds and is useful for calculating periods, durations, intervals, and more.</p>
 <section id="exercise-3" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">3.5.1</span> <span style="     color: #1696d2 !important;">Exercise 3</span></h3>
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">3.5.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 3</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
@@ -423,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="group_by-and-summarize" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="group_by-and-summarize"><span class="header-section-number">3.6</span> <code>group_by</code> and <code>summarize()</code></h2>
 <section id="exercise-4" class="level3" data-number="3.6.1">
-<h3 data-number="3.6.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">3.6.1</span> <span style="     color: #1696d2 !important;">Exercise 4</span></h3>
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">3.6.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 4</span></h3>
 <p>We are going to summarize <code>flights_subset</code> from the previous example by <code>weekday</code>.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
@@ -498,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <section id="exercise-5" class="level3" data-number="3.7.1">
-<h3 data-number="3.7.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">3.7.1</span> <span style="     color: #1696d2 !important;">Exercise 5</span></h3>
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">3.7.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 5</span></h3>
 <p><code>flights</code> contains information about flights and the unit of observation is airplane flights. <code>planes</code> contains information about the airplanes and the unit of observation is the airplane. The common column between these tables is the <code>tailnum</code> column.</p>
 <p>We want to add information about planes to the flights data set. This is a left join because for every flight in the dataset, we want to append flight information. This is also called a many-to-one join because we are joining many rows from the <code>flights</code> data to one row from the <code>planes</code> data.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -593,7 +593,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Note:</strong> Using tidyverse functions inside of custom functions often requires non-standard evaluation. Please reach out for help when this is your goal.</p>
 <section id="exercise-6" class="level3" data-number="3.8.1">
-<h3 data-number="3.8.1" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">3.8.1</span> <span style="     color: #1696d2 !important;">Exercise 6</span></h3>
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">3.8.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 6</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">

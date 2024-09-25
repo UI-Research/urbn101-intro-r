@@ -1,7 +1,7 @@
 ---
-title: "Putting it All Together (and into Markdown)"
+title: "Putting it All Together (and into Quarto)"
 author: "Fay Walker (MET) and Aaron Williams (IBP/TECH)"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+date: today
 output:
   html-document:
     number-sections: false
@@ -38,10 +38,9 @@ output:
     -   haven - for SAS, SPSS, and Stata data formats
     -   here - set directory
     -   remotes or devtools - install packages from Github
-    -   arrow - read/save binary data
 -   Manipulate data
     -   tidyverse - format tidy data (includes the following packages)
-    -   dplyr - wrangle data using %\>%
+    -   dplyr - wrangle data using `%\>%` or `|>`
     -   lubridate - clean dates
     -   stringr - clean strings
     -   purrr - iterate
@@ -50,85 +49,185 @@ output:
     -   urbnthemes - format and style according to Urban Style
     -   urbnmapr - create Urban themed maps
 
-## What is R Markdown?
+## Baking an Analysis[^cooler]
 
-```{r echo = FALSE}
-knitr::include_graphics(here::here("www", "images", "rmarkdown.png"))
+[^cooler]: My attempt at making reproducible research more fun. 
+
+The Great British Bake Off (GBBO) is a popular show about a baking competition in Great Britain. Each week contestants compete in a three-round baking competition. The second round is always the technical challenge, where bakers try to finish a challenging bake with *intentionally vague* instructions. *Data analysis should never feel like a technical challenge from the GBBO.* 
+
+::: {.callout-note}
+Our analyses should be captured from start to finish by code stored in a script or scripts. If we think of a script as a recipe, we want to capture every step from buying the ingredients for a bake all the way to how we put the bake on the table. Ideally, we want to clearly capture *every* step with code. 
+:::
+
+![](www/images/recipe.png)
+
+Source: [Qr189](https://en.wikipedia.org/wiki/Recipe#/media/File:Pistachio_cake.png)
+
+## Literate (Statistical) Programming with Quarto
+
+![](www/images/knuth.jpg){width="150"}
+
+Source: [Jacob Applebaum](https://en.wikipedia.org/wiki/Donald_Knuth#/media/File:KnuthAtOpenContentAlliance.jpg)
+
+Donald Knuth, the creator of TeX and LaTeX, is a founder of literate programming. Here is Donald Knuth's motivation according to Donald Knuth:
+
+> Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do. \~ [@knuth1984]
+
+### Example
+
+We used a linear model because there is reason to believe that the population model is linear. The observations are independent and the errors are independently and identically distributed with an approximately normal distribution.
+
+```{r}
+#| label: linear-model
+
+model1 <- lm(formula = dist ~ speed, data = cars)
+
+model1
+
 ```
 
-Source: [RStudio](https://rmarkdown.rstudio.com/)
+An increase in travel speed of one mile per hour is associated with a `r round(model1$coefficients[2], 2)` foot increase in stopping distance on average.
 
--   This webpage is a Markdown! It creates a pdf/word/html output file that can include:
-    -   Code chunks
-    -   Code output (graphs/charts/tables)
-    -   Formatted text and images
+### Quarto Process
 
-## urbntemplates
+`.qmd` files can be used interactively and they can be used as executables by clicking Render. Clicking the "Render" button starts the rendering process. 
 
-`library(urbntemplates)` contains three families of functions:
+![](www/images/render.png)
 
--   `start_project()` generates a new project with a .Rproj, README, and .gitignore at the specified location on a machine.
--   `construct_*()` functions add multiple, related templates and documents to a project directory or sub-directory. The templates and documents are related in important ways. For example, `construct_shiny()` adds app.R and an R Shiny specific CSS. It also adds instructions for using the selected template.
--   `use_*()` functions add individual templates and documents to a project directory or sub directory.
+1. Quarto opens a fresh R session and runs all code from scratch. Quarto calls `library(knitr)` and "knits" `.qmd` (Quarto files) into `.md` (Markdown files).
+2. Pandoc converts the `.md` file into any specified output type.
 
-A sensible workflow is: 1. Start a new project and create a .Rproj by submitting urbntemplates::start_project(). This will create and open a new .Rproj. 2. Inside the .Rproj, add the necessary documents for a part of a project, like a Shiny application, with a construct\_*() function. 3. Add any desired remaining templates or documents with use\_*() functions.
+Quarto and `library(knitr)` don't need to be explicitly loaded and most of the magic happens "under the hood." Quarto, `library(knitr)`, and Pandoc are all installed with RStudio.[^11_quarto-2]
 
-#### start function
+[^11_quarto-2]: Rendering to PDF requires a LaTeX distribution. Follow [these instructions](https://yihui.org/tinytex/) to install `library(tinytex)` if you want to make PDF documents.
 
--   `start_project()`
+The "Render" workflow has a few advantages:
 
-#### construct functions
+1.  All code is rerun in a clean environment when "Rendering". This ensures that the code runs in order and is reproducible.
+2.  It is easier to document code than with inline comments.
+3.  The output types are really appealing. By creating publishable documents with code, there is no need to copy-and-paste or transpose results.
+4.  The process is iterable and scalable.
 
--   `construct_shiny()`
--   `construct_fact_sheet_html()`
--   `construct_fact_sheet_pdf()`
--   `construct_slide_show()`
--   `construct_web_report()`
+## Three Ingredients in a `.qmd`
 
-#### use functions
+1.  YAML header
+2.  Markdown text
+3.  Code chunks
 
--   `use_content()`
--   `use_css()`
--   `use_fact_sheet_html()`
--   `use_fact_sheet_pdf()`
--   `use_git_ignore_urbn()`
--   `use_instructions()`
--   `use_iterate()`
--   `use_preamble()`
--   `use_revealjs()`
--   `use_shiny_app()`
--   `use_readme_readme()`
--   `use_web_report()`
+### 1. YAML header
 
-### YAML Header
+YAML stands for "yet another markup language." The YAML header contains meta information about the document including output type, document settings, and parameters that can be passed to the document. The YAML header starts with `---` and ends with `---`.
 
-Controls the settings of the document.
+Here is the simplest YAML header for a PDF document:
 
-### Markdown
+```         
+---
+format: html
+---
+```
 
-Markdown is a lightweight markup language for creating formatted text using a plain-text editor. [R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+YAML headers can contain many output specific settings. This YAML header creates an HTML document with code folding and a floating table of contents:
 
-### Code Chunks
+```         
+---
+format: 
+  html:
+    code-fold: true
+    toc: true
+---  
+```
 
-Creates the code output for the document.
+### 2. Markdown text
 
-### Create a Markdown HTML Fact Sheet - Piece by Piece
+Markdown is a shortcut for Hyper Text Markup Language (HTML). Essentially, simple meta characters corresponding to formatting are added to plain text.
 
-### <font color="#55b748">**Step 1:**</font> Install `library(urbntemplates)`
+```         
+Titles and subtitltes
+------------------------------------------------------------
 
-    install.packages("remotes")
-    remotes::install_github("UrbanInstitute/urbntemplates")
+# Title 1
 
-<font color="#55b748">**Step 2:**</font> Create a new project using `start_project()`(Parenthesis should have directory and name of new project). Once you create the project, open a new script and create an html fact sheet using `urbntemplates::construct_fact_sheet_html()`
+## Title 2
 
-<font color="#55b748">**Step 3:**</font> Resave the `.Rmd` with a better name.
+### Title 3
 
-<font color="#55b748">**Step 4:**</font> Knit the R Markdown into a pdf document.
 
-<font color="#55b748">**Step 5:**</font> Add some text into the markdown, some code that appears as code, and some code that shows the result but not the code. Every code chunk should start with `{r name}` and then set the parameters (T/F, separated by comma. See full [factsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) for more parameters.
+Text formatting 
+------------------------------------------------------------
+
+*italic*  
+
+**bold**   
+
+`code`
+
+Lists
+------------------------------------------------------------
+
+- Bulleted list item 1
+- Item 2
+  - Item 2a
+  - Item 2b
+
+1. Item 1
+2. Item 2
+
+Links and images
+------------------------------------------------------------
+
+[text](http://link.com)
+
+![Image caption](images/image.png)
+```
+
+### 3. Code chunks
+
+![](www/images/inline-r-code.png)
+
+More frequently, code is added in code chunks:
+
+```{r}
+#| echo: fenced
+
+2 + 2
+
+```
+
+The first argument inline or in a code chunk is the language engine. Most commonly, this will just be a lower case `r`. 
+
+Quarto has a rich set of options that go inside of the chunks and control the behavior of Quarto.
+
+```{r}
+#| echo: fenced
+#| eval: false
+
+2 + 2
+
+```
+
+In this case, `eval` makes the code not run. Other chunk-specific settings can be added inside the brackets. Here[^11_quarto-3] are the most important options:
+
+[^11_quarto-3]: This table was typed as Markdown code. But sometimes it is easier to use a code chunk to create and print a table. Pipe any data frame into `knitr::kable()` to create a table that will be formatted in the output of a rendered Quarto document.
+
+| Option           | Effect                                        |
+|------------------|-----------------------------------------------|
+| `echo: false`    | Hides code in output                          |
+| `eval: false`    | Turns off evaluation                          |
+| `output: false`  | Hides code output                             |
+| `warning: false` | Turns off warnings                            |
+| `message: false` | Turns off messages                            |
+| `fig-height: 8`  | Changes figure width in inches[^11_quarto]  |
+| `fig-width: 8`   | Changes figure height in inches |
+
+[^11_quarto]: The default dimensions for figures change based on the output format. Visit [here](https://quarto.org/docs/computations/execution-options.html#figure-options) to learn more.
+
+## Exercise
+
+- [Spotify Data Dictionary](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md)
+- [Spotify Data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/spotify_songs.csv)
 
 ## Resources
 
--   [RStudio R Markdown guide](https://rmarkdown.rstudio.com/)
--   [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+-   [Quarto tutorial](https://quarto.org/docs/get-started/)
+-   [Quarto guide](https://quarto.org/docs/guide/)
 -   [R4DS](https://r4ds.had.co.nz/communicate-intro.html)

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="R Users Group">
-<meta name="dcterms.date" content="2023-09-05">
+<meta name="dcterms.date" content="2024-09-25">
 
 <title>Intro to R - 2&nbsp; Data Munging 1</title>
 <style>
@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_lesson.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Markdown)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Putting it All Together (and into Quarto)</span></span></a>
   </div>
 </li>
     </ul>
@@ -199,27 +199,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-0-creating-a-project-and-loading-packages" id="toc-exercise-0-creating-a-project-and-loading-packages" class="nav-link" data-scroll-target="#exercise-0-creating-a-project-and-loading-packages"><span class="header-section-number">2.4</span> Exercise 0: Creating a Project and Loading Packages</a></li>
   <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><span class="header-section-number">2.5</span> 1. <code>select()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">2.5.1</span> <span style="     color: #1696d2 !important;">Exercise 1</span></a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">2.5.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 1</span></a></li>
   </ul></li>
   <li><a href="#rename" id="toc-rename" class="nav-link" data-scroll-target="#rename"><span class="header-section-number">2.6</span> 2. <code>rename()</code></a></li>
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">2.7</span> 3. <code>filter()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">2.7.1</span> <span style="     color: #1696d2 !important;">Exercise 2</span></a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">2.7.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 2</span></a></li>
   </ul></li>
   <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange"><span class="header-section-number">2.8</span> 4. <code>arrange()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">2.8.1</span> <span style="     color: #1696d2 !important;">Exercise 3</span></a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">2.8.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 3</span></a></li>
   </ul></li>
   <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><span class="header-section-number">2.9</span> 5. <code>mutate()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">2.9.1</span> <span style="     color: #1696d2 !important;">Exercise 4</span></a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">2.9.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 4</span></a></li>
   </ul></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">2.10</span> <code>%&gt;%</code></a></li>
   <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><span class="header-section-number">2.11</span> 6. <code>summarize()</code></a></li>
   <li><a href="#group_by" id="toc-group_by" class="nav-link" data-scroll-target="#group_by"><span class="header-section-number">2.12</span> 7. <code>group_by()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">2.12.1</span> <span style="     color: #1696d2 !important;">Exercise 5</span></a></li>
-  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">2.12.2</span> <span style="     color: #1696d2 !important;">Exercise 6</span></a></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">2.12.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 5</span></a></li>
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">2.12.2</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 6</span></a></li>
   </ul></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">2.13</span> Resources</a></li>
   </ul>
@@ -247,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 5, 2023</p>
+      <p class="date">September 25, 2024</p>
     </div>
   </div>
   
@@ -407,7 +407,7 @@ $ offcutoff  &lt;dbl&gt; 17120, 17120, 17120, 17120, 13300, 15453, 15453, 26370,
 </div>
 <p><br></p>
 <section id="exercise-1" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">2.5.1</span> <span style="     color: #1696d2 !important;">Exercise 1</span></h3>
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">2.5.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 1</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
@@ -532,7 +532,7 @@ $ offcutoff  &lt;dbl&gt; 17120, 17120, 17120, 17120, 13300, 15453, 15453, 26370,
 <p><a href="https://cps.ipums.org/cps-action/variables/group">IPUMS CPS</a> contains full documentation with information about <code>pernum</code> and <code>incwage</code>.</p>
 <p><br></p>
 <section id="exercise-2" class="level3" data-number="2.7.1">
-<h3 data-number="2.7.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">2.7.1</span> <span style="     color: #1696d2 !important;">Exercise 2</span></h3>
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">2.7.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 2</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
@@ -589,7 +589,7 @@ $ offcutoff  &lt;dbl&gt; 17120, 17120, 17120, 17120, 13300, 15453, 15453, 26370,
 </div>
 <p><br></p>
 <section id="exercise-3" class="level3" data-number="2.8.1">
-<h3 data-number="2.8.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">2.8.1</span> <span style="     color: #1696d2 !important;">Exercise 3</span></h3>
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">2.8.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 3</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
@@ -664,7 +664,7 @@ $ offcutoff  &lt;dbl&gt; 17120, 17120, 17120, 17120, 13300, 15453, 15453, 26370,
 <p><br></p>
 <p>Conditional logic inside of <code>mutate()</code> with functions like <code>if_else()</code> and <code>case_when()</code> is key to mastering data munging in R.</p>
 <section id="exercise-4" class="level3" data-number="2.9.1">
-<h3 data-number="2.9.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">2.9.1</span> <span style="     color: #1696d2 !important;">Exercise 4</span></h3>
+<h3 data-number="2.9.1" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">2.9.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 4</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
@@ -847,7 +847,7 @@ $ offcutoff  &lt;dbl&gt; 17120, 17120, 17120, 17120, 13300, 15453, 15453, 26370,
 </div>
 <p><br></p>
 <section id="exercise-5" class="level3" data-number="2.12.1">
-<h3 data-number="2.12.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">2.12.1</span> <span style="     color: #1696d2 !important;">Exercise 5</span></h3>
+<h3 data-number="2.12.1" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">2.12.1</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 5</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">
@@ -875,7 +875,7 @@ $ offcutoff  &lt;dbl&gt; 17120, 17120, 17120, 17120, 13300, 15453, 15453, 26370,
 </div>
 </section>
 <section id="exercise-6" class="level3" data-number="2.12.2">
-<h3 data-number="2.12.2" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">2.12.2</span> <span style="     color: #1696d2 !important;">Exercise 6</span></h3>
+<h3 data-number="2.12.2" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">2.12.2</span> <span style="     color: rgba(22, 150, 210, 255) !important;">Exercise 6</span></h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Prompt</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
 <div class="tab-content">

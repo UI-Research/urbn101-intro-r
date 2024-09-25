@@ -387,36 +387,57 @@
   {
     "objectID": "06_lesson.html#key-takeaways",
     "href": "06_lesson.html#key-takeaways",
-    "title": "6  Putting it All Together (and into Markdown)",
+    "title": "6  Putting it All Together (and into Quarto)",
     "section": "6.1 Key Takeaways",
     "text": "6.1 Key Takeaways\n\nTake notes/annotate code as you go\nUse the assignment operator\nRead your error messages\nData import with read_csv()\nData management with library(dplyr)\nVisualization with library(ggplot2)"
   },
   {
     "objectID": "06_lesson.html#helpful-packages",
     "href": "06_lesson.html#helpful-packages",
-    "title": "6  Putting it All Together (and into Markdown)",
+    "title": "6  Putting it All Together (and into Quarto)",
     "section": "6.2 Helpful Packages",
-    "text": "6.2 Helpful Packages\n\nImport Data\n\nreadr - for plain text files\nreadxl - for Excel files\nhaven - for SAS, SPSS, and Stata data formats\nhere - set directory\nremotes or devtools - install packages from Github\narrow - read/save binary data\n\nManipulate data\n\ntidyverse - format tidy data (includes the following packages)\ndplyr - wrangle data using %&gt;%\nlubridate - clean dates\nstringr - clean strings\npurrr - iterate\n\nVisualize data\n\nggplot2 - plots!\nurbnthemes - format and style according to Urban Style\nurbnmapr - create Urban themed maps"
+    "text": "6.2 Helpful Packages\n\nImport Data\n\nreadr - for plain text files\nreadxl - for Excel files\nhaven - for SAS, SPSS, and Stata data formats\nhere - set directory\nremotes or devtools - install packages from Github\n\nManipulate data\n\ntidyverse - format tidy data (includes the following packages)\ndplyr - wrangle data using %\\&gt;% or |&gt;\nlubridate - clean dates\nstringr - clean strings\npurrr - iterate\n\nVisualize data\n\nggplot2 - plots!\nurbnthemes - format and style according to Urban Style\nurbnmapr - create Urban themed maps"
   },
   {
-    "objectID": "06_lesson.html#what-is-r-markdown",
-    "href": "06_lesson.html#what-is-r-markdown",
-    "title": "6  Putting it All Together (and into Markdown)",
-    "section": "6.3 What is R Markdown?",
-    "text": "6.3 What is R Markdown?\n\n\n\n\n\nSource: RStudio\n\nThis webpage is a Markdown! It creates a pdf/word/html output file that can include:\n\nCode chunks\nCode output (graphs/charts/tables)\nFormatted text and images"
+    "objectID": "06_lesson.html#baking-an-analysiscooler",
+    "href": "06_lesson.html#baking-an-analysiscooler",
+    "title": "6  Putting it All Together (and into Quarto)",
+    "section": "6.3 Baking an Analysis1",
+    "text": "6.3 Baking an Analysis1\nThe Great British Bake Off (GBBO) is a popular show about a baking competition in Great Britain. Each week contestants compete in a three-round baking competition. The second round is always the technical challenge, where bakers try to finish a challenging bake with intentionally vague instructions. Data analysis should never feel like a technical challenge from the GBBO.\n\n\n\n\n\n\nNote\n\n\n\nOur analyses should be captured from start to finish by code stored in a script or scripts. If we think of a script as a recipe, we want to capture every step from buying the ingredients for a bake all the way to how we put the bake on the table. Ideally, we want to clearly capture every step with code.\n\n\n\nSource: Qr189"
   },
   {
-    "objectID": "06_lesson.html#urbntemplates",
-    "href": "06_lesson.html#urbntemplates",
-    "title": "6  Putting it All Together (and into Markdown)",
-    "section": "6.4 urbntemplates",
-    "text": "6.4 urbntemplates\nlibrary(urbntemplates) contains three families of functions:\n\nstart_project() generates a new project with a .Rproj, README, and .gitignore at the specified location on a machine.\nconstruct_*() functions add multiple, related templates and documents to a project directory or sub-directory. The templates and documents are related in important ways. For example, construct_shiny() adds app.R and an R Shiny specific CSS. It also adds instructions for using the selected template.\nuse_*() functions add individual templates and documents to a project directory or sub directory.\n\nA sensible workflow is: 1. Start a new project and create a .Rproj by submitting urbntemplates::start_project(). This will create and open a new .Rproj. 2. Inside the .Rproj, add the necessary documents for a part of a project, like a Shiny application, with a construct_() function. 3. Add any desired remaining templates or documents with use_() functions.\n\n6.4.0.1 start function\n\nstart_project()\n\n\n\n6.4.0.2 construct functions\n\nconstruct_shiny()\nconstruct_fact_sheet_html()\nconstruct_fact_sheet_pdf()\nconstruct_slide_show()\nconstruct_web_report()\n\n\n\n6.4.0.3 use functions\n\nuse_content()\nuse_css()\nuse_fact_sheet_html()\nuse_fact_sheet_pdf()\nuse_git_ignore_urbn()\nuse_instructions()\nuse_iterate()\nuse_preamble()\nuse_revealjs()\nuse_shiny_app()\nuse_readme_readme()\nuse_web_report()\n\n\n\n6.4.1 YAML Header\nControls the settings of the document.\n\n\n6.4.2 Markdown\nMarkdown is a lightweight markup language for creating formatted text using a plain-text editor. R Markdown Reference Guide\n\n\n6.4.3 Code Chunks\nCreates the code output for the document.\n\n\n6.4.4 Create a Markdown HTML Fact Sheet - Piece by Piece\n\n\n6.4.5 Step 1: Install library(urbntemplates)\ninstall.packages(\"remotes\")\nremotes::install_github(\"UrbanInstitute/urbntemplates\")\nStep 2: Create a new project using start_project()(Parenthesis should have directory and name of new project). Once you create the project, open a new script and create an html fact sheet using urbntemplates::construct_fact_sheet_html()\nStep 3: Resave the .Rmd with a better name.\nStep 4: Knit the R Markdown into a pdf document.\nStep 5: Add some text into the markdown, some code that appears as code, and some code that shows the result but not the code. Every code chunk should start with {r name} and then set the parameters (T/F, separated by comma. See full factsheet for more parameters."
+    "objectID": "06_lesson.html#literate-statistical-programming-with-quarto",
+    "href": "06_lesson.html#literate-statistical-programming-with-quarto",
+    "title": "6  Putting it All Together (and into Quarto)",
+    "section": "6.4 Literate (Statistical) Programming with Quarto",
+    "text": "6.4 Literate (Statistical) Programming with Quarto\n\nSource: Jacob Applebaum\nDonald Knuth, the creator of TeX and LaTeX, is a founder of literate programming. Here is Donald Knuth’s motivation according to Donald Knuth:\n\nLet us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do. ~ (knuth1984?)\n\n\n6.4.1 Example\nWe used a linear model because there is reason to believe that the population model is linear. The observations are independent and the errors are independently and identically distributed with an approximately normal distribution.\n\nmodel1 &lt;- lm(formula = dist ~ speed, data = cars)\n\nmodel1\n\n\nCall:\nlm(formula = dist ~ speed, data = cars)\n\nCoefficients:\n(Intercept)        speed  \n    -17.579        3.932  \n\n\nAn increase in travel speed of one mile per hour is associated with a 3.93 foot increase in stopping distance on average.\n\n\n6.4.2 Quarto Process\n.qmd files can be used interactively and they can be used as executables by clicking Render. Clicking the “Render” button starts the rendering process.\n\n\nQuarto opens a fresh R session and runs all code from scratch. Quarto calls library(knitr) and “knits” .qmd (Quarto files) into .md (Markdown files).\nPandoc converts the .md file into any specified output type.\n\nQuarto and library(knitr) don’t need to be explicitly loaded and most of the magic happens “under the hood.” Quarto, library(knitr), and Pandoc are all installed with RStudio.2\nThe “Render” workflow has a few advantages:\n\nAll code is rerun in a clean environment when “Rendering”. This ensures that the code runs in order and is reproducible.\nIt is easier to document code than with inline comments.\nThe output types are really appealing. By creating publishable documents with code, there is no need to copy-and-paste or transpose results.\nThe process is iterable and scalable."
+  },
+  {
+    "objectID": "06_lesson.html#three-ingredients-in-a-.qmd",
+    "href": "06_lesson.html#three-ingredients-in-a-.qmd",
+    "title": "6  Putting it All Together (and into Quarto)",
+    "section": "6.5 Three Ingredients in a .qmd",
+    "text": "6.5 Three Ingredients in a .qmd\n\nYAML header\nMarkdown text\nCode chunks\n\n\n6.5.1 1. YAML header\nYAML stands for “yet another markup language.” The YAML header contains meta information about the document including output type, document settings, and parameters that can be passed to the document. The YAML header starts with --- and ends with ---.\nHere is the simplest YAML header for a PDF document:\n---\nformat: html\n---\nYAML headers can contain many output specific settings. This YAML header creates an HTML document with code folding and a floating table of contents:\n---\nformat: \n  html:\n    code-fold: true\n    toc: true\n---  \n\n\n6.5.2 2. Markdown text\nMarkdown is a shortcut for Hyper Text Markup Language (HTML). Essentially, simple meta characters corresponding to formatting are added to plain text.\nTitles and subtitltes\n------------------------------------------------------------\n\n# Title 1\n\n## Title 2\n\n### Title 3\n\n\nText formatting \n------------------------------------------------------------\n\n*italic*  \n\n**bold**   \n\n`code`\n\nLists\n------------------------------------------------------------\n\n- Bulleted list item 1\n- Item 2\n  - Item 2a\n  - Item 2b\n\n1. Item 1\n2. Item 2\n\nLinks and images\n------------------------------------------------------------\n\n[text](http://link.com)\n\n![Image caption](images/image.png)\n\n\n6.5.3 3. Code chunks\n\nMore frequently, code is added in code chunks:\n\n```{r}\n2 + 2\n```\n\n[1] 4\n\n\nThe first argument inline or in a code chunk is the language engine. Most commonly, this will just be a lower case r.\nQuarto has a rich set of options that go inside of the chunks and control the behavior of Quarto.\n\n```{r}\n#| eval: false\n\n2 + 2\n```\n\nIn this case, eval makes the code not run. Other chunk-specific settings can be added inside the brackets. Here3 are the most important options:\n\n\n\nOption\nEffect\n\n\n\n\necho: false\nHides code in output\n\n\neval: false\nTurns off evaluation\n\n\noutput: false\nHides code output\n\n\nwarning: false\nTurns off warnings\n\n\nmessage: false\nTurns off messages\n\n\nfig-height: 8\nChanges figure width in inches4\n\n\nfig-width: 8\nChanges figure height in inches"
+  },
+  {
+    "objectID": "06_lesson.html#exercise",
+    "href": "06_lesson.html#exercise",
+    "title": "6  Putting it All Together (and into Quarto)",
+    "section": "6.6 Exercise",
+    "text": "6.6 Exercise\n\nSpotify Data Dictionary\nSpotify Data"
   },
   {
     "objectID": "06_lesson.html#resources",
     "href": "06_lesson.html#resources",
-    "title": "6  Putting it All Together (and into Markdown)",
-    "section": "6.5 Resources",
-    "text": "6.5 Resources\n\nRStudio R Markdown guide\nR Markdown: The Definitive Guide\nR4DS"
+    "title": "6  Putting it All Together (and into Quarto)",
+    "section": "6.7 Resources",
+    "text": "6.7 Resources\n\nQuarto tutorial\nQuarto guide\nR4DS"
+  },
+  {
+    "objectID": "06_lesson.html#footnotes",
+    "href": "06_lesson.html#footnotes",
+    "title": "6  Putting it All Together (and into Quarto)",
+    "section": "",
+    "text": "My attempt at making reproducible research more fun.↩︎\nRendering to PDF requires a LaTeX distribution. Follow these instructions to install library(tinytex) if you want to make PDF documents.↩︎\nThis table was typed as Markdown code. But sometimes it is easier to use a code chunk to create and print a table. Pipe any data frame into knitr::kable() to create a table that will be formatted in the output of a rendered Quarto document.↩︎\nThe default dimensions for figures change based on the output format. Visit here to learn more.↩︎"
   }
 ]
